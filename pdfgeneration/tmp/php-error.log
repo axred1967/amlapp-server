@@ -1,0 +1,2142 @@
+ciaoArray
+(
+    [id] => 78
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+[14-Sep-2017 14:12:57 UTC] passato Config
+
+[14-Sep-2017 14:12:57 UTC] db get_rows SELECT * from kyc where contract_id='78'
+
+[14-Sep-2017 14:12:57 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 14:12:57 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 14:12:57 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 14:12:57 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 14:12:58 UTC] nome filetmp/kyc78-1.pdf
+
+[14-Sep-2017 14:12:58 UTC] send... file0
+
+[14-Sep-2017 14:12:59 UTC] passatoconfig GETArray
+(
+    [id] => 78
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 14:12:59 UTC] passato Config
+
+[14-Sep-2017 14:12:59 UTC] db get_rows SELECT * from kyc where contract_id='78'
+
+[14-Sep-2017 14:12:59 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 14:12:59 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 14:12:59 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 14:12:59 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 14:13:01 UTC] nome filetmp/kyc78-1.pdf
+
+[14-Sep-2017 14:13:01 UTC] send... file0
+
+[14-Sep-2017 14:13:48 UTC] passatoconfig GETArray
+(
+    [id] => 78
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 14:13:48 UTC] passato Config
+
+[14-Sep-2017 14:13:48 UTC] db get_rows SELECT * from kyc where contract_id='78'
+
+[14-Sep-2017 14:13:48 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 14:13:48 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 14:13:48 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 14:13:48 UTC] agent settingsArray
+(
+    [risk_type] => 1
+    [sign] => 1
+    [sendKycRisk] => 0
+    [country] => San Marino
+    [luogoIdentificazione] => San Marino
+    [naturaContratto] => Polizza Vita
+)
+
+
+[14-Sep-2017 14:13:48 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 14:13:48 UTC] db get_rows SELECT * from risk where contract_id='78'
+
+[14-Sep-2017 14:13:48 UTC] risk_de<b>Processo Valutativo:</b><div style="font-size:9px;line-height:10px"><p>Il Cliente è PEPR raccogliere documentazione ulterioreIl Cliente o alcuni titolari effettivi sono PEP</p></div><b>Note Eventuali:</b><div style="font-size:9px;line-height:10px"></div>
+[14-Sep-2017 14:19:53 UTC] passatoconfig GETArray
+(
+    [id] => 623
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 14:19:53 UTC] passato Config
+
+[14-Sep-2017 14:19:53 UTC] db get_rows SELECT * from kyc where contract_id='623'
+
+[14-Sep-2017 14:19:53 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 14:19:53 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 14:19:53 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 14:19:53 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 14:19:55 UTC] nome filetmp/kyc623-1.pdf
+
+[14-Sep-2017 14:19:55 UTC] send... file0
+
+[14-Sep-2017 14:19:55 UTC] passatoconfig GETArray
+(
+    [id] => 623
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 14:19:55 UTC] passato Config
+
+[14-Sep-2017 14:19:55 UTC] db get_rows SELECT * from kyc where contract_id='623'
+
+[14-Sep-2017 14:19:55 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 14:19:55 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 14:19:55 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 14:19:55 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 14:19:57 UTC] nome filetmp/kyc623-1.pdf
+
+[14-Sep-2017 14:19:57 UTC] send... file0
+
+[14-Sep-2017 14:22:01 UTC] passatoconfig GETArray
+(
+    [id] => 623
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 14:22:01 UTC] passato Config
+
+[14-Sep-2017 14:22:01 UTC] db get_rows SELECT * from kyc where contract_id='623'
+
+[14-Sep-2017 14:22:01 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 14:22:01 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 14:22:01 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 14:22:01 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 14:22:03 UTC] nome filetmp/kyc623-1.pdf
+
+[14-Sep-2017 14:22:03 UTC] send... file0
+
+[14-Sep-2017 14:22:03 UTC] passatoconfig GETArray
+(
+    [id] => 623
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 14:22:03 UTC] passato Config
+
+[14-Sep-2017 14:22:04 UTC] db get_rows SELECT * from kyc where contract_id='623'
+
+[14-Sep-2017 14:22:04 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 14:22:04 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 14:22:04 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 14:22:04 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 14:22:06 UTC] nome filetmp/kyc623-1.pdf
+
+[14-Sep-2017 14:22:06 UTC] send... file0
+
+[14-Sep-2017 14:24:25 UTC] passatoconfig GETArray
+(
+    [id] => 623
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 14:24:25 UTC] passato Config
+
+[14-Sep-2017 14:24:25 UTC] db get_rows SELECT * from kyc where contract_id='623'
+
+[14-Sep-2017 14:24:25 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 14:24:25 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 14:24:25 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 14:24:25 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 14:24:27 UTC] nome filetmp/kyc623-1.pdf
+
+[14-Sep-2017 14:24:27 UTC] send... file0
+
+[14-Sep-2017 14:24:28 UTC] passatoconfig GETArray
+(
+    [id] => 623
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 14:24:28 UTC] passato Config
+
+[14-Sep-2017 14:24:28 UTC] db get_rows SELECT * from kyc where contract_id='623'
+
+[14-Sep-2017 14:24:28 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 14:24:28 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 14:24:28 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 14:24:28 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 14:24:30 UTC] nome filetmp/kyc623-1.pdf
+
+[14-Sep-2017 14:24:30 UTC] send... file0
+
+[14-Sep-2017 15:46:37 UTC] passatoconfig GETArray
+(
+    [id] => 23
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 70
+            [agent_id] => -1
+            [agency_id] => 43
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 18882
+        )
+
+)
+
+
+[14-Sep-2017 15:46:37 UTC] passato Config
+
+[14-Sep-2017 15:46:37 UTC] db get_rows SELECT * from kyc where contract_id='23'
+
+[14-Sep-2017 15:46:37 UTC] contractArray
+(
+    [id] => 23
+    [agency_id] => 43
+    [agent_id] => 0
+    [contractor_id] => 100
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 
+    [CPU] => 5/2017
+    [tipo_contratto] => 2
+    [contract_date] => 0000-00-00
+    [end_det] => 1
+    [contract_eov] => 0000-00-00
+    [scope_contract] => Ivestimento risparmio
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 10000
+    [activity_country] => San Marino
+    [risk_defined] => Medio
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-05 10:53:46
+    [ip] => 
+)
+
+
+[14-Sep-2017 15:46:37 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 15:46:37 UTC] db get_rows SELECT * FROM users  where user_id=70
+
+[14-Sep-2017 15:46:37 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=43
+
+[14-Sep-2017 15:46:37 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=43
+
+[14-Sep-2017 15:46:38 UTC] nome filetmp/kyc23-43.pdf
+
+[14-Sep-2017 15:46:38 UTC] send... file0
+
+[14-Sep-2017 15:46:38 UTC] passatoconfig GETArray
+(
+    [id] => 23
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 70
+            [agent_id] => -1
+            [agency_id] => 43
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 18882
+        )
+
+)
+
+
+[14-Sep-2017 15:46:38 UTC] passato Config
+
+[14-Sep-2017 15:46:38 UTC] db get_rows SELECT * from kyc where contract_id='23'
+
+[14-Sep-2017 15:46:38 UTC] contractArray
+(
+    [id] => 23
+    [agency_id] => 43
+    [agent_id] => 0
+    [contractor_id] => 100
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 
+    [CPU] => 5/2017
+    [tipo_contratto] => 2
+    [contract_date] => 0000-00-00
+    [end_det] => 1
+    [contract_eov] => 0000-00-00
+    [scope_contract] => Ivestimento risparmio
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 10000
+    [activity_country] => San Marino
+    [risk_defined] => Medio
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-05 10:53:46
+    [ip] => 
+)
+
+
+[14-Sep-2017 15:46:38 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 15:46:38 UTC] db get_rows SELECT * FROM users  where user_id=70
+
+[14-Sep-2017 15:46:38 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=43
+
+[14-Sep-2017 15:46:38 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=43
+
+[14-Sep-2017 15:46:40 UTC] nome filetmp/kyc23-43.pdf
+
+[14-Sep-2017 15:46:40 UTC] send... file0
+
+[14-Sep-2017 16:47:43 UTC] passatoconfig GETArray
+(
+    [id] => 622
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 16:47:43 UTC] passato Config
+
+[14-Sep-2017 16:47:43 UTC] db get_rows SELECT * from kyc where contract_id='622'
+
+[14-Sep-2017 16:47:43 UTC] contractArray
+(
+    [id] => 622
+    [agency_id] => 1
+    [agent_id] => 0
+    [contractor_id] => 109
+    [NomeTemp] => Sapidata Spa
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 1
+    [role_for_other] => Rappresentante Legale
+    [other_id] => 13
+    [number] => 31215058
+    [CPU] => 84p
+    [tipo_contratto] => 0
+    [contract_date] => 2016-06-06
+    [end_det] => 1
+    [contract_eov] => 2017-09-12
+    [scope_contract] => Investimento in gestione patrimoniale e multicomparto di fondi azionari
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 1032000
+    [activity_country] => San Marino
+    [risk_defined] => in Valutazione
+    [kyc_status] => 1
+    [status] => 0
+    [logdate] => 2017-09-10 18:45:17
+    [ip] => 
+)
+
+
+[14-Sep-2017 16:47:43 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 16:47:43 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 16:47:43 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 16:47:43 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 16:47:44 UTC] nome filetmp/kyc622-1.pdf
+
+[14-Sep-2017 16:47:44 UTC] send... file0
+
+[14-Sep-2017 16:47:53 UTC] passatoconfig GETArray
+(
+    [id] => 622
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 16:47:53 UTC] passato Config
+
+[14-Sep-2017 16:47:53 UTC] db get_rows SELECT * from kyc where contract_id='622'
+
+[14-Sep-2017 16:47:53 UTC] contractArray
+(
+    [id] => 622
+    [agency_id] => 1
+    [agent_id] => 0
+    [contractor_id] => 109
+    [NomeTemp] => Sapidata Spa
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 1
+    [role_for_other] => Rappresentante Legale
+    [other_id] => 13
+    [number] => 31215058
+    [CPU] => 84p
+    [tipo_contratto] => 0
+    [contract_date] => 2016-06-06
+    [end_det] => 1
+    [contract_eov] => 2017-09-12
+    [scope_contract] => Investimento in gestione patrimoniale e multicomparto di fondi azionari
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 1032000
+    [activity_country] => San Marino
+    [risk_defined] => in Valutazione
+    [kyc_status] => 1
+    [status] => 0
+    [logdate] => 2017-09-10 18:45:17
+    [ip] => 
+)
+
+
+[14-Sep-2017 16:47:53 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 16:47:53 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 16:47:53 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 16:47:53 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 16:47:54 UTC] nome filetmp/kyc622-1.pdf
+
+[14-Sep-2017 16:47:54 UTC] send... file0
+
+[14-Sep-2017 16:47:54 UTC] passatoconfig GETArray
+(
+    [id] => 622
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 16:47:54 UTC] passato Config
+
+[14-Sep-2017 16:47:54 UTC] db get_rows SELECT * from kyc where contract_id='622'
+
+[14-Sep-2017 16:47:55 UTC] contractArray
+(
+    [id] => 622
+    [agency_id] => 1
+    [agent_id] => 0
+    [contractor_id] => 109
+    [NomeTemp] => Sapidata Spa
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 1
+    [role_for_other] => Rappresentante Legale
+    [other_id] => 13
+    [number] => 31215058
+    [CPU] => 84p
+    [tipo_contratto] => 0
+    [contract_date] => 2016-06-06
+    [end_det] => 1
+    [contract_eov] => 2017-09-12
+    [scope_contract] => Investimento in gestione patrimoniale e multicomparto di fondi azionari
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 1032000
+    [activity_country] => San Marino
+    [risk_defined] => in Valutazione
+    [kyc_status] => 1
+    [status] => 0
+    [logdate] => 2017-09-10 18:45:17
+    [ip] => 
+)
+
+
+[14-Sep-2017 16:47:55 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 16:47:55 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 16:47:55 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 16:47:55 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 16:47:56 UTC] nome filetmp/kyc622-1.pdf
+
+[14-Sep-2017 16:47:56 UTC] send... file0
+
+[14-Sep-2017 16:47:56 UTC] passatoconfig GETArray
+(
+    [id] => 622
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 16:47:56 UTC] passato Config
+
+[14-Sep-2017 16:47:56 UTC] db get_rows SELECT * from kyc where contract_id='622'
+
+[14-Sep-2017 16:47:56 UTC] contractArray
+(
+    [id] => 622
+    [agency_id] => 1
+    [agent_id] => 0
+    [contractor_id] => 109
+    [NomeTemp] => Sapidata Spa
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 1
+    [role_for_other] => Rappresentante Legale
+    [other_id] => 13
+    [number] => 31215058
+    [CPU] => 84p
+    [tipo_contratto] => 0
+    [contract_date] => 2016-06-06
+    [end_det] => 1
+    [contract_eov] => 2017-09-12
+    [scope_contract] => Investimento in gestione patrimoniale e multicomparto di fondi azionari
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 1032000
+    [activity_country] => San Marino
+    [risk_defined] => in Valutazione
+    [kyc_status] => 1
+    [status] => 0
+    [logdate] => 2017-09-10 18:45:17
+    [ip] => 
+)
+
+
+[14-Sep-2017 16:47:56 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 16:47:56 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 16:47:56 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 16:47:56 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 16:47:58 UTC] nome filetmp/kyc622-1.pdf
+
+[14-Sep-2017 16:47:58 UTC] send... file0
+
+[14-Sep-2017 16:47:58 UTC] passatoconfig GETArray
+(
+    [id] => 622
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 16:47:58 UTC] passato Config
+
+[14-Sep-2017 16:47:58 UTC] db get_rows SELECT * from kyc where contract_id='622'
+
+[14-Sep-2017 16:47:58 UTC] contractArray
+(
+    [id] => 622
+    [agency_id] => 1
+    [agent_id] => 0
+    [contractor_id] => 109
+    [NomeTemp] => Sapidata Spa
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 1
+    [role_for_other] => Rappresentante Legale
+    [other_id] => 13
+    [number] => 31215058
+    [CPU] => 84p
+    [tipo_contratto] => 0
+    [contract_date] => 2016-06-06
+    [end_det] => 1
+    [contract_eov] => 2017-09-12
+    [scope_contract] => Investimento in gestione patrimoniale e multicomparto di fondi azionari
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 1032000
+    [activity_country] => San Marino
+    [risk_defined] => in Valutazione
+    [kyc_status] => 1
+    [status] => 0
+    [logdate] => 2017-09-10 18:45:17
+    [ip] => 
+)
+
+
+[14-Sep-2017 16:47:58 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 16:47:58 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 16:47:58 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 16:47:58 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 16:47:59 UTC] nome filetmp/kyc622-1.pdf
+
+[14-Sep-2017 16:47:59 UTC] send... file0
+
+[14-Sep-2017 16:50:16 UTC] passatoconfig GETArray
+(
+    [id] => 622
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 1
+            [agent_id] => -1
+            [agency_id] => 1
+            [user_type] => 1
+            [priviledge] => -1
+            [cookie] => 19236
+        )
+
+)
+
+
+[14-Sep-2017 16:50:16 UTC] passato Config
+
+[14-Sep-2017 16:50:16 UTC] db get_rows SELECT * from kyc where contract_id='622'
+
+[14-Sep-2017 16:50:16 UTC] contractArray
+(
+    [id] => 622
+    [agency_id] => 1
+    [agent_id] => 0
+    [contractor_id] => 109
+    [NomeTemp] => Sapidata Spa
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 1
+    [role_for_other] => Rappresentante Legale
+    [other_id] => 13
+    [number] => 31215058
+    [CPU] => 84p
+    [tipo_contratto] => 0
+    [contract_date] => 2016-06-06
+    [end_det] => 1
+    [contract_eov] => 2017-09-12
+    [scope_contract] => Investimento in gestione patrimoniale e multicomparto di fondi azionari
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 1032000
+    [activity_country] => San Marino
+    [risk_defined] => in Valutazione
+    [kyc_status] => 1
+    [status] => 0
+    [logdate] => 2017-09-10 18:45:17
+    [ip] => 
+)
+
+
+[14-Sep-2017 16:50:16 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[14-Sep-2017 16:50:16 UTC] db get_rows SELECT * FROM users  where user_id=1
+
+[14-Sep-2017 16:50:16 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[14-Sep-2017 16:50:16 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[14-Sep-2017 16:50:17 UTC] nome filetmp/kyc622-1.pdf
+
+[14-Sep-2017 16:50:17 UTC] send... file0
+
+[15-Sep-2017 07:12:32 UTC] passatoconfig GETArray
+(
+    [id] => 22
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 95482
+        )
+
+)
+
+
+[15-Sep-2017 07:12:32 UTC] passato Config
+
+[15-Sep-2017 07:12:32 UTC] db get_rows SELECT * from kyc where contract_id='22'
+
+[15-Sep-2017 07:12:32 UTC] contractArray
+(
+    [id] => 22
+    [agency_id] => 1
+    [agent_id] => 0
+    [contractor_id] => 101
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 31528364
+    [CPU] => 6/2017
+    [tipo_contratto] => 0
+    [contract_date] => 0000-00-00
+    [end_det] => 1
+    [contract_eov] => 0000-00-00
+    [scope_contract] => Investimento in un prodotto finanziario assicurativo
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 106177.28
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-05 10:52:54
+    [ip] => 
+)
+
+
+[15-Sep-2017 07:12:32 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[15-Sep-2017 07:12:32 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[15-Sep-2017 07:12:32 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[15-Sep-2017 07:12:32 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[15-Sep-2017 07:12:33 UTC] nome filetmp/kyc22-1.pdf
+
+[15-Sep-2017 07:12:33 UTC] send... file0
+
+[15-Sep-2017 07:12:33 UTC] passatoconfig GETArray
+(
+    [id] => 22
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 95482
+        )
+
+)
+
+
+[15-Sep-2017 07:12:33 UTC] passato Config
+
+[15-Sep-2017 07:12:33 UTC] db get_rows SELECT * from kyc where contract_id='22'
+
+[15-Sep-2017 07:12:33 UTC] contractArray
+(
+    [id] => 22
+    [agency_id] => 1
+    [agent_id] => 0
+    [contractor_id] => 101
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 31528364
+    [CPU] => 6/2017
+    [tipo_contratto] => 0
+    [contract_date] => 0000-00-00
+    [end_det] => 1
+    [contract_eov] => 0000-00-00
+    [scope_contract] => Investimento in un prodotto finanziario assicurativo
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 106177.28
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-05 10:52:54
+    [ip] => 
+)
+
+
+[15-Sep-2017 07:12:33 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[15-Sep-2017 07:12:33 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[15-Sep-2017 07:12:33 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[15-Sep-2017 07:12:33 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[15-Sep-2017 07:12:35 UTC] nome filetmp/kyc22-1.pdf
+
+[15-Sep-2017 07:12:35 UTC] send... file0
+
+[15-Sep-2017 10:24:33 UTC] passatoconfig GETArray
+(
+    [id] => 1061
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 95482
+        )
+
+)
+
+
+[15-Sep-2017 10:24:33 UTC] passato Config
+
+[15-Sep-2017 10:24:33 UTC] db get_rows SELECT * from kyc where contract_id='1061'
+
+[15-Sep-2017 10:24:33 UTC] contractArray
+(
+    [id] => 1061
+    [agency_id] => 1
+    [agent_id] => 0
+    [contractor_id] => 113
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/
+    [tipo_contratto] => 0
+    [contract_date] => 2017-09-15
+    [end_det] => 0
+    [contract_eov] => 2017-09-15
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 610
+    [activity_country] => San Marino
+    [risk_defined] => in Valutazione
+    [kyc_status] => 0
+    [status] => 0
+    [logdate] => 2017-09-15 12:18:54
+    [ip] => 
+)
+
+
+[15-Sep-2017 10:24:33 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[15-Sep-2017 10:24:33 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[15-Sep-2017 10:24:33 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[15-Sep-2017 10:24:33 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[15-Sep-2017 10:24:34 UTC] nome filetmp/kyc1061-1.pdf
+
+[15-Sep-2017 10:24:34 UTC] send... file0
+
+[15-Sep-2017 10:24:34 UTC] passatoconfig GETArray
+(
+    [id] => 1061
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 95482
+        )
+
+)
+
+
+[15-Sep-2017 10:24:34 UTC] passato Config
+
+[15-Sep-2017 10:24:34 UTC] db get_rows SELECT * from kyc where contract_id='1061'
+
+[15-Sep-2017 10:24:34 UTC] contractArray
+(
+    [id] => 1061
+    [agency_id] => 1
+    [agent_id] => 0
+    [contractor_id] => 113
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/
+    [tipo_contratto] => 0
+    [contract_date] => 2017-09-15
+    [end_det] => 0
+    [contract_eov] => 2017-09-15
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 1
+    [contract_value] => 610
+    [activity_country] => San Marino
+    [risk_defined] => in Valutazione
+    [kyc_status] => 0
+    [status] => 0
+    [logdate] => 2017-09-15 12:18:54
+    [ip] => 
+)
+
+
+[15-Sep-2017 10:24:34 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[15-Sep-2017 10:24:34 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[15-Sep-2017 10:24:34 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[15-Sep-2017 10:24:34 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[15-Sep-2017 10:24:35 UTC] nome filetmp/kyc1061-1.pdf
+
+[15-Sep-2017 10:24:35 UTC] send... file0
+
+[18-Sep-2017 10:06:08 UTC] passatoconfig GETArray
+(
+    [id] => 1063
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 66561
+        )
+
+)
+
+
+[18-Sep-2017 10:06:08 UTC] passato Config
+
+[18-Sep-2017 10:06:08 UTC] db get_rows SELECT * from kyc where contract_id='1063'
+
+[18-Sep-2017 10:06:08 UTC] contractArray
+(
+    [id] => 1063
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2027-09-15
+    [end_det] => 0
+    [contract_eov] => 2027-09-15
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => in Valutazione
+    [kyc_status] => 1
+    [status] => 0
+    [logdate] => 2017-09-18 11:26:33
+    [ip] => 
+)
+
+
+[18-Sep-2017 10:06:08 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 10:06:08 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 10:06:08 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 10:06:08 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 10:06:10 UTC] nome filetmp/kyc1063-1.pdf
+
+[18-Sep-2017 10:06:10 UTC] send... file0
+
+[18-Sep-2017 10:06:10 UTC] passatoconfig GETArray
+(
+    [id] => 1063
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 66561
+        )
+
+)
+
+
+[18-Sep-2017 10:06:10 UTC] passato Config
+
+[18-Sep-2017 10:06:10 UTC] db get_rows SELECT * from kyc where contract_id='1063'
+
+[18-Sep-2017 10:06:10 UTC] contractArray
+(
+    [id] => 1063
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2027-09-15
+    [end_det] => 0
+    [contract_eov] => 2027-09-15
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => in Valutazione
+    [kyc_status] => 1
+    [status] => 0
+    [logdate] => 2017-09-18 11:26:33
+    [ip] => 
+)
+
+
+[18-Sep-2017 10:06:10 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 10:06:10 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 10:06:10 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 10:06:10 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 10:06:11 UTC] nome filetmp/kyc1063-1.pdf
+
+[18-Sep-2017 10:06:11 UTC] send... file0
+
+[18-Sep-2017 12:45:21 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 12:45:21 UTC] passato Config
+
+[18-Sep-2017 12:45:21 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 12:45:21 UTC] contractArray
+(
+    [id] => 1064
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2027-09-15
+    [end_det] => 0
+    [contract_eov] => 2027-09-15
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 0
+    [status] => 1
+    [logdate] => 2017-09-18 12:16:40
+    [ip] => 
+)
+
+
+[18-Sep-2017 12:45:21 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 12:45:21 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 12:45:21 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 12:45:21 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 12:45:21 UTC] nome filetmp/kyc1064-1.pdf
+
+[18-Sep-2017 12:45:21 UTC] send... file0
+
+[18-Sep-2017 12:45:22 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 12:45:22 UTC] passato Config
+
+[18-Sep-2017 12:45:22 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 12:45:22 UTC] contractArray
+(
+    [id] => 1064
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2027-09-15
+    [end_det] => 0
+    [contract_eov] => 2027-09-15
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 0
+    [status] => 1
+    [logdate] => 2017-09-18 12:16:40
+    [ip] => 
+)
+
+
+[18-Sep-2017 12:45:22 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 12:45:22 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 12:45:22 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 12:45:22 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 12:45:22 UTC] nome filetmp/kyc1064-1.pdf
+
+[18-Sep-2017 12:45:22 UTC] send... file0
+
+[18-Sep-2017 12:46:15 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 12:46:15 UTC] passato Config
+
+[18-Sep-2017 12:46:15 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 12:46:15 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 12:46:15 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 12:46:15 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 12:46:15 UTC] agent settingsArray
+(
+    [risk_type] => 1
+    [sign] => 1
+    [sendKycRisk] => 0
+    [country] => San Marino
+    [luogoIdentificazione] => San Marino
+    [naturaContratto] => Polizza Vita
+)
+
+
+[18-Sep-2017 12:46:15 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 12:46:15 UTC] db get_rows SELECT * from risk where contract_id='1064'
+
+[18-Sep-2017 12:46:16 UTC] risk_de<b>Processo Valutativo:</b><div style="font-size:9px;line-height:10px"></div><b>Note Eventuali:</b><div style="font-size:9px;line-height:10px"></div>
+[18-Sep-2017 13:00:05 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:00:05 UTC] passato Config
+
+[18-Sep-2017 13:00:05 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 13:00:05 UTC] contractArray
+(
+    [id] => 1064
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2027-09-15T00:00:00.000Z
+    [end_det] => 0
+    [contract_eov] => 2027-09-15T00:00:00.000Z
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-18 12:16:40
+    [ip] => 
+    [nometemp] => 
+    [contract_id] => 1064
+    [riskAssigned] => Limitato
+    [fullname] => Samuele Soldati
+    [contractor_name] => Samuele Soldati
+    [surname] => Soldati
+    [name1] => Samuele
+    [email] => Ssoldati9@gmail.com
+    [mobile] => 3389783641
+    [company_id] => 
+    [name] => 
+    [other_name] => 
+    [shared] => 
+    [kyc_date] => 2017-09-18 10:24:16
+    [kyc_update] => Array
+        (
+        )
+
+    [risk_status] => 1
+    [risk_date] => 2017-09-18 12:53:05
+    [risk_update] => Array
+        (
+        )
+
+    [Owner] => Samuele Soldati
+)
+
+
+[18-Sep-2017 13:00:05 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 13:00:05 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 13:00:05 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 13:00:05 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 13:00:06 UTC] nome filetmp/kyc1064-1.pdf
+
+[18-Sep-2017 13:00:06 UTC] send... file0
+
+[18-Sep-2017 13:00:06 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:00:06 UTC] passato Config
+
+[18-Sep-2017 13:00:06 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 13:00:06 UTC] contractArray
+(
+    [id] => 1064
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2027-09-15T00:00:00.000Z
+    [end_det] => 0
+    [contract_eov] => 2027-09-15T00:00:00.000Z
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-18 12:16:40
+    [ip] => 
+    [nometemp] => 
+    [contract_id] => 1064
+    [riskAssigned] => Limitato
+    [fullname] => Samuele Soldati
+    [contractor_name] => Samuele Soldati
+    [surname] => Soldati
+    [name1] => Samuele
+    [email] => Ssoldati9@gmail.com
+    [mobile] => 3389783641
+    [company_id] => 
+    [name] => 
+    [other_name] => 
+    [shared] => 
+    [kyc_date] => 2017-09-18 10:24:16
+    [kyc_update] => Array
+        (
+        )
+
+    [risk_status] => 1
+    [risk_date] => 2017-09-18 12:53:05
+    [risk_update] => Array
+        (
+        )
+
+    [Owner] => Samuele Soldati
+)
+
+
+[18-Sep-2017 13:00:06 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 13:00:06 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 13:00:06 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 13:00:06 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 13:00:07 UTC] nome filetmp/kyc1064-1.pdf
+
+[18-Sep-2017 13:00:07 UTC] send... file0
+
+[18-Sep-2017 13:00:07 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:00:07 UTC] passato Config
+
+[18-Sep-2017 13:00:07 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 13:00:07 UTC] contractArray
+(
+    [id] => 1064
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2027-09-15T00:00:00.000Z
+    [end_det] => 0
+    [contract_eov] => 2027-09-15T00:00:00.000Z
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-18 12:16:40
+    [ip] => 
+    [nometemp] => 
+    [contract_id] => 1064
+    [riskAssigned] => Limitato
+    [fullname] => Samuele Soldati
+    [contractor_name] => Samuele Soldati
+    [surname] => Soldati
+    [name1] => Samuele
+    [email] => Ssoldati9@gmail.com
+    [mobile] => 3389783641
+    [company_id] => 
+    [name] => 
+    [other_name] => 
+    [shared] => 
+    [kyc_date] => 2017-09-18 10:24:16
+    [kyc_update] => Array
+        (
+        )
+
+    [risk_status] => 1
+    [risk_date] => 2017-09-18 12:53:05
+    [risk_update] => Array
+        (
+        )
+
+    [Owner] => Samuele Soldati
+)
+
+
+[18-Sep-2017 13:00:07 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 13:00:07 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 13:00:07 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 13:00:07 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 13:00:08 UTC] nome filetmp/kyc1064-1.pdf
+
+[18-Sep-2017 13:00:08 UTC] send... file0
+
+[18-Sep-2017 13:00:08 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:00:08 UTC] passato Config
+
+[18-Sep-2017 13:00:08 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 13:00:08 UTC] contractArray
+(
+    [id] => 1064
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2027-09-15T00:00:00.000Z
+    [end_det] => 0
+    [contract_eov] => 2027-09-15T00:00:00.000Z
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-18 12:16:40
+    [ip] => 
+    [nometemp] => 
+    [contract_id] => 1064
+    [riskAssigned] => Limitato
+    [fullname] => Samuele Soldati
+    [contractor_name] => Samuele Soldati
+    [surname] => Soldati
+    [name1] => Samuele
+    [email] => Ssoldati9@gmail.com
+    [mobile] => 3389783641
+    [company_id] => 
+    [name] => 
+    [other_name] => 
+    [shared] => 
+    [kyc_date] => 2017-09-18 10:24:16
+    [kyc_update] => Array
+        (
+        )
+
+    [risk_status] => 1
+    [risk_date] => 2017-09-18 12:53:05
+    [risk_update] => Array
+        (
+        )
+
+    [Owner] => Samuele Soldati
+)
+
+
+[18-Sep-2017 13:00:08 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 13:00:08 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 13:00:08 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 13:00:08 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 13:00:08 UTC] nome filetmp/kyc1064-1.pdf
+
+[18-Sep-2017 13:00:08 UTC] send... file0
+
+[18-Sep-2017 13:13:25 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:13:25 UTC] passato Config
+
+[18-Sep-2017 13:13:25 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 13:13:25 UTC] contractArray
+(
+    [id] => 1064
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2017-09-15T00:00:00.000Z
+    [end_det] => 0
+    [contract_eov] => 2027-09-15T00:00:00.000Z
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-18 12:16:40
+    [ip] => 
+    [nometemp] => 
+    [contract_id] => 1064
+    [riskAssigned] => Limitato
+    [fullname] => Samuele Soldati
+    [contractor_name] => Samuele Soldati
+    [surname] => Soldati
+    [name1] => Samuele
+    [email] => ssoldati9@gmail.com
+    [mobile] => 3389783641
+    [company_id] => 
+    [name] => 
+    [other_name] => 
+    [shared] => 
+    [kyc_date] => 2017-09-18 10:24:16
+    [kyc_update] => Array
+        (
+        )
+
+    [risk_status] => 1
+    [risk_date] => 2017-09-18 13:07:56
+    [risk_update] => Array
+        (
+        )
+
+    [Owner] => Samuele Soldati
+    [nature_contract ] => Polizza Vita
+)
+
+
+[18-Sep-2017 13:13:25 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 13:13:25 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 13:13:25 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 13:13:25 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 13:13:26 UTC] nome filetmp/kyc1064-1.pdf
+
+[18-Sep-2017 13:13:26 UTC] send... file0
+
+[18-Sep-2017 13:13:26 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:13:26 UTC] passato Config
+
+[18-Sep-2017 13:13:26 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 13:13:26 UTC] contractArray
+(
+    [id] => 1064
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2017-09-15T00:00:00.000Z
+    [end_det] => 0
+    [contract_eov] => 2027-09-15T00:00:00.000Z
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-18 12:16:40
+    [ip] => 
+    [nometemp] => 
+    [contract_id] => 1064
+    [riskAssigned] => Limitato
+    [fullname] => Samuele Soldati
+    [contractor_name] => Samuele Soldati
+    [surname] => Soldati
+    [name1] => Samuele
+    [email] => ssoldati9@gmail.com
+    [mobile] => 3389783641
+    [company_id] => 
+    [name] => 
+    [other_name] => 
+    [shared] => 
+    [kyc_date] => 2017-09-18 10:24:16
+    [kyc_update] => Array
+        (
+        )
+
+    [risk_status] => 1
+    [risk_date] => 2017-09-18 13:07:56
+    [risk_update] => Array
+        (
+        )
+
+    [Owner] => Samuele Soldati
+    [nature_contract ] => Polizza Vita
+)
+
+
+[18-Sep-2017 13:13:26 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 13:13:26 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 13:13:26 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 13:13:26 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 13:13:27 UTC] nome filetmp/kyc1064-1.pdf
+
+[18-Sep-2017 13:13:27 UTC] send... file0
+
+[18-Sep-2017 13:15:06 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:15:06 UTC] passato Config
+
+[18-Sep-2017 13:15:06 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 13:15:06 UTC] contractArray
+(
+    [id] => 1064
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2017-09-15
+    [end_det] => 0
+    [contract_eov] => 2027-09-15
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-18 12:16:40
+    [ip] => 
+)
+
+
+[18-Sep-2017 13:15:06 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 13:15:06 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 13:15:06 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 13:15:06 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 13:15:06 UTC] nome filetmp/kyc1064-1.pdf
+
+[18-Sep-2017 13:15:06 UTC] send... file0
+
+[18-Sep-2017 13:15:07 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [download] => Y
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:15:07 UTC] passato Config
+
+[18-Sep-2017 13:15:07 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 13:15:07 UTC] contractArray
+(
+    [id] => 1064
+    [agency_id] => 1
+    [agent_id] => 8
+    [contractor_id] => 112
+    [NomeTemp] => 
+    [sign] => 
+    [image] => 
+    [Docs] => 
+    [act_for_other] => 0
+    [role_for_other] => 
+    [other_id] => 
+    [number] => 81009509
+    [CPU] => 280/2017
+    [tipo_contratto] => 0
+    [contract_date] => 2017-09-15
+    [end_det] => 0
+    [contract_eov] => 2027-09-15
+    [scope_contract] => Investimento per accantonamento
+    [nature_contract] => Polizza Vita
+    [value_det] => 0
+    [contract_value] => 
+    [activity_country] => San Marino
+    [risk_defined] => Limitato
+    [kyc_status] => 1
+    [status] => 1
+    [logdate] => 2017-09-18 12:16:40
+    [ip] => 
+)
+
+
+[18-Sep-2017 13:15:07 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 13:15:07 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 13:15:07 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 13:15:07 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 13:15:07 UTC] nome filetmp/kyc1064-1.pdf
+
+[18-Sep-2017 13:15:07 UTC] send... file0
+
+[18-Sep-2017 13:16:05 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:16:05 UTC] passato Config
+
+[18-Sep-2017 13:16:05 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 13:16:05 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 13:16:05 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 13:16:05 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 13:16:05 UTC] agent settingsArray
+(
+    [risk_type] => 1
+    [sign] => 1
+    [sendKycRisk] => 0
+    [country] => San Marino
+    [luogoIdentificazione] => San Marino
+    [naturaContratto] => Polizza Vita
+)
+
+
+[18-Sep-2017 13:16:05 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 13:16:05 UTC] db get_rows SELECT * from risk where contract_id='1064'
+
+[18-Sep-2017 13:16:06 UTC] risk_de<b>Processo Valutativo:</b><div style="font-size:9px;line-height:10px"></div><b>Note Eventuali:</b><div style="font-size:9px;line-height:10px"></div>
+[18-Sep-2017 13:16:54 UTC] passatoconfig GETArray
+(
+    [id] => 1064
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:16:54 UTC] passato Config
+
+[18-Sep-2017 13:16:54 UTC] db get_rows SELECT * from kyc where contract_id='1064'
+
+[18-Sep-2017 13:16:54 UTC] db get_rows SELECT * FROM countries ORDER BY country_name ASC
+
+[18-Sep-2017 13:16:54 UTC] db get_rows SELECT * FROM users  where user_id=11
+
+[18-Sep-2017 13:16:54 UTC] db get_rows SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=1
+
+[18-Sep-2017 13:16:54 UTC] agent settingsArray
+(
+    [risk_type] => 1
+    [sign] => 1
+    [sendKycRisk] => 0
+    [country] => San Marino
+    [luogoIdentificazione] => San Marino
+    [naturaContratto] => Polizza Vita
+)
+
+
+[18-Sep-2017 13:16:54 UTC] db get_rows SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=1
+
+[18-Sep-2017 13:16:54 UTC] db get_rows SELECT * from risk where contract_id='1064'
+
+[18-Sep-2017 13:16:54 UTC] risk_de<b>Processo Valutativo:</b><div style="font-size:9px;line-height:10px"></div><b>Note Eventuali:</b><div style="font-size:9px;line-height:10px"></div>

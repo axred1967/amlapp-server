@@ -1,0 +1,4254 @@
+Pulisco
+[18-Sep-2017 13:38:32 UTC] passato Config
+
+[18-Sep-2017 13:38:32 UTC] DoAction-Start view_Contract_infoArray
+(
+    [action] => view_Contract_info
+    [contract_id] => 1064
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:38:32 UTC] db get_rows select a.agent_id,a.agency_id,u.status from agent as a
+          join users as u on a.user_id=u.user_id
+          where a.agent_id='4'
+          and a.agency_id='1'
+
+[18-Sep-2017 13:38:32 UTC] usArray
+(
+    [agent_id] => 4
+    [agency_id] => 1
+    [status] => 1
+)
+
+[18-Sep-2017 13:38:32 UTC] db get_rows SELECT co.agent_id,co.nometemp, co.agency_id,co.id as contract_id, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
+      co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,co.end_det,
+      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,
+      concat(us.name,' ',us.surname) as fullname,concat(us.name,' ',us.surname) as contractor_name, us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
+      cmy.name,concat(op.name,' ',op.surname) as other_name, sh.user_id as shared, k.kyc_status, k.kyc_date,k.kyc_update, r.risk_status, r.risk_date,r.risk_update
+
+      FROM contract co
+      left JOIN users us ON co.contractor_id = us.user_id
+      left JOIN risk rk ON rk.cpu = co.cpu
+      LEFT JOIN company cmy ON co.other_id =cmy.company_id and co.act_for_other=1
+      LEFT JOIN users op ON co.other_id =op.user_id  and co.act_for_other=2
+      LEFT JOIN  share sh ON co.id=sh.object_id AND sh.object='contract'
+                and sh.user_id=co.contractor_id and sh.agency_id=co.agency_id
+      left join kyc as k on k.contract_id=co.id
+      left join risk as r on r.contract_id=co.id
+
+      WHERE co.id ='1064' 
+
+[18-Sep-2017 13:38:32 UTC] data dopo first doAction :Array
+(
+    [RESPONSECODE] => 1
+    [RESPONSE] => Array
+        (
+            [agent_id] => 8
+            [nometemp] => 
+            [agency_id] => 1
+            [contract_id] => 1064
+            [nature_contract] => Polizza Vita
+            [scope_contract] => Investimento per accantonamento
+            [number] => 81009509
+            [CPU] => 280/2017
+            [contract_date] => 2017-09-15
+            [contract_value] => 
+            [contractor_id] => 112
+            [role_for_other] => 
+            [activity_country] => San Marino
+            [tipo_contratto] => 0
+            [end_det] => 0
+            [contract_eov] => 2027-09-15
+            [act_for_other] => 0
+            [Docs] => 
+            [other_id] => 
+            [riskAssigned] => Limitato
+            [status] => 1
+            [value_det] => 0
+            [fullname] => Samuele Soldati
+            [contractor_name] => Samuele Soldati
+            [surname] => Soldati
+            [name1] => Samuele
+            [email] => ssoldati9@gmail.com
+            [mobile] => 3389783641
+            [image] => 
+            [company_id] => 
+            [name] => 
+            [other_name] => 
+            [shared] => 
+            [kyc_status] => 1
+            [kyc_date] => 2017-09-18 10:24:16
+            [kyc_update] => 
+            [risk_status] => 1
+            [risk_date] => 2017-09-18 13:07:56
+            [risk_update] => 
+        )
+
+)
+
+[18-Sep-2017 13:38:33 UTC] passatoconfig POSTArray
+(
+)
+
+
+[18-Sep-2017 13:38:33 UTC] passato Config
+
+[18-Sep-2017 13:38:33 UTC] DoAction-Start ContractListArray
+(
+    [action] => ContractList
+    [last] => 99999999999
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:38:33 UTC] db get_rows select a.agent_id,a.agency_id,u.status from agent as a
+          join users as u on a.user_id=u.user_id
+          where a.agent_id='4'
+          and a.agency_id='1'
+
+[18-Sep-2017 13:38:33 UTC] usArray
+(
+    [agent_id] => 4
+    [agency_id] => 1
+    [status] => 1
+)
+
+[18-Sep-2017 13:38:33 UTC] db get_rows SELECT co.agent_id,co.agency_id,co.id as contract_id, co.nometemp, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
+      co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,
+      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,
+      concat(us.name,' ',us.surname) as fullname, concat(us.name,' ',us.surname) as contractor_name,us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
+      cmy.name,
+      concat(op.name,' ',op.surname) as other_name,sh.user_id as shared,
+      k.kyc_status, k.kyc_date,k.kyc_update, r.risk_status, r.risk_date,r.risk_update
+      FROM contract co
+      left JOIN users us ON co.contractor_id = us.user_id
+      LEFT JOIN company cmy ON co.other_id =cmy.company_id and co.act_for_other=1
+      LEFT JOIN users op ON co.other_id =op.user_id  and co.act_for_other=2
+      LEFT JOIN  share sh ON co.id=sh.object_id AND sh.object='contract'
+                and sh.user_id=co.contractor_id and sh.agency_id=co.agency_id
+                left join kyc as k on k.contract_id=co.id
+                left join risk as r on r.contract_id=co.id
+       WHERE co.agency_id ='1' AND co.status <> 2  and co.id <  99999999999 ORDER BY co.id DESC    limit 10
+
+[18-Sep-2017 13:38:33 UTC] data dopo first doAction :Array
+(
+    [RESPONSECODE] => 1
+    [RESPONSE] => Array
+        (
+            [0] => Array
+                (
+                    [0] => 8
+                    [agent_id] => 8
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1064
+                    [contract_id] => 1064
+                    [3] => 
+                    [nometemp] => 
+                    [4] => Polizza Vita
+                    [nature_contract] => Polizza Vita
+                    [5] => Investimento per accantonamento
+                    [scope_contract] => Investimento per accantonamento
+                    [6] => 81009509
+                    [number] => 81009509
+                    [7] => 280/2017
+                    [CPU] => 280/2017
+                    [8] => 2017-09-15
+                    [contract_date] => 2017-09-15
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 112
+                    [contractor_id] => 112
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => San Marino
+                    [activity_country] => San Marino
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 2027-09-15
+                    [contract_eov] => 2027-09-15
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => Limitato
+                    [riskAssigned] => Limitato
+                    [19] => 1
+                    [status] => 1
+                    [20] => 0
+                    [value_det] => 0
+                    [21] => Samuele Soldati
+                    [fullname] => Samuele Soldati
+                    [22] => Samuele Soldati
+                    [contractor_name] => Samuele Soldati
+                    [23] => Soldati
+                    [surname] => Soldati
+                    [24] => Samuele
+                    [name1] => Samuele
+                    [25] => ssoldati9@gmail.com
+                    [email] => ssoldati9@gmail.com
+                    [26] => 3389783641
+                    [mobile] => 3389783641
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 1
+                    [kyc_status] => 1
+                    [33] => 2017-09-18 10:24:16
+                    [kyc_date] => 2017-09-18 10:24:16
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 1
+                    [risk_status] => 1
+                    [36] => 2017-09-18 13:07:56
+                    [risk_date] => 2017-09-18 13:07:56
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [1] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1058
+                    [contract_id] => 1058
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31524847
+                    [number] => 31524847
+                    [7] => 279p
+                    [CPU] => 279p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 0
+                    [kyc_status] => 0
+                    [33] => 2017-09-14 18:42:50
+                    [kyc_date] => 2017-09-14 18:42:50
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [2] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1057
+                    [contract_id] => 1057
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534837
+                    [number] => 31534837
+                    [7] => 278p
+                    [CPU] => 278p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [3] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1056
+                    [contract_id] => 1056
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534824
+                    [number] => 31534824
+                    [7] => 277p
+                    [CPU] => 277p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [4] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1055
+                    [contract_id] => 1055
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534812
+                    [number] => 31534812
+                    [7] => 276p
+                    [CPU] => 276p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [5] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1054
+                    [contract_id] => 1054
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 5807178
+                    [number] => 5807178
+                    [7] => 275p
+                    [CPU] => 275p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [6] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1053
+                    [contract_id] => 1053
+                    [3] => Elena Guidi
+                    [nometemp] => Elena Guidi
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31533930
+                    [number] => 31533930
+                    [7] => 371b
+                    [CPU] => 371b
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [7] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1052
+                    [contract_id] => 1052
+                    [3] => Zonzini David Daniel
+                    [nometemp] => Zonzini David Daniel
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31535073
+                    [number] => 31535073
+                    [7] => 274p
+                    [CPU] => 274p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [8] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1051
+                    [contract_id] => 1051
+                    [3] => Zonzini David Daniel
+                    [nometemp] => Zonzini David Daniel
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31535053
+                    [number] => 31535053
+                    [7] => 273p
+                    [CPU] => 273p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [9] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1050
+                    [contract_id] => 1050
+                    [3] => Mularoni Natascia
+                    [nometemp] => Mularoni Natascia
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31533985
+                    [number] => 31533985
+                    [7] => 370b
+                    [CPU] => 370b
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+        )
+
+)
+
+[18-Sep-2017 13:51:19 UTC] passatoconfig POSTArray
+(
+)
+
+
+[18-Sep-2017 13:51:19 UTC] passato Config
+
+[18-Sep-2017 13:51:19 UTC] DoAction-Start view_Contract_infoArray
+(
+    [action] => view_Contract_info
+    [contract_id] => 1064
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:51:19 UTC] db get_rows select a.agent_id,a.agency_id,u.status from agent as a
+          join users as u on a.user_id=u.user_id
+          where a.agent_id='4'
+          and a.agency_id='1'
+
+[18-Sep-2017 13:51:19 UTC] usArray
+(
+    [agent_id] => 4
+    [agency_id] => 1
+    [status] => 1
+)
+
+[18-Sep-2017 13:51:19 UTC] db get_rows SELECT co.agent_id,co.nometemp, co.agency_id,co.id as contract_id, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
+      co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,co.end_det,
+      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,
+      concat(us.name,' ',us.surname) as fullname,concat(us.name,' ',us.surname) as contractor_name, us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
+      cmy.name,concat(op.name,' ',op.surname) as other_name, sh.user_id as shared, k.kyc_status, k.kyc_date,k.kyc_update, r.risk_status, r.risk_date,r.risk_update
+
+      FROM contract co
+      left JOIN users us ON co.contractor_id = us.user_id
+      left JOIN risk rk ON rk.cpu = co.cpu
+      LEFT JOIN company cmy ON co.other_id =cmy.company_id and co.act_for_other=1
+      LEFT JOIN users op ON co.other_id =op.user_id  and co.act_for_other=2
+      LEFT JOIN  share sh ON co.id=sh.object_id AND sh.object='contract'
+                and sh.user_id=co.contractor_id and sh.agency_id=co.agency_id
+      left join kyc as k on k.contract_id=co.id
+      left join risk as r on r.contract_id=co.id
+
+      WHERE co.id ='1064' 
+
+[18-Sep-2017 13:51:19 UTC] data dopo first doAction :Array
+(
+    [RESPONSECODE] => 1
+    [RESPONSE] => Array
+        (
+            [agent_id] => 8
+            [nometemp] => 
+            [agency_id] => 1
+            [contract_id] => 1064
+            [nature_contract] => Polizza Vita
+            [scope_contract] => Investimento per accantonamento
+            [number] => 81009509
+            [CPU] => 280/2017
+            [contract_date] => 2017-09-15
+            [contract_value] => 
+            [contractor_id] => 112
+            [role_for_other] => 
+            [activity_country] => San Marino
+            [tipo_contratto] => 0
+            [end_det] => 0
+            [contract_eov] => 2027-09-15
+            [act_for_other] => 0
+            [Docs] => 
+            [other_id] => 
+            [riskAssigned] => Limitato
+            [status] => 1
+            [value_det] => 0
+            [fullname] => Samuele Soldati
+            [contractor_name] => Samuele Soldati
+            [surname] => Soldati
+            [name1] => Samuele
+            [email] => ssoldati9@gmail.com
+            [mobile] => 3389783641
+            [image] => 
+            [company_id] => 
+            [name] => 
+            [other_name] => 
+            [shared] => 
+            [kyc_status] => 1
+            [kyc_date] => 2017-09-18 10:24:16
+            [kyc_update] => 
+            [risk_status] => 1
+            [risk_date] => 2017-09-18 13:07:56
+            [risk_update] => 
+        )
+
+)
+
+[18-Sep-2017 13:52:51 UTC] passatoconfig POSTArray
+(
+)
+
+
+[18-Sep-2017 13:52:51 UTC] passato Config
+
+[18-Sep-2017 13:52:51 UTC] DoAction-Start ContractListArray
+(
+    [action] => ContractList
+    [last] => 99999999999
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 13:52:51 UTC] db get_rows select a.agent_id,a.agency_id,u.status from agent as a
+          join users as u on a.user_id=u.user_id
+          where a.agent_id='4'
+          and a.agency_id='1'
+
+[18-Sep-2017 13:52:51 UTC] usArray
+(
+    [agent_id] => 4
+    [agency_id] => 1
+    [status] => 1
+)
+
+[18-Sep-2017 13:52:51 UTC] db get_rows SELECT co.agent_id,co.agency_id,co.id as contract_id, co.nometemp, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
+      co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,
+      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,
+      concat(us.name,' ',us.surname) as fullname, concat(us.name,' ',us.surname) as contractor_name,us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
+      cmy.name,
+      concat(op.name,' ',op.surname) as other_name,sh.user_id as shared,
+      k.kyc_status, k.kyc_date,k.kyc_update, r.risk_status, r.risk_date,r.risk_update
+      FROM contract co
+      left JOIN users us ON co.contractor_id = us.user_id
+      LEFT JOIN company cmy ON co.other_id =cmy.company_id and co.act_for_other=1
+      LEFT JOIN users op ON co.other_id =op.user_id  and co.act_for_other=2
+      LEFT JOIN  share sh ON co.id=sh.object_id AND sh.object='contract'
+                and sh.user_id=co.contractor_id and sh.agency_id=co.agency_id
+                left join kyc as k on k.contract_id=co.id
+                left join risk as r on r.contract_id=co.id
+       WHERE co.agency_id ='1' AND co.status <> 2  and co.id <  99999999999 ORDER BY co.id DESC    limit 10
+
+[18-Sep-2017 13:52:52 UTC] data dopo first doAction :Array
+(
+    [RESPONSECODE] => 1
+    [RESPONSE] => Array
+        (
+            [0] => Array
+                (
+                    [0] => 8
+                    [agent_id] => 8
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1064
+                    [contract_id] => 1064
+                    [3] => 
+                    [nometemp] => 
+                    [4] => Polizza Vita
+                    [nature_contract] => Polizza Vita
+                    [5] => Investimento per accantonamento
+                    [scope_contract] => Investimento per accantonamento
+                    [6] => 81009509
+                    [number] => 81009509
+                    [7] => 280/2017
+                    [CPU] => 280/2017
+                    [8] => 2017-09-15
+                    [contract_date] => 2017-09-15
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 112
+                    [contractor_id] => 112
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => San Marino
+                    [activity_country] => San Marino
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 2027-09-15
+                    [contract_eov] => 2027-09-15
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => Limitato
+                    [riskAssigned] => Limitato
+                    [19] => 1
+                    [status] => 1
+                    [20] => 0
+                    [value_det] => 0
+                    [21] => Samuele Soldati
+                    [fullname] => Samuele Soldati
+                    [22] => Samuele Soldati
+                    [contractor_name] => Samuele Soldati
+                    [23] => Soldati
+                    [surname] => Soldati
+                    [24] => Samuele
+                    [name1] => Samuele
+                    [25] => ssoldati9@gmail.com
+                    [email] => ssoldati9@gmail.com
+                    [26] => 3389783641
+                    [mobile] => 3389783641
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 1
+                    [kyc_status] => 1
+                    [33] => 2017-09-18 10:24:16
+                    [kyc_date] => 2017-09-18 10:24:16
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 1
+                    [risk_status] => 1
+                    [36] => 2017-09-18 13:07:56
+                    [risk_date] => 2017-09-18 13:07:56
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [1] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1058
+                    [contract_id] => 1058
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31524847
+                    [number] => 31524847
+                    [7] => 279p
+                    [CPU] => 279p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 0
+                    [kyc_status] => 0
+                    [33] => 2017-09-14 18:42:50
+                    [kyc_date] => 2017-09-14 18:42:50
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [2] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1057
+                    [contract_id] => 1057
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534837
+                    [number] => 31534837
+                    [7] => 278p
+                    [CPU] => 278p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [3] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1056
+                    [contract_id] => 1056
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534824
+                    [number] => 31534824
+                    [7] => 277p
+                    [CPU] => 277p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [4] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1055
+                    [contract_id] => 1055
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534812
+                    [number] => 31534812
+                    [7] => 276p
+                    [CPU] => 276p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [5] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1054
+                    [contract_id] => 1054
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 5807178
+                    [number] => 5807178
+                    [7] => 275p
+                    [CPU] => 275p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [6] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1053
+                    [contract_id] => 1053
+                    [3] => Elena Guidi
+                    [nometemp] => Elena Guidi
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31533930
+                    [number] => 31533930
+                    [7] => 371b
+                    [CPU] => 371b
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [7] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1052
+                    [contract_id] => 1052
+                    [3] => Zonzini David Daniel
+                    [nometemp] => Zonzini David Daniel
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31535073
+                    [number] => 31535073
+                    [7] => 274p
+                    [CPU] => 274p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [8] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1051
+                    [contract_id] => 1051
+                    [3] => Zonzini David Daniel
+                    [nometemp] => Zonzini David Daniel
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31535053
+                    [number] => 31535053
+                    [7] => 273p
+                    [CPU] => 273p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [9] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1050
+                    [contract_id] => 1050
+                    [3] => Mularoni Natascia
+                    [nometemp] => Mularoni Natascia
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31533985
+                    [number] => 31533985
+                    [7] => 370b
+                    [CPU] => 370b
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+        )
+
+)
+
+[18-Sep-2017 14:10:20 UTC] passatoconfig POSTArray
+(
+)
+
+
+[18-Sep-2017 14:10:20 UTC] passato Config
+
+[18-Sep-2017 14:10:20 UTC] DoAction-Start ListObjsArray
+(
+    [action] => ListObjs
+    [settings] => Array
+        (
+            [table] => agent
+            [id] => agent_id
+            [fields] => Array
+                (
+                    [name] => j1.name
+                    [surname] => j1.surname
+                    [agent_id] => uno.agent_id
+                )
+
+            [join] => Array
+                (
+                    [j1] => Array
+                        (
+                            [table] => users
+                            [condition] => uno.user_id=j1.user_id 
+                        )
+
+                )
+
+            [where] => Array
+                (
+                    [uno.agency_id] => 1
+                )
+
+            [limit] => 100
+        )
+
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 66561
+        )
+
+)
+
+
+[18-Sep-2017 14:10:20 UTC] db get_rows select a.agent_id,a.agency_id,u.status from agent as a
+          join users as u on a.user_id=u.user_id
+          where a.agent_id='4'
+          and a.agency_id='1'
+
+[18-Sep-2017 14:10:20 UTC] usArray
+(
+    [agent_id] => 4
+    [agency_id] => 1
+    [status] => 1
+)
+
+[18-Sep-2017 14:10:20 UTC] lista oggetti
+[18-Sep-2017 14:10:20 UTC] db get_rows SHOW COLUMNS FROM  agent
+
+[18-Sep-2017 14:10:20 UTC] db get_rows SHOW COLUMNS FROM  users
+
+[18-Sep-2017 14:10:20 UTC] joinArray
+(
+    [uno.agency_id] => 1
+)
+  JOIN  users AS  j1 ON uno.user_id=j1.user_id  
+[18-Sep-2017 14:10:20 UTC] db get_rows  select  j1.name As name ,  j1.surname As surname ,  uno.agent_id As agent_id from  agent as uno   JOIN  users AS  j1 ON uno.user_id=j1.user_id   where   uno.agency_id='1'  order by uno.agent_id DESC  limit  100
+
+[18-Sep-2017 14:10:20 UTC] data dopo first doAction :Array
+(
+    [RESPONSECODE] => 1
+    [RESPONSE] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Marco
+                    [name] => Marco
+                    [1] => Broccoli
+                    [surname] => Broccoli
+                    [2] => 8
+                    [agent_id] => 8
+                )
+
+            [1] => Array
+                (
+                    [0] => Stefano
+                    [name] => Stefano
+                    [1] => Piva
+                    [surname] => Piva
+                    [2] => 7
+                    [agent_id] => 7
+                )
+
+            [2] => Array
+                (
+                    [0] => Mirko
+                    [name] => Mirko
+                    [1] => Fabbri
+                    [surname] => Fabbri
+                    [2] => 6
+                    [agent_id] => 6
+                )
+
+            [3] => Array
+                (
+                    [0] => Federico
+                    [name] => Federico
+                    [1] => Pedini Amati
+                    [surname] => Pedini Amati
+                    [2] => 5
+                    [agent_id] => 5
+                )
+
+            [4] => Array
+                (
+                    [0] => Stefano
+                    [name] => Stefano
+                    [1] => Pazzini
+                    [surname] => Pazzini
+                    [2] => 4
+                    [agent_id] => 4
+                )
+
+            [5] => Array
+                (
+                    [0] => Diego
+                    [name] => Diego
+                    [1] => Masi
+                    [surname] => Masi
+                    [2] => 3
+                    [agent_id] => 3
+                )
+
+            [6] => Array
+                (
+                    [0] => Jessica
+                    [name] => Jessica
+                    [1] => Guidi
+                    [surname] => Guidi
+                    [2] => 2
+                    [agent_id] => 2
+                )
+
+        )
+
+)
+
+[18-Sep-2017 14:10:20 UTC] passatoconfig POSTArray
+(
+)
+
+
+[18-Sep-2017 14:10:20 UTC] passato Config
+
+[18-Sep-2017 14:10:20 UTC] DoAction-Start ContractListArray
+(
+    [action] => ContractList
+    [last] => 99999999999
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 66561
+        )
+
+)
+
+
+[18-Sep-2017 14:10:20 UTC] db get_rows select a.agent_id,a.agency_id,u.status from agent as a
+          join users as u on a.user_id=u.user_id
+          where a.agent_id='4'
+          and a.agency_id='1'
+
+[18-Sep-2017 14:10:20 UTC] usArray
+(
+    [agent_id] => 4
+    [agency_id] => 1
+    [status] => 1
+)
+
+[18-Sep-2017 14:10:20 UTC] db get_rows SELECT co.agent_id,co.agency_id,co.id as contract_id, co.nometemp, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
+      co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,
+      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,
+      concat(us.name,' ',us.surname) as fullname, concat(us.name,' ',us.surname) as contractor_name,us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
+      cmy.name,
+      concat(op.name,' ',op.surname) as other_name,sh.user_id as shared,
+      k.kyc_status, k.kyc_date,k.kyc_update, r.risk_status, r.risk_date,r.risk_update
+      FROM contract co
+      left JOIN users us ON co.contractor_id = us.user_id
+      LEFT JOIN company cmy ON co.other_id =cmy.company_id and co.act_for_other=1
+      LEFT JOIN users op ON co.other_id =op.user_id  and co.act_for_other=2
+      LEFT JOIN  share sh ON co.id=sh.object_id AND sh.object='contract'
+                and sh.user_id=co.contractor_id and sh.agency_id=co.agency_id
+                left join kyc as k on k.contract_id=co.id
+                left join risk as r on r.contract_id=co.id
+       WHERE co.agency_id ='1' AND co.status <> 2  and co.id <  99999999999 ORDER BY co.id DESC    limit 10
+
+[18-Sep-2017 14:10:20 UTC] data dopo first doAction :Array
+(
+    [RESPONSECODE] => 1
+    [RESPONSE] => Array
+        (
+            [0] => Array
+                (
+                    [0] => 8
+                    [agent_id] => 8
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1064
+                    [contract_id] => 1064
+                    [3] => 
+                    [nometemp] => 
+                    [4] => Polizza Vita
+                    [nature_contract] => Polizza Vita
+                    [5] => Investimento per accantonamento
+                    [scope_contract] => Investimento per accantonamento
+                    [6] => 81009509
+                    [number] => 81009509
+                    [7] => 280/2017
+                    [CPU] => 280/2017
+                    [8] => 2017-09-15
+                    [contract_date] => 2017-09-15
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 112
+                    [contractor_id] => 112
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => San Marino
+                    [activity_country] => San Marino
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 2027-09-15
+                    [contract_eov] => 2027-09-15
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => Limitato
+                    [riskAssigned] => Limitato
+                    [19] => 1
+                    [status] => 1
+                    [20] => 0
+                    [value_det] => 0
+                    [21] => Samuele Soldati
+                    [fullname] => Samuele Soldati
+                    [22] => Samuele Soldati
+                    [contractor_name] => Samuele Soldati
+                    [23] => Soldati
+                    [surname] => Soldati
+                    [24] => Samuele
+                    [name1] => Samuele
+                    [25] => ssoldati9@gmail.com
+                    [email] => ssoldati9@gmail.com
+                    [26] => 3389783641
+                    [mobile] => 3389783641
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 1
+                    [kyc_status] => 1
+                    [33] => 2017-09-18 10:24:16
+                    [kyc_date] => 2017-09-18 10:24:16
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 1
+                    [risk_status] => 1
+                    [36] => 2017-09-18 13:07:56
+                    [risk_date] => 2017-09-18 13:07:56
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [1] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1058
+                    [contract_id] => 1058
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31524847
+                    [number] => 31524847
+                    [7] => 279p
+                    [CPU] => 279p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 0
+                    [kyc_status] => 0
+                    [33] => 2017-09-14 18:42:50
+                    [kyc_date] => 2017-09-14 18:42:50
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [2] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1057
+                    [contract_id] => 1057
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534837
+                    [number] => 31534837
+                    [7] => 278p
+                    [CPU] => 278p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [3] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1056
+                    [contract_id] => 1056
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534824
+                    [number] => 31534824
+                    [7] => 277p
+                    [CPU] => 277p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [4] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1055
+                    [contract_id] => 1055
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534812
+                    [number] => 31534812
+                    [7] => 276p
+                    [CPU] => 276p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [5] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1054
+                    [contract_id] => 1054
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 5807178
+                    [number] => 5807178
+                    [7] => 275p
+                    [CPU] => 275p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [6] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1053
+                    [contract_id] => 1053
+                    [3] => Elena Guidi
+                    [nometemp] => Elena Guidi
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31533930
+                    [number] => 31533930
+                    [7] => 371b
+                    [CPU] => 371b
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [7] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1052
+                    [contract_id] => 1052
+                    [3] => Zonzini David Daniel
+                    [nometemp] => Zonzini David Daniel
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31535073
+                    [number] => 31535073
+                    [7] => 274p
+                    [CPU] => 274p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [8] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1051
+                    [contract_id] => 1051
+                    [3] => Zonzini David Daniel
+                    [nometemp] => Zonzini David Daniel
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31535053
+                    [number] => 31535053
+                    [7] => 273p
+                    [CPU] => 273p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [9] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1050
+                    [contract_id] => 1050
+                    [3] => Mularoni Natascia
+                    [nometemp] => Mularoni Natascia
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31533985
+                    [number] => 31533985
+                    [7] => 370b
+                    [CPU] => 370b
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+        )
+
+)
+
+[18-Sep-2017 15:02:05 UTC] passatoconfig POSTArray
+(
+)
+
+
+[18-Sep-2017 15:02:05 UTC] passato Config
+
+[18-Sep-2017 15:02:05 UTC] DoAction-Start view_Contract_infoArray
+(
+    [action] => view_Contract_info
+    [contract_id] => 1064
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 15:02:05 UTC] db get_rows select a.agent_id,a.agency_id,u.status from agent as a
+          join users as u on a.user_id=u.user_id
+          where a.agent_id='4'
+          and a.agency_id='1'
+
+[18-Sep-2017 15:02:05 UTC] usArray
+(
+    [agent_id] => 4
+    [agency_id] => 1
+    [status] => 1
+)
+
+[18-Sep-2017 15:02:05 UTC] db get_rows SELECT co.agent_id,co.nometemp, co.agency_id,co.id as contract_id, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
+      co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,co.end_det,
+      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,
+      concat(us.name,' ',us.surname) as fullname,concat(us.name,' ',us.surname) as contractor_name, us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
+      cmy.name,concat(op.name,' ',op.surname) as other_name, sh.user_id as shared, k.kyc_status, k.kyc_date,k.kyc_update, r.risk_status, r.risk_date,r.risk_update
+
+      FROM contract co
+      left JOIN users us ON co.contractor_id = us.user_id
+      left JOIN risk rk ON rk.cpu = co.cpu
+      LEFT JOIN company cmy ON co.other_id =cmy.company_id and co.act_for_other=1
+      LEFT JOIN users op ON co.other_id =op.user_id  and co.act_for_other=2
+      LEFT JOIN  share sh ON co.id=sh.object_id AND sh.object='contract'
+                and sh.user_id=co.contractor_id and sh.agency_id=co.agency_id
+      left join kyc as k on k.contract_id=co.id
+      left join risk as r on r.contract_id=co.id
+
+      WHERE co.id ='1064' 
+
+[18-Sep-2017 15:02:05 UTC] data dopo first doAction :Array
+(
+    [RESPONSECODE] => 1
+    [RESPONSE] => Array
+        (
+            [agent_id] => 8
+            [nometemp] => 
+            [agency_id] => 1
+            [contract_id] => 1064
+            [nature_contract] => Polizza Vita
+            [scope_contract] => Investimento per accantonamento
+            [number] => 81009509
+            [CPU] => 280/2017
+            [contract_date] => 2017-09-15
+            [contract_value] => 
+            [contractor_id] => 112
+            [role_for_other] => 
+            [activity_country] => San Marino
+            [tipo_contratto] => 0
+            [end_det] => 0
+            [contract_eov] => 2027-09-15
+            [act_for_other] => 0
+            [Docs] => 
+            [other_id] => 
+            [riskAssigned] => Limitato
+            [status] => 1
+            [value_det] => 0
+            [fullname] => Samuele Soldati
+            [contractor_name] => Samuele Soldati
+            [surname] => Soldati
+            [name1] => Samuele
+            [email] => ssoldati9@gmail.com
+            [mobile] => 3389783641
+            [image] => 
+            [company_id] => 
+            [name] => 
+            [other_name] => 
+            [shared] => 
+            [kyc_status] => 1
+            [kyc_date] => 2017-09-18 10:24:16
+            [kyc_update] => 
+            [risk_status] => 1
+            [risk_date] => 2017-09-18 13:07:56
+            [risk_update] => 
+        )
+
+)
+
+[18-Sep-2017 15:02:13 UTC] passatoconfig POSTArray
+(
+)
+
+
+[18-Sep-2017 15:02:13 UTC] passato Config
+
+[18-Sep-2017 15:02:13 UTC] DoAction-Start ACWordArray
+(
+    [action] => ACWord
+    [word] => scope_contract
+    [settings] => Array
+        (
+            [zero] => 1
+            [pInfo] => Array
+                (
+                    [user_id] => 11
+                    [agent_id] => 4
+                    [agency_id] => 1
+                    [user_type] => 2
+                    [priviledge] => 1
+                    [cookie] => 48212
+                )
+
+        )
+
+    [search] => Investimento per accantonamento
+    [table] => contract
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 15:02:13 UTC] db get_rows select a.agent_id,a.agency_id,u.status from agent as a
+          join users as u on a.user_id=u.user_id
+          where a.agent_id='4'
+          and a.agency_id='1'
+
+[18-Sep-2017 15:02:13 UTC] usArray
+(
+    [agent_id] => 4
+    [agency_id] => 1
+    [status] => 1
+)
+
+[18-Sep-2017 15:02:13 UTC] db get_rows SELECT distinct scope_contract  as word from  contract
+          WHERE scope_contract   like '%Investimento per accantonamento%'  AND agency_id=1
+          AND scope_contract<> ''
+           ORDER BY scope_contract  ASC limit 5 
+
+[18-Sep-2017 15:02:13 UTC] db get_rows SELECT distinct  word from  word_tag    WHERE word  like '%Investimento per accantonamento%'  AND  'scope_contract'=id_tag order by   field(word, 'Italia','San Marino') DESC, word ASC 
+
+[18-Sep-2017 15:02:13 UTC] db get_rows SELECT distinct  word from  word_tag_kyc    WHERE word  like '%Investimento per accantonamento%'  AND  'scope_contract'=id_tag
+              and agency_id=1 order by  word ASC limit 5 
+
+[18-Sep-2017 15:02:13 UTC] concat3:Array
+(
+    [0] => Array
+        (
+            [0] => Investimento per accantonamento
+            [word] => Investimento per accantonamento
+        )
+
+)
+Array
+(
+)
+
+
+[18-Sep-2017 15:02:13 UTC] data dopo first doAction :Array
+(
+    [RESPONSECODE] => 1
+    [RESPONSE] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Investimento per accantonamento
+                    [word] => Investimento per accantonamento
+                )
+
+        )
+
+)
+
+[18-Sep-2017 15:02:53 UTC] passatoconfig POSTArray
+(
+)
+
+
+[18-Sep-2017 15:02:53 UTC] passato Config
+
+[18-Sep-2017 15:02:53 UTC] DoAction-Start view_Contract_infoArray
+(
+    [action] => view_Contract_info
+    [contract_id] => 1064
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 48212
+        )
+
+)
+
+
+[18-Sep-2017 15:02:53 UTC] db get_rows select a.agent_id,a.agency_id,u.status from agent as a
+          join users as u on a.user_id=u.user_id
+          where a.agent_id='4'
+          and a.agency_id='1'
+
+[18-Sep-2017 15:02:53 UTC] usArray
+(
+    [agent_id] => 4
+    [agency_id] => 1
+    [status] => 1
+)
+
+[18-Sep-2017 15:02:53 UTC] db get_rows SELECT co.agent_id,co.nometemp, co.agency_id,co.id as contract_id, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
+      co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,co.end_det,
+      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,
+      concat(us.name,' ',us.surname) as fullname,concat(us.name,' ',us.surname) as contractor_name, us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
+      cmy.name,concat(op.name,' ',op.surname) as other_name, sh.user_id as shared, k.kyc_status, k.kyc_date,k.kyc_update, r.risk_status, r.risk_date,r.risk_update
+
+      FROM contract co
+      left JOIN users us ON co.contractor_id = us.user_id
+      left JOIN risk rk ON rk.cpu = co.cpu
+      LEFT JOIN company cmy ON co.other_id =cmy.company_id and co.act_for_other=1
+      LEFT JOIN users op ON co.other_id =op.user_id  and co.act_for_other=2
+      LEFT JOIN  share sh ON co.id=sh.object_id AND sh.object='contract'
+                and sh.user_id=co.contractor_id and sh.agency_id=co.agency_id
+      left join kyc as k on k.contract_id=co.id
+      left join risk as r on r.contract_id=co.id
+
+      WHERE co.id ='1064' 
+
+[18-Sep-2017 15:02:53 UTC] data dopo first doAction :Array
+(
+    [RESPONSECODE] => 1
+    [RESPONSE] => Array
+        (
+            [agent_id] => 8
+            [nometemp] => 
+            [agency_id] => 1
+            [contract_id] => 1064
+            [nature_contract] => Polizza Vita
+            [scope_contract] => Investimento per accantonamento
+            [number] => 81009509
+            [CPU] => 280/2017
+            [contract_date] => 2017-09-15
+            [contract_value] => 
+            [contractor_id] => 112
+            [role_for_other] => 
+            [activity_country] => San Marino
+            [tipo_contratto] => 0
+            [end_det] => 0
+            [contract_eov] => 2027-09-15
+            [act_for_other] => 0
+            [Docs] => 
+            [other_id] => 
+            [riskAssigned] => Limitato
+            [status] => 1
+            [value_det] => 0
+            [fullname] => Samuele Soldati
+            [contractor_name] => Samuele Soldati
+            [surname] => Soldati
+            [name1] => Samuele
+            [email] => ssoldati9@gmail.com
+            [mobile] => 3389783641
+            [image] => 
+            [company_id] => 
+            [name] => 
+            [other_name] => 
+            [shared] => 
+            [kyc_status] => 1
+            [kyc_date] => 2017-09-18 10:24:16
+            [kyc_update] => 
+            [risk_status] => 1
+            [risk_date] => 2017-09-18 13:07:56
+            [risk_update] => 
+        )
+
+)
+
+[18-Sep-2017 15:14:04 UTC] passatoconfig POSTArray
+(
+)
+
+
+[18-Sep-2017 15:14:04 UTC] passato Config
+
+[18-Sep-2017 15:14:04 UTC] DoAction-Start ListObjsArray
+(
+    [action] => ListObjs
+    [settings] => Array
+        (
+            [table] => agent
+            [id] => agent_id
+            [fields] => Array
+                (
+                    [name] => j1.name
+                    [surname] => j1.surname
+                    [agent_id] => uno.agent_id
+                )
+
+            [join] => Array
+                (
+                    [j1] => Array
+                        (
+                            [table] => users
+                            [condition] => uno.user_id=j1.user_id 
+                        )
+
+                )
+
+            [where] => Array
+                (
+                    [uno.agency_id] => 1
+                )
+
+            [limit] => 100
+        )
+
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 66561
+        )
+
+)
+
+
+[18-Sep-2017 15:14:04 UTC] db get_rows select a.agent_id,a.agency_id,u.status from agent as a
+          join users as u on a.user_id=u.user_id
+          where a.agent_id='4'
+          and a.agency_id='1'
+
+[18-Sep-2017 15:14:04 UTC] usArray
+(
+    [agent_id] => 4
+    [agency_id] => 1
+    [status] => 1
+)
+
+[18-Sep-2017 15:14:04 UTC] lista oggetti
+[18-Sep-2017 15:14:04 UTC] db get_rows SHOW COLUMNS FROM  agent
+
+[18-Sep-2017 15:14:04 UTC] db get_rows SHOW COLUMNS FROM  users
+
+[18-Sep-2017 15:14:04 UTC] joinArray
+(
+    [uno.agency_id] => 1
+)
+  JOIN  users AS  j1 ON uno.user_id=j1.user_id  
+[18-Sep-2017 15:14:04 UTC] db get_rows  select  j1.name As name ,  j1.surname As surname ,  uno.agent_id As agent_id from  agent as uno   JOIN  users AS  j1 ON uno.user_id=j1.user_id   where   uno.agency_id='1'  order by uno.agent_id DESC  limit  100
+
+[18-Sep-2017 15:14:04 UTC] data dopo first doAction :Array
+(
+    [RESPONSECODE] => 1
+    [RESPONSE] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Marco
+                    [name] => Marco
+                    [1] => Broccoli
+                    [surname] => Broccoli
+                    [2] => 8
+                    [agent_id] => 8
+                )
+
+            [1] => Array
+                (
+                    [0] => Stefano
+                    [name] => Stefano
+                    [1] => Piva
+                    [surname] => Piva
+                    [2] => 7
+                    [agent_id] => 7
+                )
+
+            [2] => Array
+                (
+                    [0] => Mirko
+                    [name] => Mirko
+                    [1] => Fabbri
+                    [surname] => Fabbri
+                    [2] => 6
+                    [agent_id] => 6
+                )
+
+            [3] => Array
+                (
+                    [0] => Federico
+                    [name] => Federico
+                    [1] => Pedini Amati
+                    [surname] => Pedini Amati
+                    [2] => 5
+                    [agent_id] => 5
+                )
+
+            [4] => Array
+                (
+                    [0] => Stefano
+                    [name] => Stefano
+                    [1] => Pazzini
+                    [surname] => Pazzini
+                    [2] => 4
+                    [agent_id] => 4
+                )
+
+            [5] => Array
+                (
+                    [0] => Diego
+                    [name] => Diego
+                    [1] => Masi
+                    [surname] => Masi
+                    [2] => 3
+                    [agent_id] => 3
+                )
+
+            [6] => Array
+                (
+                    [0] => Jessica
+                    [name] => Jessica
+                    [1] => Guidi
+                    [surname] => Guidi
+                    [2] => 2
+                    [agent_id] => 2
+                )
+
+        )
+
+)
+
+[18-Sep-2017 15:14:04 UTC] passatoconfig POSTArray
+(
+)
+
+
+[18-Sep-2017 15:14:04 UTC] passato Config
+
+[18-Sep-2017 15:14:04 UTC] DoAction-Start ContractListArray
+(
+    [action] => ContractList
+    [last] => 99999999999
+    [pInfo] => Array
+        (
+            [user_id] => 11
+            [agent_id] => 4
+            [agency_id] => 1
+            [user_type] => 2
+            [priviledge] => 1
+            [cookie] => 66561
+        )
+
+)
+
+
+[18-Sep-2017 15:14:04 UTC] db get_rows select a.agent_id,a.agency_id,u.status from agent as a
+          join users as u on a.user_id=u.user_id
+          where a.agent_id='4'
+          and a.agency_id='1'
+
+[18-Sep-2017 15:14:04 UTC] usArray
+(
+    [agent_id] => 4
+    [agency_id] => 1
+    [status] => 1
+)
+
+[18-Sep-2017 15:14:04 UTC] db get_rows SELECT co.agent_id,co.agency_id,co.id as contract_id, co.nometemp, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
+      co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,
+      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,
+      concat(us.name,' ',us.surname) as fullname, concat(us.name,' ',us.surname) as contractor_name,us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
+      cmy.name,
+      concat(op.name,' ',op.surname) as other_name,sh.user_id as shared,
+      k.kyc_status, k.kyc_date,k.kyc_update, r.risk_status, r.risk_date,r.risk_update
+      FROM contract co
+      left JOIN users us ON co.contractor_id = us.user_id
+      LEFT JOIN company cmy ON co.other_id =cmy.company_id and co.act_for_other=1
+      LEFT JOIN users op ON co.other_id =op.user_id  and co.act_for_other=2
+      LEFT JOIN  share sh ON co.id=sh.object_id AND sh.object='contract'
+                and sh.user_id=co.contractor_id and sh.agency_id=co.agency_id
+                left join kyc as k on k.contract_id=co.id
+                left join risk as r on r.contract_id=co.id
+       WHERE co.agency_id ='1' AND co.status <> 2  and co.id <  99999999999 ORDER BY co.id DESC    limit 10
+
+[18-Sep-2017 15:14:04 UTC] data dopo first doAction :Array
+(
+    [RESPONSECODE] => 1
+    [RESPONSE] => Array
+        (
+            [0] => Array
+                (
+                    [0] => 8
+                    [agent_id] => 8
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1064
+                    [contract_id] => 1064
+                    [3] => 
+                    [nometemp] => 
+                    [4] => Polizza Vita
+                    [nature_contract] => Polizza Vita
+                    [5] => Investimento per accantonamento
+                    [scope_contract] => Investimento per accantonamento
+                    [6] => 81009509
+                    [number] => 81009509
+                    [7] => 280/2017
+                    [CPU] => 280/2017
+                    [8] => 2017-09-15
+                    [contract_date] => 2017-09-15
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 112
+                    [contractor_id] => 112
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => San Marino
+                    [activity_country] => San Marino
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 2027-09-15
+                    [contract_eov] => 2027-09-15
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => Limitato
+                    [riskAssigned] => Limitato
+                    [19] => 1
+                    [status] => 1
+                    [20] => 0
+                    [value_det] => 0
+                    [21] => Samuele Soldati
+                    [fullname] => Samuele Soldati
+                    [22] => Samuele Soldati
+                    [contractor_name] => Samuele Soldati
+                    [23] => Soldati
+                    [surname] => Soldati
+                    [24] => Samuele
+                    [name1] => Samuele
+                    [25] => ssoldati9@gmail.com
+                    [email] => ssoldati9@gmail.com
+                    [26] => 3389783641
+                    [mobile] => 3389783641
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 1
+                    [kyc_status] => 1
+                    [33] => 2017-09-18 10:24:16
+                    [kyc_date] => 2017-09-18 10:24:16
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 1
+                    [risk_status] => 1
+                    [36] => 2017-09-18 13:07:56
+                    [risk_date] => 2017-09-18 13:07:56
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [1] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1058
+                    [contract_id] => 1058
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31524847
+                    [number] => 31524847
+                    [7] => 279p
+                    [CPU] => 279p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 0
+                    [kyc_status] => 0
+                    [33] => 2017-09-14 18:42:50
+                    [kyc_date] => 2017-09-14 18:42:50
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [2] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1057
+                    [contract_id] => 1057
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534837
+                    [number] => 31534837
+                    [7] => 278p
+                    [CPU] => 278p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [3] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1056
+                    [contract_id] => 1056
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534824
+                    [number] => 31534824
+                    [7] => 277p
+                    [CPU] => 277p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [4] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1055
+                    [contract_id] => 1055
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31534812
+                    [number] => 31534812
+                    [7] => 276p
+                    [CPU] => 276p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [5] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1054
+                    [contract_id] => 1054
+                    [3] => Bianchi Lond
+                    [nometemp] => Bianchi Lond
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 5807178
+                    [number] => 5807178
+                    [7] => 275p
+                    [CPU] => 275p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [6] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1053
+                    [contract_id] => 1053
+                    [3] => Elena Guidi
+                    [nometemp] => Elena Guidi
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31533930
+                    [number] => 31533930
+                    [7] => 371b
+                    [CPU] => 371b
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [7] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1052
+                    [contract_id] => 1052
+                    [3] => Zonzini David Daniel
+                    [nometemp] => Zonzini David Daniel
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31535073
+                    [number] => 31535073
+                    [7] => 274p
+                    [CPU] => 274p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [8] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1051
+                    [contract_id] => 1051
+                    [3] => Zonzini David Daniel
+                    [nometemp] => Zonzini David Daniel
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31535053
+                    [number] => 31535053
+                    [7] => 273p
+                    [CPU] => 273p
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+            [9] => Array
+                (
+                    [0] => 0
+                    [agent_id] => 0
+                    [1] => 1
+                    [agency_id] => 1
+                    [2] => 1050
+                    [contract_id] => 1050
+                    [3] => Mularoni Natascia
+                    [nometemp] => Mularoni Natascia
+                    [4] => 
+                    [nature_contract] => 
+                    [5] => 
+                    [scope_contract] => 
+                    [6] => 31533985
+                    [number] => 31533985
+                    [7] => 370b
+                    [CPU] => 370b
+                    [8] => 0000-00-00
+                    [contract_date] => 0000-00-00
+                    [9] => 
+                    [contract_value] => 
+                    [10] => 0
+                    [contractor_id] => 0
+                    [11] => 
+                    [role_for_other] => 
+                    [12] => 194
+                    [activity_country] => 194
+                    [13] => 0
+                    [tipo_contratto] => 0
+                    [14] => 0000-00-00
+                    [contract_eov] => 0000-00-00
+                    [15] => 0
+                    [act_for_other] => 0
+                    [16] => 
+                    [Docs] => 
+                    [17] => 
+                    [other_id] => 
+                    [18] => 
+                    [riskAssigned] => 
+                    [19] => 0
+                    [status] => 0
+                    [20] => 1
+                    [value_det] => 1
+                    [21] => 
+                    [fullname] => 
+                    [22] => 
+                    [contractor_name] => 
+                    [23] => 
+                    [surname] => 
+                    [24] => 
+                    [name1] => 
+                    [25] => 
+                    [email] => 
+                    [26] => 
+                    [mobile] => 
+                    [27] => 
+                    [image] => 
+                    [28] => 
+                    [company_id] => 
+                    [29] => 
+                    [name] => 
+                    [30] => 
+                    [other_name] => 
+                    [31] => 
+                    [shared] => 
+                    [32] => 
+                    [kyc_status] => 
+                    [33] => 
+                    [kyc_date] => 
+                    [34] => 
+                    [kyc_update] => 
+                    [35] => 
+                    [risk_status] => 
+                    [36] => 
+                    [risk_date] => 
+                    [37] => 
+                    [risk_update] => 
+                )
+
+        )
+
+)
+
