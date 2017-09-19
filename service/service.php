@@ -1,6 +1,5 @@
 <?php
-include_once("config.php");
-
+include_once("../../config.php");
 //error_log("passato2 ".$_SERVER['$request_METHOD']. $request['action'].print_r($request,1).PHP_EOL);
 function doAction($request,$files,$db,$data=array(),$firsAction){
   error_log("DoAction-Start ". $request['action'].print_r($request,1).PHP_EOL);
