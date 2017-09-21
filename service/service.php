@@ -87,8 +87,8 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
         $settings=$set['settings'];
       }
 
-      $cookie=rand(0,100000);
-      setcookie("user".$chkuser['user_id'],$cookie,time()+3600*48);
+      $cookie=rand(0,10000000);
+      setcookie("user".TIPO_CONF.$chkuser['user_id'],$cookie,time()+3600*48,DS.TIPO_CONF);
 
       if($chkuser['status']=='99')
       {
@@ -2184,7 +2184,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
     error_log("file:" .print_r($files,1));
 // decido se da upload web o da file
     if (strlen($files['file']['tmp_name'])>0){
-error_log('passatoxx');
+      error_log('è arivato un _FILES');
       $file_content =file_get_contents($files['file']['tmp_name']);
       $ext=".".pathinfo($request['filename'], PATHINFO_EXTENSION);
       $newfile=$request['filename'];
@@ -2192,7 +2192,7 @@ error_log('passatoxx');
 
     }
     else{
-      error_log('xxpassatoxx');
+      error_log('è arrivato in una variabile');
       $file_content = $request['f']['data'];
       $file_content = substr($file_content, strlen('data:' . mime_content_type_ax($request['f']['name']).';base64,'));
       $file_content = base64_decode($file_content);
@@ -2211,20 +2211,20 @@ error_log('passatoxx');
       }
 
 
-      if(file_put_contents ( "uploads/$entity/$newfile",  $file_content ))
+      if(file_put_contents ( PATH_UPLOADS .$entity.DS. $newfile,  $file_content ))
       {
-        $esit=copy("uploads/$entity/$newfile", "uploads/$entity/small/$newfile");
+        $esit=copy(PATH_UPLOADS. $entity.DS.$newfile, PATH_UPLOADS.DS.$entity.DS.small.DS.$newfile);
         error_log("DOPOCOPIA" .$esit);
         if(!$esit) {
           error_log("errore copia file" .$esit);
         }
 
-        smart_resize_image("uploads/$entity/small/$newfile", 300, 0,true);
+        smart_resize_image(PATH_UPLOADS.$entity.DS.'small'.DS.$newfile, 300, 0,true);
         $imagename=$db->getVal("select image from ".$entity." where ".$entyty_key."='".$request['id']."' ");
         if (strlen($imagename)>0){
           //error_log("image:".$imagename.PHP_EOL);
-          @unlink("uploads/".$entity."/$imagename");
-          @unlink("uploads/".$entity."/small/$imagename");
+          @unlink(PATH_UPLOADS. $entity.DS.$imagename);
+          @unlink(PATH_UPLOADS. $entity.DS."small". DS.$imagename);
         }
       }
       $data = array('image' => $newfile);
@@ -2252,25 +2252,29 @@ error_log('passatoxx');
     }
     //////error_log("MOVE:". $_FILES['file']['tmp_name']. "uploads/document/".$for ."_". $user_id . DS . $newfile .PHP_EOL);
 
-    if (file_put_contents ( "uploads/document/".$for."_" . $user_id  . DS . $newfile,  $file_content)) {
+    if (file_put_contents ( PATH_UPLOAD ."document" .DS. $for."_" . $user_id  .DS. $newfile,  $file_content)) {
       //////error_log("COPY:". "uploads/document/".$for ."_" . $user_id . DS . $newfile ."---" . "uploads/document/".$for ."_". $user_id . DS . "resize/" . $newfile.PHP_EOL);
       if ( in_array($ext,$image_ext)){
         error_log("crea immagine piccola"."uploads/document/".$for ."_" . $user_id . DS . $newfile . PHP_EOL);
-        copy("uploads/document/".$for ."_" . $user_id . DS . $newfile, "uploads/document/".$for ."_" . $user_id . DS . "resize/" . $newfile);
-        smart_resize_image("uploads/document/".$for."_" . $user_id  . DS . "resize/$newfile", 300, 0,true);
+        copy(PATH_UPLOAD. "document" .DS. $for ."_" . $user_id . DS . $newfile, PATH_UPLOAD. "document".DS. $for ."_" . $user_id . DS . "resize".DS . $newfile);
+        smart_resize_image(PATH_UPLOAD."document".DS.$for."_" . $user_id  . DS . "resize".DS. $newfile, 300, 0,true);
 
       }
     }
-    $oldImage=$db->getRow("select imagename from tmp_image where per='".$for."' and per_id=".$user_id );
+    //$indice=$db->getVal("select count(imagename) from tmp_image where per='".$for."' and per_id=".$user_id  );
+
+    $indice=$request['indice'];
+
+    $oldImage=$db->getRow("select imagename from tmp_image where per='".$for."' and per_id=".$user_id ." and indice=" . $indice  );
     if (count($oldImage)>0){
       $flgDel=$db->delete("tmp_image", "where imagename='".$oldImage['imagename']."' ");
-      @unlink("uploads/document/".$for."_" .$user_id."/".$oldImage['imagename']);
-      @unlink("uploads/document/".$for."_" .$user_id."/resize/".$oldImage['imagename']);
+      @unlink(PATH_UPLOAD."document".DS.$for."_" .$user_id.DS.$oldImage['imagename']);
+      @unlink(PATH_UPLOAD. "document".DS.$for."_" .$user_id.DS."resize".DS.$oldImage['imagename']);
 
     }
-    $aryData = array("imagename" =>	$newfile,"per"  =>$for,"per_id"=>$user_id, "file_type"=>$ext,"loaded"=>1);
+    $aryData = array("imagename" =>	$newfile,"per"  =>$for,"per_id"=>$user_id, "file_type"=>$ext,"loaded"=>1,"indice"=>$indice);
     $flgIn = $db->insertAry("tmp_image",$aryData);
-    $data = array('id' => $flgIn, 'response' => $newfile,'file_name' => $_FILES["file"]["tmp_name"],"file_type" => $ext);
+    $data = array('RESPONSECODE'=>1,'id' => $flgIn, 'response' => $newfile,"file_type" => $ext);
     echo json_encode($data);
     break;
 
@@ -2427,9 +2431,65 @@ error_log('passatoxx');
       $flgIn=$db->delete('tmp_image',"where imagename='".$doc['doc_image']."'");
       //error_log("uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
 
-      @unlink("uploads/document/".$doc['per']."_" .$doc['per_id']."/".$doc['doc_image']);
-      @unlink("uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
+      @unlink(UPLOADS."document/".$doc['per']."_" .$doc['per_id']."/".$doc['doc_image']);
+      @unlink(UPLOADS."uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
     }
+    if ($request['table']=='contract'){
+      $flgIn=$db->delete('kyc',"where contract_id='".$request['id'] ."' and  agency_id=".$request['pInfo']['agency_id']);
+      $flgIn=$db->delete('kyc_log',"where contract_id='".$request['id'] ."' and  agency_id=".$request['pInfo']['agency_id']);
+      $flgIn=$db->delete('risk',"where contract_id='".$request['id'] ."' and  agency_id=".$request['pInfo']['agency_id']);
+      $flgIn=$db->delete('risk_log',"where contract_id='".$request['id'] ."' and  agency_id=".$request['pInfo']['agency_id']);
+      $docs=$db->getRow("select * from documents where per='kyc' and  per_id =" .$request['id']);
+      foreach ($docs as $doc){
+        $doc=$db->getRow("select * from documents where id =" .$request['id']);
+        $flgIn=$db->delete('tmp_image',"where imagename='".$doc['doc_image']."'");
+        //error_log("uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
+
+        @unlink(UPLOADS."document/".$doc['per']."_" .$doc['per_id']."/".$doc['doc_image']);
+        @unlink(UPLOADS."document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
+
+      }
+      if ($request['table']=='users'){
+        $profile=$db->getVal("select image from users where user_id =" .$request['id']);
+        $flgIn=$db->delete('tmp_image',"where imagename='".$profile."'");
+        //error_log("uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
+        @unlink(UPLOADS."users".DS.$profile);
+        @unlink(UPLOADS."users".DS."small".$profile);
+        $doc=$db->getRow("select * from documents where per='customer' and  per_id =" .$request['id']);
+        foreach ($docs as $doc){
+          $doc=$db->getRow("select * from documents where id =" .$request['id']);
+          $flgIn=$db->delete('tmp_image',"where imagename='".$doc['doc_image']."'");
+          //error_log("uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
+
+          @unlink("uploads/document/".$doc['per']."_" .$doc['per_id']."/".$doc['doc_image']);
+          @unlink("uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
+
+        }
+
+      }
+      if ($request['table']=='company'){
+        $profile=$db->getVal("select image from company where user_id =" .$request['id']);
+        $flgIn=$db->delete('tmp_image',"where imagename='".$profile."'");
+        //error_log("uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
+        @unlink(UPLOADS."users".DS.$profile);
+        @unlink(UPLOADS."users".DS."small".$profile);
+
+        $docs=$db->getRow("select * from documents where per='company' and  per_id =" .$request['id']);
+        foreach ($docs as $doc){
+          $doc=$db->getRow("select * from documents where id =" .$request['id']);
+          $flgIn=$db->delete('tmp_image',"where imagename='".$doc['doc_image']."'");
+          //error_log("uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
+          @unlink("uploads/document/".$doc['per']."_" .$doc['per_id']."/".$doc['doc_image']);
+          @unlink("uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
+
+        }
+
+      }
+
+
+
+    }
+
     if ($request['agent']){
       $flgIn=$db->delete('agent',"where user_id='".$request['id'] ."' and  agency_id=".$request['pInfo']['agency_id']);
       //////error_log("uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
