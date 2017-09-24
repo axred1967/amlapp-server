@@ -23,14 +23,23 @@ function smart_resize_image( $file, $width = 0, $height = 0, $proportional = fal
     $final_width = 0;
     $final_height = 0;
     list($width_old, $height_old) = $info;
+		if ($height==0){
+			if ($height_old>$width_old){
+				$height=$width;
+				$width=0;
+			}
+		}
     if ($proportional) {
       if ($width == 0) $factor = $height/$height_old;
       elseif ($height == 0) $factor = $width/$width_old;
       else $factor = min ( $width / $width_old, $height / $height_old);
+
       $final_width = round ($width_old * $factor);
 
       $final_height = round ($height_old * $factor);
-
+			if ( $factor>1){
+				return;
+			}
 
 
     }
@@ -70,7 +79,7 @@ function smart_resize_image( $file, $width = 0, $height = 0, $proportional = fal
         return false;
 
     }
-
+    error_log("immagine tipo".$info[2]);
 
 
     $image_resized = imagecreatetruecolor( $final_width, $final_height );
@@ -2751,6 +2760,10 @@ function mime_content_type_ax($filename) {
     'xls' => 'application/vnd.ms-excel',
     'ppt' => 'application/vnd.ms-powerpoint',
 
+		// ms office
+    'docx' => 'application/msword',
+    'xlsx' => 'application/vnd.ms-excel',
+    'pptx' => 'application/vnd.ms-powerpoint',
     // open office
     'odt' => 'application/vnd.oasis.opendocument.text',
     'ods' => 'application/vnd.oasis.opendocument.spreadsheet',

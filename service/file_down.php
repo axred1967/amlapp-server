@@ -19,17 +19,36 @@ if ($_REQUEST['file']==null){
 
 elseif ($_REQUEST['profile']==1){
   $file=PATH_UPLOADS.$entity.DS.'small'.DS.$_REQUEST['file'];
-
+  $fp=PATH_UPLOADS.$entity.DS.'small'.DS;
+  if( !file_exists( $file ) ) {
+    $file=PATH_UPLOADS.$entity.DS.$_REQUEST['file'];
+    $fp=PATH_UPLOADS.$entity.DS;
+  }
 }
 
-elseif ($_REQUEST['resize']==true){
-  $file=PATH_UPLOADS."document/".$_REQUEST['doc_per']."_". $_REQUEST['per_id']."/resize/" .$_REQUEST['file'];
+elseif ($_REQUEST['resize']==1){
+  $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."resize" .DS.$_REQUEST['file'];
+  $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."resize" .Ds;
+  if( !file_exists( $file ) ) {
+    $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS.$_REQUEST['file'];
+    $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS;
+  }
+}
+elseif ($_REQUEST['resize']=='m'){
+  $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."medium" .DS.$_REQUEST['file'];
+  $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."medium" .Ds;
+  if( !file_exists( $file ) ) {
+    $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS.$_REQUEST['file'];
+    $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS;
+  }
 }
 else {
-  $file=PATH_UPLOADS."document/".$_REQUEST['doc_per']."_". $_REQUEST['per_id']."/" .$_REQUEST['file'];
+  $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS.$_REQUEST['file'];
+  $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS;
 
 }
-error_log("file:".$file.mime_content_type_ax($file).file_get_contents($file));
+
+error_log("resize:". print_r($_REQUEST,1). "file:".$file. "tipo". mime_content_type_ax($file));
 
 //echo mime_content_type_ax($file);
 
@@ -38,7 +57,35 @@ if( !file_exists( $file ) ) {
   die( 'xxfile doesnt exist'. $file);
 }
 
-header('Content-type: '.mime_content_type_ax($file));
+set_time_limit(0); // disable the time limit for this script
 
+$dl_file=$_REQUEST['file'];
+//$dl_file = preg_replace("([^\w\s\d\-_~,;:\[\]\(\).]|[\.]{2,})", '', $_GET['file']); // simple file name validation
+//$dl_file = filter_var($dl_file, FILTER_SANITIZE_URL); // Remove (more) invalid characters
+$fullPath = $fp.$dl_file;
+$image_ext=array('.jpg',".png",".gif",".tif",".bmp");
+
+if ($fd = fopen ($fullPath, "r")) {
+    $fsize = filesize($fullPath);
+    $path_parts = pathinfo($fullPath);
+    $ext = strtolower($path_parts["extension"]);
+    header('Content-type: '.mime_content_type_ax($file));
+    if (in_array($ext,$image_ext)){
+      header("Content-Disposition: filename=\"".$path_parts["basename"]."\"");
+
+    }
+    else{
+      header("Content-Disposition: attachment; filename=\"".$path_parts["basename"]."\""); // use 'attachment' to force a file download
+
+    }
+    header("Content-length: $fsize");
+    header("Cache-control: private"); //use this to open files directly
+    while(!feof($fd)) {
+        $buffer = fread($fd, 2048);
+//        echo $buffer;
+    }
+}
+error_log("file".$fullPath."mim".mime_content_type_ax($file));
+fclose ($fd);
 echo file_get_contents($file);
 ?>
