@@ -17,6 +17,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       return $data;
     }
   }
+
   if ($request['action']=='login'){
       if ($request['username']=='' || $request['password']==''){
         $data = array('RESPONSECODE'=> 0 ,'RESPONSE'=> "Immettere username e password");
@@ -114,7 +115,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       echo json_encode($data);
       die();
   }
-  if  ($firsAction!='signUp'){
+  if  ($firsAction!='signUp' ){
     if (strlen($request['pInfo']['agency_id'])==0 ||strlen($request['pInfo']['user_type'])==0 ||strlen($request['pInfo']['agent_id'])==0 ||strlen($request['pInfo']['agency_id'])==0 ){
       $data=array(  'RESPONSECODE'	=>  -1,   'RESPONSE'	=> "Credeziali non valide 1", "var"=>print_r($_REQUEST,1).print_r($_COOKIE,1));
       //error_log("credenziali non valide". print_r($_REQUEST,1));
@@ -196,91 +197,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
     break;
 
 
-    case 'upload_user_image' :
-    {
-      $newfile=md5(microtime()).".jpg";
-      if(move_uploaded_file($_FILES['file']['tmp_name'],"uploads/users/".$newfile))
-      {
-        copy("uploads/users/" . $newfile, "uploads/users/small/" . $newfile);
-        smart_resize_image("uploads/users/" . "small/$newfile", 300, 0,true);
-        $imagename=$db->getVal("select image from users where user_id='".$request['userid']."' ");
-        @unlink("uploads/users/$imagename");
-      }
-      //$aryData = array("image" =>	$newfile);
-      //$db->updateAry("users",$aryData,"where user_id='".$request['userid']."'");
-      $flgIn = $request['userid'];
-      $data = array('review_id' => $flgIn, 'response' => $newfile,'file_name' => $_FILES["file"]["tmp_name"] );
-      echo json_encode($data);
-      break;
-
-    }
-    case 'upload_company_image' :
-    {
-      $newfile=md5(microtime()).".jpg";
-      if(move_uploaded_file($_FILES['file']['tmp_name'],"uploads/company/".$newfile))
-      {
-        copy("uploads/user/" . $newfile, "uploads/company/small/" . $newfile);
-        smart_resize_image("uploads/company/" . "small/$newfile", 300, 0,true);
-        $imagename=$db->getVal("select image from company where company_id='".$request['company_id']."' ");
-        @unlink("uploads/company/$imagename");
-
-
-      }
-      //$aryData = array("image" =>	$newfile);
-      //$db->updateAry("users",$aryData,"where user_id='".$request['userid']."'");
-      //$flgIn = $request['userid'];
-      $data = array('review_id' => $flgIn, 'response' => $newfile,'file_name' => $_FILES["file"]["tmp_name"] );
-      echo json_encode($data);
-      break;
-
-    }
-    case 'get_user_image_name' :
-    {
-      $imagename=$db->getVal("select image from users where user_id='".$request['userid']."' ");
-      $data = array(
-        'RESPONSECODE'	=>  1,
-        'RESPONSE'	=> $imagename,
-      );
-      echo json_encode($data);
-      break;
-    }
-    case 'upload_profile_image':
-    {
-      $newfile=md5(microtime()).".jpg";
-      if(move_uploaded_file($_FILES['file']['tmp_name'],"uploads/user/".$newfile))
-      {
-        copy("uploads/user/".$newfile,"uploads/user/small/".$newfile);
-        smart_resize_image("uploads/user/small/".$newfile,300,0,true);
-
-        $aryData = array("image" =>	$newfile,'user_id'=>$_GET['id']);
-        $flgIn=$db->updateAry("users",$aryData,"where user_id='".$request['id']."'");
-
-      }
-      //echo json_encode($data);
-      break;
-    }
-    case 'get_profile_image_name':
-    {
-      $imgList=$db->getRows("select image FROM users where user_id='".$request['id']."' ");
-      if(count($imgList)>0)
-      {
-        $i=1;
-        foreach($imgList as $imgListi)
-        {
-          $datas[$i] = $imgListi['image'];
-          $i++;
-        }
-        $data = array('RESPONSECODE'	=>  1,'RESPONSE'	=> $datas);
-      }
-      else
-      {
-        $data = array('RESPONSECODE'	=> 0,'RESPONSE'	=> "");
-      }
-
-      echo json_encode($data);
-      break;
-    }
-    case 'Profile_info' :
+      case 'Profile_info' :
     {
       if($request['id']!='' && $request['id']!='')
       {
@@ -356,7 +273,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
         foreach ($contractor as $key => $word){
           $date = date_parse($word);
           if (!($date["error_count"] == 0 && checkdate($date["month"], $date["day"], $date["year"]))) {
-              if (! is_numeric($word) && strlen($word)>3 ){
+              if (! is_numeric($word) && strlen($word)>3 && $key!="sign" ){
                 $sql="select * from word_tag_kyc where agency_id=" .$request['pInfo']['agency_id'] ."
                 and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='" .$key ."'";
                 $w=$db->getRow($sql);
@@ -788,7 +705,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,
       co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,
       concat(us.name,' ',us.surname) as fullname, concat(us.name,' ',us.surname) as contractor_name,us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
-      cmy.name,
+      cmy.name,op.image as owner_image,cmy.image as company_image,
       concat(op.name,' ',op.surname) as other_name,sh.user_id as shared,
       k.kyc_status, k.kyc_date,k.kyc_update, r.risk_status, r.risk_date,r.risk_update
       FROM contract co
@@ -1535,7 +1452,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
 
       $sql= "SELECT co.agent_id,co.nometemp, co.agency_id,co.id as contract_id, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
       co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,co.end_det,
-      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,
+      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,co.procura,
       concat(us.name,' ',us.surname) as fullname,concat(us.name,' ',us.surname) as contractor_name, us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
       cmy.name,concat(op.name,' ',op.surname) as other_name, sh.user_id as shared, k.kyc_status, k.kyc_date,k.kyc_update, r.risk_status, r.risk_date,r.risk_update
 
@@ -2061,32 +1978,71 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       error_log('passatoxx'."ext".$ext."filename:".$newfile);
 
     }
-
-    if ($request['type']=="profile"){
-      $entity=$request['entity'];
-      $entity_key=$request['entity_key'];
-      if (strlen($request['entity'])==0) {
-        $entity='users';
-        $entity_key='user_id';
+    // gestisco firma
+    $entity=$request['entity'];
+    $entity_key=$request['entity_key'];
+    if (strlen($request['entity'])==0) {
+      $entity='users';
+      $entity_key='user_id';
+    }
+    if ($request['firma']==1){
+      error_log('sto facendo firma'.PATH_UPLOADS ."document" .DS. $entity ."_" . $entity_key .DS. 'firma'. DS);
+      if (!file_exists(PATH_UPLOADS ."document" .DS. $entity ."_" . $entity_key .DS. 'firma')) {
+        mkdir(PATH_UPLOADS ."document" .DS. $entity ."_" . $entity_key .DS. 'firma', 0755, true);
       }
+      if(file_put_contents ( PATH_UPLOADS ."document" .DS. $entity ."_" . $entity_key .DS. 'firma'. DS . $newfile,  $file_content ))
+      {
+        error_log("errore copia file" .$esit);
+
+      }
+      $oldImage=$db->getRow("select imagename from tmp_image where tipo='firma' and per='".$entity."' and per_id=".$entity_key  );
+      if (count($oldImage)>0){
+        $flgDel=$db->delete("tmp_image", "where imagename='".$oldImage['imagename']."' ");
+        @unlink( PATH_UPLOADS ."document" .DS. $entity ."_" . $entity_key .DS. 'firma'. DS .$oldImage['imagename']);
+
+      }
+      $aryData = array("imagename" =>	$newfile,"tipo"=>"firma" , "per"  =>$entity,"per_id"=>$entity_key, "file_type"=>$ext,"loaded"=>1);
+      $flgIn = $db->insertAry("tmp_image",$aryData);      $data = array('image' => $newfile);
+      //$data = array('review_id' => $flgIn, 'response' => $newfile,'file_name' => $_FILES["file"]["tmp_name"] );
+      echo json_encode($data);
+      break;
+      return;
+
+    }
+    //gestisco profilo
+    if ($request['type']=="profile"){
 
 
       if(file_put_contents ( PATH_UPLOADS .$entity.DS. $newfile,  $file_content ))
       {
-        $esit=copy(PATH_UPLOADS. $entity.DS.$newfile, PATH_UPLOADS.DS.$entity.DS.small.DS.$newfile);
+        if (!file_exists(PATH_UPLOADS.DS.$entity.DS.'small')) {
+          mkdir(PATH_UPLOADS.DS.$entity.DS.'small', 0755, true);
+        }
+        $esit=copy(PATH_UPLOADS. $entity.DS.$newfile, PATH_UPLOADS.DS.$entity.DS.'small'.DS.$newfile);
         error_log("DOPOCOPIA" .$esit);
         if(!$esit) {
           error_log("errore copia file" .$esit);
         }
 
         smart_resize_image(PATH_UPLOADS.$entity.DS.'small'.DS.$newfile, 300, 0,true);
-        $imagename=$db->getVal("select image from ".$entity." where ".$entyty_key."='".$request['id']."' ");
-        if (strlen($imagename)>0){
-          //error_log("image:".$imagename.PHP_EOL);
-          @unlink(PATH_UPLOADS. $entity.DS.$imagename);
-          @unlink(PATH_UPLOADS. $entity.DS."small". DS.$imagename);
+        if (!file_exists(PATH_UPLOADS.DS.$entity.DS.'medium')) {
+          mkdir(PATH_UPLOADS.DS.$entity.DS.'small', 0755, true);
         }
+
+        $esit=copy(PATH_UPLOADS. $entity.DS.$newfile, PATH_UPLOADS.DS.$entity.DS.'medium'.DS.$newfile);
+        smart_resize_image(PATH_UPLOADS. $entity.DS.$newfile, PATH_UPLOADS.DS.$entity.DS.'medium'.DS.$newfile, 1000, 0,true);
+
       }
+      $oldImage=$db->getRow("select imagename from tmp_image where tipo='profilo' and per='".$entity."' and per_id=".$entity_key  );
+      if (count($oldImage)>0){
+        $flgDel=$db->delete("tmp_image", "where imagename='".$oldImage['imagename']."' ");
+        @unlink(PATH_UPLOAD. $entity.DS.$oldImage['imagename']);
+        @unlink(PATH_UPLOAD. $entity.DS.'small'.DS. $oldImage['imagename']);
+        @unlink(PATH_UPLOAD. $entity.DS.'medium'.DS. $oldImage['imagename']);
+
+      }
+      $aryData = array("imagename" =>	$newfile,"tipo" =>'profilo', "per"  =>$entity,"per_id"=>$entity_key, "file_type"=>$ext,"loaded"=>1);
+      $flgIn = $db->insertAry("tmp_image",$aryData);
       $data = array('image' => $newfile);
       //$data = array('review_id' => $flgIn, 'response' => $newfile,'file_name' => $_FILES["file"]["tmp_name"] );
       echo json_encode($data);
@@ -2364,6 +2320,7 @@ if ($data['RESPONSECODE']==1 && is_array($_REQUEST['other_actions']) ){
     $res=$data;
     foreach($_REQUEST['other_actions'] as $key => $val) {
       error_log(print_r($val,1));
+      $val['pInfo']=$_REQUEST['pInfo'];
       $res=doAction($val,'',$db,$res,$_REQUEST['action']);
       if ($res['RESPONSECODE']!=1){
         $data=array(  'RESPONSECODE'	=>  0,   'RESPONSE'	=> "Errore nella Azione precedente");

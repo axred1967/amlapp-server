@@ -2924,5 +2924,11 @@ function mycrop($src, array $rect)
 
     return $dest;
 }
-
+function urlencode_array($array){
+    $out="";
+    foreach($array as $key => $value){
+    $out.="&".urlencode($key)."=".urlencode($value);
+    }
+return $out;
+}
 ?>

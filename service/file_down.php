@@ -7,45 +7,59 @@ if( !isset( $_REQUEST['file'] ) ) {
 }
 
 $entity=$_REQUEST['entity'];
+$entity_key=$_REQUEST['entity_key'];
 if (strlen($_REQUEST['entity'])==0) {
   $entity='users';
-  $entity_key='user_id';
+  $entity_key=$_REQUEST['user_id'];
 }
 error_log("entity". $entity.PHP_EOL);
 if ($_REQUEST['file']==null){
   $file=PATH_ROOTAPP.DS.'img/customer-listing1.png';
 
 }
+switch ($_REQUEST['tipo']){
+  case "profilo":
+      if ($_REQUEST['resize']=='m'){
+        $file=PATH_UPLOADS.$entity.DS.'medium'.DS.$_REQUEST['file'];
+        $fp=PATH_UPLOADS.$entity.DS.'medium'.DS;
+      }else {
+        $file=PATH_UPLOADS.$entity.DS.'small'.DS.$_REQUEST['file'];
+        $fp=PATH_UPLOADS.$entity.DS.'small'.DS;
 
-elseif ($_REQUEST['profile']==1){
-  $file=PATH_UPLOADS.$entity.DS.'small'.DS.$_REQUEST['file'];
-  $fp=PATH_UPLOADS.$entity.DS.'small'.DS;
-  if( !file_exists( $file ) ) {
-    $file=PATH_UPLOADS.$entity.DS.$_REQUEST['file'];
-    $fp=PATH_UPLOADS.$entity.DS;
+      }
+
+      if( !file_exists( $file )    ) {
+        $file=PATH_UPLOADS.$entity.DS.'small'.DS.$_REQUEST['file'];
+        $fp=PATH_UPLOADS.$entity.DS.'small'.DS;
+      }
+    break;
+  case "firma":
+    $file=PATH_UPLOADS."document" .DS. $entity."_". $entity_key .DS.'firma'.DS.$_REQUEST['file'];
+    $fp=PATH_UPLOADS."document" . DS. $entity."_". $entity_key .DS.'firma'.DS;
+    break;
+
+  default:
+  if ($_REQUEST['resize']==1){
+    $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."resize" .DS.$_REQUEST['file'];
+    $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."resize" .Ds;
+    if( !file_exists( $file ) ) {
+      $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS.$_REQUEST['file'];
+      $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS;
+    }
   }
-}
-
-elseif ($_REQUEST['resize']==1){
-  $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."resize" .DS.$_REQUEST['file'];
-  $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."resize" .Ds;
-  if( !file_exists( $file ) ) {
+  elseif ($_REQUEST['resize']=='m'){
+    $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."medium" .DS.$_REQUEST['file'];
+    $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."medium" .Ds;
+    if( !file_exists( $file ) ) {
+      $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS.$_REQUEST['file'];
+      $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS;
+    }
+  }
+  else {
     $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS.$_REQUEST['file'];
     $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS;
-  }
-}
-elseif ($_REQUEST['resize']=='m'){
-  $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."medium" .DS.$_REQUEST['file'];
-  $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS."medium" .Ds;
-  if( !file_exists( $file ) ) {
-    $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS.$_REQUEST['file'];
-    $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS;
-  }
-}
-else {
-  $file=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS.$_REQUEST['file'];
-  $fp=PATH_UPLOADS."document".DS.$_REQUEST['doc_per']."_". $_REQUEST['per_id'].DS;
 
+  }
 }
 
 error_log("resize:". print_r($_REQUEST,1). "file:".$file. "tipo". mime_content_type_ax($file));
@@ -63,7 +77,7 @@ $dl_file=$_REQUEST['file'];
 //$dl_file = preg_replace("([^\w\s\d\-_~,;:\[\]\(\).]|[\.]{2,})", '', $_GET['file']); // simple file name validation
 //$dl_file = filter_var($dl_file, FILTER_SANITIZE_URL); // Remove (more) invalid characters
 $fullPath = $fp.$dl_file;
-$image_ext=array('.jpg',".png",".gif",".tif",".bmp");
+$image_ext=array('jpg',"png","gif","tif","bmp","jpeg");
 
 if ($fd = fopen ($fullPath, "r")) {
     $fsize = filesize($fullPath);

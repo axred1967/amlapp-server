@@ -39,7 +39,9 @@ if ($_GET['agg']>0){
 else {
   $sql="SELECT * from kyc where contract_id='".$_GET['id']."'";
 }
+
 $kyc = $db->getRow($sql);
+$kyc_update=json_decode($kyc['kyc_update'],true);
 $company=json_decode($kyc['company_data'],true);
 $other=json_decode($kyc['owner_data'],true);
 $contractor=json_decode($kyc['contractor_data'],true);
@@ -59,7 +61,7 @@ foreach ($countryList as $countryVal) {
   $cl[$countryVal['country_id']]=$countryVal['country_name'];
 
 }
-$agent = $db->getRow("SELECT * FROM users  where user_id=". $_GET['pInfo']['user_id']);
+$agent = $db->getRow("SELECT * FROM users  where user_id=". $contract['agent_id']);
 $agency = $db->getRow("SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=". $_GET['pInfo']['agency_id']);
 //error_log("agent".print_r($agent,1).PHP_EOL);
 $agent_settings=json_decode($agent['settings'],true);
@@ -198,9 +200,9 @@ $pdf->IncludeJS($js); */
 //header('Content-Disposition: attachment; filename="downloaded.pdf"');
 //header('Content-Disposition: attachment; filename=document-name.pdf');
 //$pdf->writeHTML($html, true, false, true, false, '');
-
 //Firma
 if (strlen($contractor['sign'])>0 && $agent_settings['sign']==1){
+  /*
   $contractor['sign']=substr($contractor['sign'],22);
   $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $contractor['sign']));
   $imgdata = base64_decode($contractor['sign']);
@@ -217,9 +219,16 @@ if (strlen($contractor['sign'])>0 && $agent_settings['sign']==1){
       imagepng($im2, $file);
   }
   $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+  */
+  //$file="../service/file_down.php?file=".$contractor['sign'] ."&tipo=firma&entity=contract&entity_key=". $_GET['id'] ."&".http_build_query(array('pInfo' => $_REQUEST['pInfo']));
+  $file="../uploads/document/contract_".$_GET['id'].DS.'firma'.DS.$contractor['sign'];
+  $data=file_get_contents($file);
+  $file = $contractor['sign'];
+  file_put_contents($file, $data);
   $sign='<img height="120" src="'.$file.'" />';
 }
 if (strlen($agent['sign'])>0 && $agent_settings['sign']==1){
+  /*
   $agent['sign']=substr($agent['sign'],22);
   $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $agent['sign']));
   $imgdata = base64_decode($agent['sign']);
@@ -236,10 +245,21 @@ if (strlen($agent['sign'])>0 && $agent_settings['sign']==1){
       imagepng($im2, $file);
   }
   $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+  */
+  //$file="../service/file_down.php?file=".$agent['sign'] ."&tipo=firma&entity=users&entity_key=". $agent['user_id'] ."&". http_build_query(array('pInfo' => $_REQUEST['pInfo']));
+  $file="../uploads/document/users_".$agent['user_id'].DS. "firma".DS.$agent['sign'];
+  $data=file_get_contents($file);
+  $file = $agent['sign'];
+  file_put_contents($file, $data);
   $agent_sign='<img height="120" src="'.$file.'" />';
 }
 else {
   $agent_sign='';
+}
+
+$aggK='';
+if ($kyc_update['state']=='aggiornamento'){
+  $aggK="Aggiornamento ";
 }
 //error_log("firme"."contractor".$contractor['sign'].PHP_EOL."agent". $agent_sign);
 $pdf->SetFillColor(255, 255, 255);
@@ -251,7 +271,7 @@ $pdf->SetFont('times', '', 13);
 $pdf->SetFillColor(180, 180, 180);
 $pdf->SetY(10);
 $pdf->SetX(5);
-$txt="Scheda Cliente per persona fisica";
+$txt=$aggK. "Scheda Cliente per persona fisica";
 if ($contract['act_for_other']==2){
   $txt="Scheda Cliente per delegato di persone fisiche";
 }
@@ -275,9 +295,13 @@ $pdf->writeHTMLCell(75, 4, '', $y, $txt, 1, 0, 1, true, 'J', true);
 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0)
 
 //$this->MultiCell(60, 0, $text,1, 'R', 1, 2, 0, '', true, 0);
+$dt="Data di identificazione: ";
+if ($kyc_update['state']=='aggiornamento'){
+  $dt="Data di Aggiornamento: ";
+}
 
-$txt="<p>Luogo di identificazione:<b>".$kyc['place_of_identification']."</b></p>
-<p>Data di identificazione:<b>".date('d/m/Y',strtotime($kyc['date_of_identification']))."</b></p>";
+$txt=$kyc['date_of_identification']."<p>Luogo di identificazione:<b>".$kyc['place_of_identification']."</b></p>
+<p>$dt<b>".date('d/m/Y',strtotime($kyc['date_of_identification']))."</b></p>";
 $x = $pdf->getX();
 $pdf->writeHTMLCell(105,2, $x, '', $txt, 0, 0, 1, true, 'R', true);
 
@@ -632,6 +656,9 @@ if ($_REQUEST['download']=="Y"){
 
 }
 echo $file;
+@unlink($agent['sign']);
+@unlink($contractor['sign']);
+
 file_put_contents($fn,$file);
 error_log("nome file".$fn.PHP_EOL);
 $dati=array('mailto'=>array($contractor['email'],$agent['email']),

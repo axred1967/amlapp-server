@@ -54,7 +54,7 @@ foreach ($countryList as $countryVal) {
   $cl[$countryVal['country_id']]=$countryVal['country_name'];
 
 }
-$agent = $db->getRow("SELECT * FROM users  where user_id=". $_GET['pInfo']['user_id']);
+$agent = $db->getRow("SELECT * FROM users  where user_id=".$contract['agent_id']);
 $agency = $db->getRow("SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=". $_GET['pInfo']['agency_id']);
 //error_log("agent".print_r($agent,1).PHP_EOL);
 $agent_settings=json_decode($agent['settings'],true);
@@ -65,9 +65,17 @@ error_log("agent settings".print_r($agent_settings,1).PHP_EOL);
 $agency= $db->getRow("SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=". $contract['agency_id']);
 //error_log("agency".print_r($agency,1).PHP_EOL);
 ////error_log("country".print_r($cl,1).PHP_EOL);
-$sql="SELECT * from risk where contract_id='".$_GET['id']."'";
+if ($_GET['agg']>0){
+  $sql="SELECT * from risk_log where id='".$_GET['agg']."'";
+
+}
+else {
+  $sql="SELECT * from risk where contract_id='".$_GET['id']."'";
+}
 $risk = $db->getRow($sql);
+
 $rd=json_decode($risk['risk_data'],true);
+$risk_update=json_decode($risk['risk_update'],true);
 //error_log("risk".print_r($risk,1).PHP_EOL);
 //error_log("risk_data".print_r($rd,1).PHP_EOL);
 
@@ -201,7 +209,7 @@ $pdf->SetFooterMargin(1);
 $pdf->setPrintHeader(true);
 
 // set auto page breaks
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM-20);
+$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM-40);
 $pdf->AddPage('P', 'A4');
 // set cell padding
 $pdf->setCellPaddings(3, 3, 3, 3);
@@ -228,55 +236,35 @@ $pdf->IncludeJS($js); */
 //$pdf->writeHTML($html, true, false, true, false, '');
 
 //Firma Cliente
-if (strlen($contracto['sign']>0 && $agent_settings['sign']==1)){
-  $contractor['sign']=substr($contractor['sign'],22);
-  $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $contractor['sign']));
-  $imgdata = base64_decode($contractor['sign']);
-  $file = 'tmp/signature.png';
+if (strlen($contractor['sign'])>0 && $agent_settings['sign']==1){
+  $file="../uploads/document/contract_".$_GET['id'].DS.'firma'.DS.$contractor['sign'];
+  $data=file_get_contents($file);
+  $file = $contractor['sign'];
   file_put_contents($file, $data);
-  $im = imagecreatefrompng($file);
-  $black = imagecolorallocate($im, 255, 255, 255);
-  $size = intval(min(imagesx($im), imagesy($im)));
-  $middle=intval($size/2)+200;
-  $im2 = mycrop($im, ['x' => $middle+100, 'y' => 0, 'width' => $size+400, 'height' => $size]);
-  if ($im2 !== FALSE) {
-      imagecolortransparent($im2, $black);
-      imagealphablending($im2, false);
-      imagepng($im2, $file);
-  }
-  $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
   $sign='<img height="120" src="'.$file.'" />';
-  $pdf->SetFillColor(255, 255, 255);
-  $pdf->writeHTMLCell(80,80, 118, 205, $sign, 0, 0, 1, true, 'L', true);
+}
+else {
+  $sign="";
 }
 if (strlen($agent['sign'])>0 && $agent_settings['sign']==1){
-  $agent['sign']=substr($agent['sign'],22);
-  $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $agent['sign']));
-  $imgdata = base64_decode($agent['sign']);
-  $file = 'tmp/agent_signature.png';
+  $file="../uploads/document/users_".$agent['user_id'].DS. "firma".DS.$agent['sign'];
+  $data=file_get_contents($file);
+  $file = $agent['sign'];
   file_put_contents($file, $data);
-  $im = imagecreatefrompng($file);
-  $black = imagecolorallocate($im, 255, 255, 255);
-  $size = intval(min(imagesx($im), imagesy($im)));
-  $middle=intval($size/2)+200;
-  $im2 = mycrop($im, ['x' => $middle+100, 'y' => 0, 'width' => $size+400, 'height' => $size]);
-  if ($im2 !== FALSE) {
-      imagecolortransparent($im2, $black);
-      imagealphablending($im2, false);
-      imagepng($im2, $file);
-  }
-  $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
   $agent_sign='<img height="120" src="'.$file.'" />';
 }
 else {
   $agent_sign='';
 }
-
+$aggK='';
+if ($risk_update['state']=='aggiornamento'){
+  $aggK="Aggiornamento ";
+}
 $pdf->SetFont('helvetica', '', 13);
 $pdf->SetFillColor(180, 180, 180);
 $pdf->SetY(10);
 $pdf->SetX(5);
-$txt="Valutazione del Rischio";
+$txt=$aggK ."Valutazione del Rischio";
 $txt.="<sup>1</sup>";
 $pdf->writeHTMLCell(195, 1, 5, '', html_entity_decode(strtoupper($txt)), 0, 0, 1, true, 'C', true);
 
@@ -285,7 +273,7 @@ $pdf->SetFillColor(255, 255, 255);
 $y = $pdf->getY()+20;
 $pdf->SetFont('helvetica', '', 10);
 
-
+//die(print_r($risk));
 $txt="<p style='line-height:1px'>Codice Progressivo Univoco</p>
 <p>(CPU):  N.<b>".$contract['CPU']." </b> del <b>".date('d/m/Y',strtotime($contract['contract_date']) )."</p>";
 // writeHTMLCell($w, $h, $x, $y, $html='', $border=0, $ln=0, $fill=0, $reseth=true, $align='', $autopadding=true)
@@ -293,7 +281,7 @@ $txt="<p style='line-height:1px'>Codice Progressivo Univoco</p>
 $pdf->writeHTMLCell(75, 4, '', $y, $txt, 1, 0, 1, true, 'J', true);
 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0)
 $txt="<p>svolta a :<b>".$kyc['place_of_identification']."</b></p>
-<p>il :<b>".date('d/m/Y',strtotime($kyc['date_of_identification']))."</b></p>";
+<p>il :<b>".date('d/m/Y',strtotime(substr($risk['risk_date'],0,10)))."</b></p>";
 $x = $pdf->getX();
 $pdf->writeHTMLCell(105,2, $x, '', $txt, 0, 0, 1, true, 'R', true);
 
@@ -331,7 +319,7 @@ switch ($agent_settings['risk_type']){
 $pdf->SetFont('helvetica', '', 11);
 $pdf->SetFillColor(180, 180, 180);
 $pdf->Ln(13);
-$txt="Esito della Valutazione";
+$txt="Esito della Valutazione ". $aggK;
 $pdf->writeHTMLCell(180, 1, '', '', html_entity_decode(strtoupper($txt)), 0, 0, 1, true, 'C', true);
 $pdf->Ln(13);
 $pdf->SetFillColor(255, 255, 255);
@@ -342,11 +330,17 @@ $pdf->Ln(10);
 $txt="<b>" .$rd['riskAssigned']. "</b>";
 $pdf->MultiRow("Rischio Calcolato:", $txt,0,1);
 $pdf->Ln(10);
-$txt='<b>Processo Valutativo:</b><div style="font-size:9px;line-height:10px">' .$rd['riskDescription'] .'</div>' ;
+$txt='';
+if ($risk_update['state']=='aggiornamento'){
+  $txt='<b>Motivo del Aggiornamento:</b><div style="font-size:9px;line-height:10px">' .$risk_update['updateReasons'].'</div>';
+}
+
+$txt.='<b>Processo Valutativo:</b><div style="font-size:9px;line-height:10px">' .$rd['riskDescription'] .'</div>' ;
 
 $txt.='<b>Note Eventuali:</b><div style="font-size:9px;line-height:10px">' .$rd['notes'].'</div>';
 error_log("risk_de". $txt);
 $pdf->writeHTMLCell(180, '', '', '', html_entity_decode(($txt)), 0, 0, 1, true, 'l', true);
+
 
 
 
@@ -373,6 +367,8 @@ if ($_REQUEST['download']=="Y"){
 
 echo $file;
 file_put_contents($fn,$file);
+@unlink($agent['sign']);
+@unlink($contractor['sign']);
 $dati=array(
 'body'=>'In Allegato modulo PDF di cui si è richiesta la stampa per il cliente',
 'subject'=>'Modulo di Valutazione del rischio per il  CPU',
