@@ -298,6 +298,37 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
               }
             }
           }
+          $Docs=json_decode($request['dbData']['Docs'],true);
+          //aggiornamento word per i documenti
+          $i=0;
+          foreach ($Docs as $key => $Doc){
+
+                  $sql="select * from word_tag_kyc where agency_id=" .$request['pInfo']['agency_id'] ."
+                  and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='doc_type' and tag_key=".$i;
+                  $w=$db->getRow($sql);
+                  if (count($w)>0){
+                    $w['agency_id']=$request['pInfo']['agency_id'] ;
+                    $w['kyc_id']=$request['appData']['contract_id'] ;
+                    $w['tag_key']=$i;
+                    $w['id_tag']='doc_type';
+                    $w['word']=$Doc['doc_type'];
+                    $db->updateAry('word_tag_kyc',$w," where agency_id=" .$request['pInfo']['agency_id'] ."
+                    and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='doc_type' and tag_key=".$i);
+
+                  }
+                  else{
+                    $w['agency_id']=$request['pInfo']['agency_id'] ;
+                    $w['kyc_id']=$request['appData']['contract_id'] ;
+                    $w['tag_key']=$i;
+                    $w['id_tag']='doc_type';
+                    $w['word']=$Doc['doc_type'];
+                    $db->insertAry('word_tag_kyc',$w);
+
+                  }
+                  $i++;
+                }
+
+
         //aggiornamento dati persone
         if (strlen($contractor['fiscal_number'])>0){
           $sqlperson="select * from kyc_person where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$contractor['fiscal_number'] ."'";
