@@ -315,7 +315,7 @@ $pdf->SetY($y);
 $pdf->MultiRow("Nome", $contractor['name'],0,1);
 $pdf->MultiRow("Cognome", $contractor['surname'],0,1);
 $pdf->MultiRow("Data e Luogo di nascita", date('d/m/Y',strtotime($contractor['dob']))." a: " .$contractor['birth_town'] ." - " .ucfirst($contractor['birth_country']) ,0,1);
-$pdf->MultiRow("Residenza Anagrafica",$contractor['address_resi']." - ". $contractor['town_resi'] ."<br/>".ucfirst($contractor['resi_country']),0,1,2);
+$pdf->MultiRow("Residenza Anagrafica",$contractor['address_resi']." - ". $contractor['resi_town'] ."<br/>".ucfirst($contractor['resi_country']),0,1,2);
 if ($contractor_data['check_residence'])
 $txt="Domicilio e residenza coincidono";
 else

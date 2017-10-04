@@ -2594,9 +2594,9 @@ function getSQL($settings,$db){
 			$key=strtolower($key);
 			if ( $first) $SQL.= " , ";
 			if (is_array($val) )
-			$SQL.=  " " . $val['col'] . ' As ' . ( isset($val['alias']) ? $val['alias'] :$key  );
+			$SQL.=  " " . $val['col'] .  ( isset($val['alias']) ? " As ".$val['alias'] :''  );
 			else
-			$SQL.=  " " . (strlen($val)>0 ? $val . ' As ' . $key  : $key);
+			$SQL.=  " " . (strlen($key)>0 ? $key:'' ) . (strlen($val)>0 ? " as ". $val:'');
 			$first=true;
 		}
 	}
