@@ -259,8 +259,8 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
     case 'saveKycAx':{
       if ($request['appData']['contract_id']!='' ){
         // aggiorno sempre dati contratto
-        $contract = $db->getRow("SELECT * FROM contract where id=". $request['appData']['contract_id'];
-        error_log("kyc".print_r($kyc,1));
+        $contract = $db->getRow("SELECT * FROM contract where id=". $request['appData']['contract_id']);
+        error_log("kyc".print_r($contract,1));
         $request['appData']['contract_data']=json_encode($contract,JSON_UNESCAPED_SLASHES);
 
         if ($request['final']){
