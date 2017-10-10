@@ -2090,7 +2090,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
 
     $for=$request['for'] ;
     $user_id = $request['userid'];
-    $image_ext=array('.jpeg','.jpg',".png",".gif",".tif",".bmp");
+    $image_ext=array('.jpeg','.jpg',".png",".gif",".tif",".bmp",".tiff");
     //  //error_log("file caricato" .$_FILES['file']['tmp_name'] . "<br>tipo:".mime_content_type($_FILES['file']['tmp_name']). "<br>valore:". $file_content .PHP_EOL);
     //////error_log("controllo" .PATH_UPLOAD . "document" . DS . $for ."_".  $user_id .PHP_EOL);
     if (!file_exists(PATH_UPLOAD . "document" . DS . $for ."_" . $user_id  )) {

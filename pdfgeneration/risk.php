@@ -54,10 +54,10 @@ foreach ($countryList as $countryVal) {
   $cl[$countryVal['country_id']]=$countryVal['country_name'];
 
 }
-$agent = $db->getRow("SELECT * FROM users  where user_id=".$contract['agent_id']);
+$agent = $db->getRow("SELECT u.* FROM users u join agent a on a.user_id =u.user_id where a.agent_id=".$contract['agent_id']);
 $agency = $db->getRow("SELECT u.* FROM users as u join agency as a on u.user_id=a.user_id  where a.agency_id=". $_GET['pInfo']['agency_id']);
 //error_log("agent".print_r($agent,1).PHP_EOL);
-$agent_settings=json_decode($agent['settings'],true);
+//$agent_settings=json_decode($agent['settings'],true);
 $agent_settings=json_decode($agency['settings'],true);
 //error_log("agent".print_r($agent,1).PHP_EOL);
 error_log("agent settings".print_r($agent_settings,1).PHP_EOL);

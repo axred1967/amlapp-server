@@ -77,7 +77,7 @@ $dl_file=$_REQUEST['file'];
 //$dl_file = preg_replace("([^\w\s\d\-_~,;:\[\]\(\).]|[\.]{2,})", '', $_GET['file']); // simple file name validation
 //$dl_file = filter_var($dl_file, FILTER_SANITIZE_URL); // Remove (more) invalid characters
 $fullPath = $fp.$dl_file;
-$image_ext=array('jpg',"png","gif","tif","bmp","jpeg");
+$image_ext=array('jpg',"png","gif","jpeg");
 
 if ($fd = fopen ($fullPath, "r")) {
     $fsize = filesize($fullPath);
