@@ -256,9 +256,9 @@ if (strlen($agent['sign'])>0 && $agent_settings['sign']==1){
 else {
   $agent_sign='';
 }
-switch (strtolower($agency['tipo_cliente_app'])){
+switch (strtolower(trim($agency['tipo_cliente_app']))){
   case 'agenzia assicurazioni':
-  switch (strtolower($agent_settings['country'])){
+  switch (strtolower(trim($agency['country']))){
     case 'san marino':
     include ('kyc_sm.php');
     break;
@@ -271,7 +271,7 @@ switch (strtolower($agency['tipo_cliente_app'])){
   }
   break;
   case 'studio commercialisti':
-  switch (strtolower($agent_settings['country'])){
+  switch (strtolower(trim($agency['country']))){
     case 'san marino':
     include ('kyc_sm.php');
     break;
@@ -284,7 +284,7 @@ switch (strtolower($agency['tipo_cliente_app'])){
   }
   break;
   case 'studio notarile':
-  switch (strtolower($agent_settings['country'])){
+  switch (strtolower(trim($agency['country']))){
     case 'san marino':
     include ('kyc_sm.php');
     break;
@@ -298,7 +298,7 @@ switch (strtolower($agency['tipo_cliente_app'])){
   }
   break;
   default:
-  switch (strtolower($agent_settings['country'])){
+  switch (strtolower(trim($agency['country']))){
     case 'san marino':
     include ('kyc_sm.php');
     break;

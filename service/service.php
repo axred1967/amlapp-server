@@ -1388,6 +1388,41 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
     break;
 
   }
+  case 'OwnersList' :
+  {
+    if (strlen($request['last'])>0){
+      $last = " and co.id <  " .$request['last'];
+
+    }
+    if ($request['appData']['act_for_other']==2)
+    $other= " co.contract_id ='".$request['appData']['contract_id']." and co.agency_id=".$request['pInfo']['agency_id'];
+    else
+    $other= " co.company_id ='".$request['company_id'] ." and co.agency_id=".$request['pInfo']['agency_id'];
+
+    //   $getcustomerlist = $db->getRows("SELECT us.name,us.email,us.mobile,us.image,us.user_id FROM users us JOIN customer cs ON cs.user_id = us.user_id JOIN risk rk rk.user_id =us.user_id  WHERE cs.agency_id ='".$request['id']."' AND us.status = '1' AND us.normal_or_company_owner ='1' ORDER BY us.user_id DESC ");
+    // $getcustomerlist = $db->getRows("SELECT us.name,us.email,us.mobile,us.image,us.user_id,rk.status,cs.kyc_status FROM users us JOIN customer cs ON cs.user_id = us.user_id  JOIN risk rk ON rk.user_id = us.user_id JOIN  WHERE cs.agency_id ='".$request['id']."' AND us.normal_or_company_owner ='1' ORDER BY us.user_id DESC ");
+    $sql="SELECT co.id,concat(us.name,' ',us.surname) as fullname, us.email,us.mobile,us.image,us.user_id,
+    co.company_id,co.agency_id, co.percentuale, co.contract_id
+    FROM company_owners co
+    JOIN users us  ON  co.user_id = us.user_id
+    WHERE " .$other ."' ".$last ."  AND us.status <> 2 ORDER BY co.id DESC  limit 5 ";
+    //////error_log($request['action']."1-".$request['id'] .$sql.  PHP_EOL);
+    $getcustomerlist = $db->getRows($sql);
+
+
+    if(count($getcustomerlist) > 0 && is_array($getcustomerlist) )
+    {
+      $data = array('RESPONSECODE'=> 1 , 'RESPONSE'=> $getcustomerlist);
+    }
+    else
+    {
+      $data = array('RESPONSECODE'=> 0 , 'RESPONSE'=> '');
+
+    }
+    echo json_encode($data);
+    break;
+  }
+
   case 'AgentList' :
   {
     $where="";
@@ -1648,7 +1683,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
     $aryData=$request['dbData'];
     $aryData['status']=1;
 
-    $aryData['agency_id']=$agency['pInfo']['agency_id'];
+    $aryData['agency_id']=$request['pInfo']['agency_id'];
     $aryData['agent_id']=$request['pInfo'];
 
     $flgIn=$db->insertAry("company",$aryData);
@@ -2039,7 +2074,8 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
 
       }
       $aryData = array("imagename" =>	$newfile,"tipo"=>"firma" , "per"  =>$entity,"per_id"=>$entity_key, "file_type"=>$ext,"loaded"=>1);
-      $flgIn = $db->insertAry("tmp_image",$aryData);      $data = array('image' => $newfile);
+      $flgIn = $db->insertAry("tmp_image",$aryData);
+            $data = array("RESPONSECODE"=>"1",'image' => $newfile);
       //$data = array('review_id' => $flgIn, 'response' => $newfile,'file_name' => $_FILES["file"]["tmp_name"] );
       echo json_encode($data);
       break;
@@ -2056,14 +2092,14 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
           mkdir(PATH_UPLOADS.DS.$entity.DS.'small', 0755, true);
         }
         $esit=copy(PATH_UPLOADS. $entity.DS.$newfile, PATH_UPLOADS.DS.$entity.DS.'small'.DS.$newfile);
-        error_log("DOPOCOPIA" .$esit);
+        error_log("DOPOCOPIA" .$esit.PATH_UPLOADS. $entity.DS.$newfile);
         if(!$esit) {
           error_log("errore copia file" .$esit);
         }
 
         smart_resize_image(PATH_UPLOADS.$entity.DS.'small'.DS.$newfile, 300, 0,true);
         if (!file_exists(PATH_UPLOADS.DS.$entity.DS.'medium')) {
-          mkdir(PATH_UPLOADS.DS.$entity.DS.'small', 0755, true);
+          mkdir(PATH_UPLOADS.DS.$entity.DS.'medium', 0755, true);
         }
 
         $esit=copy(PATH_UPLOADS. $entity.DS.$newfile, PATH_UPLOADS.DS.$entity.DS.'medium'.DS.$newfile);
@@ -2080,7 +2116,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       }
       $aryData = array("imagename" =>	$newfile,"tipo" =>'profilo', "per"  =>$entity,"per_id"=>$entity_key, "file_type"=>$ext,"loaded"=>1);
       $flgIn = $db->insertAry("tmp_image",$aryData);
-      $data = array('image' => $newfile);
+      $data = array("RESPONSECODE"=>"1",'image' => $newfile);
       //$data = array('review_id' => $flgIn, 'response' => $newfile,'file_name' => $_FILES["file"]["tmp_name"] );
       echo json_encode($data);
       break;
