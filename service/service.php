@@ -2282,6 +2282,52 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
     }
     break;
   }
+  case 'copyContract':
+  {
+      if (!$request['id']>0){
+        $data = array('RESPONSECODE'=> 0 , 'RESPONSE'=> 'Errore manca ID');
+        echo json_encode($data);
+        break;
+        return;
+
+      }
+      $sql="select * from contract where id=".$request['id'];
+      $contract=$db->getRow($sql);
+//determino prossimo CPU
+      $sql="SELECT  CPU  FROM  `contract`  where  agency_id = ". $request['pInfo']['agency_id'] ." order by id desc limit 1";
+      $CPU =$db->getVal($sql);
+      $anno_corr=date('Y');
+      if (is_null($CPU)){
+        $CPU="0/".date("Y");
+      };
+      list($num, $anno) = split("/", $CPU,2);
+      if (!strlen($anno)>0){
+        $anno=$anno_corr;
+      }
+      $num=intval($num);
+      $num++;
+      $CPU=$num ."/" .$anno;
+      $contract['CPU']=$CPU;
+
+      unset($contract['id']);
+      $sql="select * from kyc  contract where contract_id=".$request['id'];
+      $kyc=$db->getRow($sql);
+      $kyc['CPU']=$CPU;
+      $kyc['kyc_status']=0;
+      unset($kyc['id']);
+      unset($kyc['kyc_date']);
+// copio i due record
+      $flgIn=$db->insertAry('contract',$contract);
+      $kyc['contract_id']=$flgIn;
+      $flgIn=$db->insertAry('kyc',$kyc);
+
+      $data = array('RESPONSECODE'=> 1 , 'RESPONSE'=> 'Duplicazione effettuata');
+      echo json_encode($data);
+      break;
+
+
+  }
+
   case 'delete':
   {
     foreach ($request['other_table'] as $key => $value) {
