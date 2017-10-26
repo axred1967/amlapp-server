@@ -28,13 +28,23 @@ else{
 //require_once('TCPDF6/config/lang/eng.php');
 
 //require_once('../../_coach/tcpdf/tcpdf.php');
-if (strlen($_GET['id']==0)){
-  $_GET['id']="89";
-}
-if (strlen($_GET['id']>0)){
-  $sql="SELECT * from kyc where contract_id='".$_GET['id']."'";
+if ($_GET['agg']>0){
+  $sql="SELECT * from risk_log where id='".$_GET['agg']."'";
 
 }
+else {
+  $sql="SELECT * from risk where contract_id='".$_GET['id']."'";
+}
+$risk = $db->getRow($sql);
+
+
+$rd=json_decode($risk['risk_data'],true);
+$risk_update=json_decode($risk['risk_update'],true);
+//error_log("risk".print_r($risk,1).PHP_EOL);
+//error_log("risk_data".print_r($rd,1).PHP_EOL);
+
+  $sql="SELECT * from kyc where contract_id='".$risk['contract_id']."'";
+
 $kyc = $db->getRow($sql);
 $company=json_decode($kyc['company_data'],true);
 $other=json_decode($kyc['owner_data'],true);
@@ -65,19 +75,6 @@ error_log("agent settings".print_r($agent_settings,1).PHP_EOL);
 $agency= $db->getRow("SELECT u.* FROM users u join agency a on a.user_id=u.user_id where a.agency_id=". $contract['agency_id']);
 //error_log("agency".print_r($agency,1).PHP_EOL);
 ////error_log("country".print_r($cl,1).PHP_EOL);
-if ($_GET['agg']>0){
-  $sql="SELECT * from risk_log where id='".$_GET['agg']."'";
-
-}
-else {
-  $sql="SELECT * from risk where contract_id='".$_GET['id']."'";
-}
-$risk = $db->getRow($sql);
-
-$rd=json_decode($risk['risk_data'],true);
-$risk_update=json_decode($risk['risk_update'],true);
-//error_log("risk".print_r($risk,1).PHP_EOL);
-//error_log("risk_data".print_r($rd,1).PHP_EOL);
 
 //die();
 
@@ -209,7 +206,7 @@ $pdf->SetFooterMargin(1);
 $pdf->setPrintHeader(true);
 
 // set auto page breaks
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM-40);
+$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM-50);
 $pdf->AddPage('P', 'A4');
 // set cell padding
 $pdf->setCellPaddings(3, 3, 3, 3);
@@ -324,11 +321,14 @@ $pdf->writeHTMLCell(180, 1, '', '', html_entity_decode(strtoupper($txt)), 0, 0, 
 $pdf->Ln(13);
 $pdf->SetFillColor(255, 255, 255);
 $pdf->Ln(10);
-$txt="<b>" .$rd['riskCalculated']. "</b>";
-$pdf->MultiRow("Rischio Calcolato:", $txt,0,1);
-$pdf->Ln(10);
+if (! $agency['name']=='Agenzia Generali di San Marino'){
+  $txt="<b>" .$rd['riskCalculated']. "</b>";
+  $pdf->MultiRow("Rischio Calcolato:", $txt,0,1);
+  $pdf->Ln(10);
+
+}
 $txt="<b>" .$rd['riskAssigned']. "</b>";
-$pdf->MultiRow("Rischio Calcolato:", $txt,0,1);
+$pdf->MultiRow("Rischio Assegnato:", $txt,0,1);
 $pdf->Ln(10);
 $txt='';
 if ($risk_update['state']=='aggiornamento'){
@@ -348,7 +348,7 @@ $txt='Data: '. date('d/m/Y');
 $pdf->writeHTMLCell(40, 3, 20, 245, html_entity_decode(($txt)), 0, 0, 1, true, 'J', true);
 $pdf->Ln(10);
 
-$txt="Firma del RPI:";
+$txt="Firma del Responsabile Incaricato:";
 $pdf->writeHTMLCell(120, 1, '', '', html_entity_decode(($txt)), 0, 0, 1, true, 'C', true);
 $y=$pdf->getY();
 $pdf->writeHTMLCell(80,80, 118, 235, $agent_sign, 0, 0, 1, true, 'L', true);

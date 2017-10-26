@@ -910,6 +910,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       error_log("salva  oggetti");
       $settings=$request['settings'];
       $aryData=$request['dbData'];
+      $aryData['agency_id']=$request['pInfo']['agency_id'];
       if (!(strlen($settings['table'])>0 && strlen($settings['id'])>0 )){
         $data = array('RESPONSECODE'=> 0 , 'RESPONSE'=> "parametri oggetto errati");
         echo json_encode($data);
@@ -918,13 +919,20 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       if ($settings['action']=='add'){
 
         foreach ($settings['other_table'] as $key => $value) {
-          $flgIn=$db->insertAry($value['table'],$aryData);
+          error_log("other". print_r($value,1).print_r($aryData,1)."id:".$aryData[$value['id']] );
+          if ($aryData[$value['id']]>0){
+            $where="where " . $value['id'] ."=".$aryData[$value['id']];
+            $flgIn=$db->updateAry($value['table'],$aryData,$where);
+            if ($flgIn==0)$flgIn=1;
+          }else {
+            $flgIn=$db->insertAry($value['table'],$aryData);
+            $aryData[$value['id']]=$flgIn;
+          }
           if (! $flgIn){
             $data = array('RESPONSECODE'=> 0 , 'RESPONSE'=> "Spicenti, qualcosa è andato storto.");
             echo json_encode($data);
             return $data;
           }
-          $aryData[$value['id']]=$flgIn;
         }
         $flgIn=$db->insertAry($settings['table'],$aryData);
         if ($flgIn)
@@ -949,11 +957,15 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
     { $getcustomerlist=array();
 
       if ($request['kyc']==1){
-        $sql="SELECT id as user_id,  fullname, fiscal_id as email from  kyc_person   WHERE (fiscal_id  like '%".$request['name']. "%' or fullname  like '%".$request['name']."%' )   ORDER BY fullname ASC limit 5 ";
+        $sql="SELECT id as user_id,  fullname, fiscal_id as email from  kyc_person   WHERE
+         (fiscal_id  like '%".$request['name']. "%' or fullname  like '%".$request['name']."%' ) and agency_id='".$request['pInfo']['agency_id']."'  ORDER BY fullname ASC limit 5 ";
         $getcustomerlist = $db->getRows($sql);
 
       } else if (strlen($request['name'])>0){
-        $sql="SELECT us.user_id, concat(us.name,' ',us.surname) fullname, us.email from  users as us  WHERE (us.email  like '%".$request['name']. "%' or concat(us.name,' ',us.surname)  like '%".$request['name']."%' ) and user_type='3'  ORDER BY concat(us.name,us.surname) ASC limit 5 ";
+        $sql="SELECT us.user_id, concat(us.name,' ',us.surname) fullname, us.email from  users as us  WHERE
+         (us.email  like '%".$request['name']. "%' or concat(us.name,' ',us.surname)  like '%".$request['name']."%' )
+         and agency_id='".$request['pInfo']['agency_id']."'
+         and user_type='3'  ORDER BY concat(us.name,us.surname) ASC limit 5 ";
         $getcustomerlist = $db->getRows($sql);
 
       }
@@ -979,7 +991,9 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       }
       if (strlen($request['name'])>0){
         $sql="SELECT co.company_id  ,co.name, co.fiscal_id from  company as co
-        WHERE (co.name  like '%".$request['name']. "%' or co.fiscal_id  like '%".$request['name']."%' ) ".$where."  ORDER BY co.company_id ASC limit 5 ";
+        WHERE (co.name  like '%".$request['name']. "%' or co.fiscal_id  like '%".$request['name']."%' ) ".$where."
+          and agency_id='".$request['pInfo']['agency_id']."'
+         ORDER BY co.company_id ASC limit 5 ";
         $getcustomerlist = $db->getRows($sql);
 
       }

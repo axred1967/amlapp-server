@@ -2626,16 +2626,16 @@ function getSQL($settings,$db){
 	$where=$settings['where'];
 
 	if (is_array($where)){
-		error_log("join" .print_r($where,1).$joinSQL);
+		error_log("where" .print_r($where,1).$joinSQL);
 	$whj=$where;
 		foreach($whj as $key => $val) {
 			$key=strtolower($key);
 			if (! $first) $whereSQL.= " where  ";
 			if (is_array($val)){
 				foreach($val as $key1 => $val2) {
-
+					error_log("where cond key:". $key1 ."-Val:". $val2);
 					$key1=strtolower($key1);
-					if ( $first) $whereSQL.=" " .(isset($val['oprel']) ? $val['oprel'] : 'And'). " ";
+					if ( $first) $whereSQL.=" " .(isset($val2['oprel']) ? $val2['oprel'] : 'And'). " ";
 					// gestione cancellato
 					// gestisco struttura where senza array
 					if (!isset($val2['opcond'])){
@@ -2662,7 +2662,8 @@ function getSQL($settings,$db){
 				}
 			}
 			else {
-				if ( $first) $SQL.=" And " ;
+				error_log("where cond key:". $key1 ."-Val:". $val2);
+				if ( $first) $whereSQL.=" And " ;
 				$whereSQL.= " " . $key . "='" . $val ."'";
 				$first=true;
 			}
