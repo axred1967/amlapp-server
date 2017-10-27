@@ -730,10 +730,47 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
 
       }
       if (strlen($request['search'])>0){
+        $search="and (1=0  ";
+        if ($request['searchThings']['fullname']){
+          $search.=" or concat(us.name,' ',us.surname) like '%".$request['search']  ."%' or cmy.name like '%".$request['search']  ."%' or co.nometemp like '%".$request['search']  ."%'";
+        }
+        if ($request['searchThings']['CPU']){
+          $search.=" or co.CPU like '%".$request['search']  ."%' ";
+        }
+        if ($request['searchThings']['email']){
+          $search.=" or us.email like '%".$request['search']  ."%'";
+        }
+        if ($request['searchThings']['rischio']){
+          $search.=" or r.riskAssigned like '%".$request['search']  ."%'";
+        }
+        if ($request['searchThings']['scaduti']){
+          $search.=" or co.contract_eov < '".date('Y-m-d')  ."'";
+        }
+        if ($request['searchThings']['numcontratto']){
+          $search.="or co.number like '%".$request['search']  ."%'";
+        }
+        if ($request['searchThings']['scopo']){
+          $search.="or co.scope_contract like '%".$request['search']  ."%'";
+        }
+        if ($request['searchThings']['natura']){
+          $search.="or co.nature_contract like '%".$request['search']  ."%'";
+        }
+        if ($request['searchThings']['agente']){
+          $sql="select agent_id from agent a join users u on u.user_id=a.users_id  where concat(us.name,' ',us.surname) like '%".$request['search']  ."%' and a.agency_id=".$request['pInfo']['agency_id'] ;
+          $agents = $db->getRows($sql);
+          if (count($agents)>0){
+                  foreach ($agents as $key => $value){
+                    $search.=" or co.agent_id = '".$value['agent_id']  ."'";
+
+                  }
+          }
+        }
+        $search.=" ) ";
+/*
         $search=" and (concat(us.name,' ',us.surname) like '%".$request['search']  ."%' or  concat(op.name,' ',op.surname) like '%".$request['search']  ."%'
                   or us.email like '%".$request['search']  ."%' or co.CPU like '%".$request['search']  ."%' or co.number like '%".$request['search']  ."%'
                   or cmy.name like '%".$request['search']  ."%' or co.nometemp like '%".$request['search']  ."%' ) ";
-
+*/
       }
       else {
         $search="";
