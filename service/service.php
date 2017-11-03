@@ -756,12 +756,12 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
           $search.="or co.nature_contract like '%".$request['search']  ."%'";
         }
         if ($request['searchThings']['agente']){
-          $sql="select agent_id from agent a join users u on u.user_id=a.users_id  where concat(us.name,' ',us.surname) like '%".$request['search']  ."%' and a.agency_id=".$request['pInfo']['agency_id'] ;
+          $sql="select a.agent_id from agent a join users us on us.user_id=a.user_id  where concat(us.name,' ',us.surname) like '%".$request['search']  ."%' and a.agency_id=".$request['pInfo']['agency_id'] ;
           $agents = $db->getRows($sql);
           if (count($agents)>0){
                   foreach ($agents as $key => $value){
                     $search.=" or co.agent_id = '".$value['agent_id']  ."'";
-
+                    error_log("agenti".$search);
                   }
           }
         }
@@ -947,6 +947,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       error_log("salva  oggetti");
       $settings=$request['settings'];
       $aryData=$request['dbData'];
+      if (!$request['pInfo']['agency_id']==-1)
       $aryData['agency_id']=$request['pInfo']['agency_id'];
       if (!(strlen($settings['table'])>0 && strlen($settings['id'])>0 )){
         $data = array('RESPONSECODE'=> 0 , 'RESPONSE'=> "parametri oggetto errati");
@@ -1239,14 +1240,12 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       //  $request['dbData']['CPU']=$request['appData']['CPU'];
       $aryData=$request['dbData'];
 
-      $sql="SELECT agency_id FROM agent WHERE user_id = '".$request['appData']['id']."'";
-      if ($request['appData']['usertype'] ==1)
-      $agency_id =$db->getVal("SELECT agency_id FROM agency WHERE user_id = '".$request['appData']['id']."'");
-      else
-      $agency_id =$db->getVal("SELECT agency_id FROM agent WHERE user_id = '".$request['appData']['id']."'");
-      $aryData['agency_id']=$agency_id;
+
+      $aryData['agency_id']=$request['pinfo']['agency_id'];
+      if (!$aryData['agent_id']>0)
+      $aryData['agent_id']=$request['pinfo']['agent_id'];
       //////error_log("EDIT::". $request['edit'] .PHP_EOL);
-      file_put_contents('/var/www/html/tmp/php-error.log',"...". $request['edit'] );
+      //file_put_contents('/var/www/html/tmp/php-error.log',"...". $request['edit'] );
       if ($request['edit']=="edit"){
         $flgIn=$db->updateAry("contract",$aryData, "where id='".$request['dbData']['contract_id']."'");
         $ok="Contratto Aggiornato Correttamente";
