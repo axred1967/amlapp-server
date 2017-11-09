@@ -12,8 +12,8 @@ $pdf->SetFillColor(255, 255, 255);
 $pdf->Ln(13);
 $txt= <<<EOD
 <h4>A1. Natura Giuridica</h4>
-          <table align="left" cellspacing='0' cellpadding="10" >
-              <tr  style="font-size:14px;font-weight:bold;color:white;background-color:#1C224B;" >
+          <table align="left" cellspacing='0' cellpadding="5" >
+              <tr  style="font-size:12px;font-weight:bold;color:white;background-color:#1C224B;" >
                 <td style="border: 1px solid black;" width="65%" >Descrizione Tipologia di Rischio</td>
                 <td style="border: 1px solid black;" width="20%">Punteggio Max</td>
                 <td style="border: 1px solid black;"width="15%" >Assegnato</td>
@@ -121,8 +121,8 @@ $pdf->writeHTML($txt,true, false, false, false, '');
 $pdf->AddPage('P', 'A4');
 $txt= <<<EOD
 <h4>A2. Prevalente attività svolta</h4>
-          <table align="left" cellspacing='0' cellpadding="10" >
-              <tr  style="font-size:14px;font-weight:bold;color:white;background-color:#1C224B;" >
+          <table align="left" cellspacing='0' cellpadding="5" >
+              <tr  style="font-size:12px;font-weight:bold;color:white;background-color:#1C224B;" >
                 <td style="border: 1px solid black;" width="65%" >Descrizione Tipologia di Rischio</td>
                 <td style="border: 1px solid black;" width="20%">Punteggio Max</td>
                 <td style="border: 1px solid black;"width="15%" >Assegnato</td>
@@ -203,8 +203,8 @@ $txt);
 $pdf->writeHTML($txt,true, false, false, false, '');
 $txt= <<<EOD
 <h4>A3. Comportamento tenuto al momento del conferimento dell'incarico </h4>
-          <table align="left" cellspacing='0' cellpadding="10" >
-              <tr  style="font-size:14px;font-weight:bold;color:white;background-color:#1C224B;" >
+          <table align="left" cellspacing='0' cellpadding="5" >
+              <tr  style="font-size:12px;font-weight:bold;color:white;background-color:#1C224B;" >
                 <td style="border: 1px solid black;" width="65%" >Descrizione Tipologia di Rischio</td>
                 <td style="border: 1px solid black;" width="20%">Punteggio Max</td>
                 <td style="border: 1px solid black;"width="15%" >Assegnato</td>
@@ -272,8 +272,8 @@ $txt);
 $pdf->writeHTML($txt,true, false, false, false, '');
 $txt= <<<EOD
 <h4>A4. Area geografica di residenza del cliente</h4>
-          <table align="left" cellspacing='0' cellpadding="10" >
-              <tr  style="font-size:14px;font-weight:bold;color:white;background-color:#1C224B;" >
+          <table align="left" cellspacing='0' cellpadding="5" >
+              <tr  style="font-size:12px;font-weight:bold;color:white;background-color:#1C224B;" >
                 <td style="border: 1px solid black;" width="65%" >Descrizione Tipologia di Rischio</td>
                 <td style="border: 1px solid black;" width="20%">Punteggio Max</td>
                 <td style="border: 1px solid black;"width="15%" >Assegnato</td>
@@ -351,8 +351,8 @@ $pdf->SetFillColor(255, 255, 255);
 $pdf->Ln(13);
 $txt= <<<EOD
 <h4>B1. Tipologia dell'operazione, rapporto continuativo o prestazione professionale</h4>
-          <table align="left" cellspacing='0' cellpadding="10" >
-              <tr  style="font-size:14px;font-weight:bold;color:white;background-color:#1C224B;" >
+          <table align="left" cellspacing='0' cellpadding="5" >
+              <tr  style="font-size:12px;font-weight:bold;color:white;background-color:#1C224B;" >
                 <td style="border: 1px solid black;" width="65%" >Descrizione Tipologia di Rischio</td>
                 <td style="border: 1px solid black;" width="20%">Punteggio Max</td>
                 <td style="border: 1px solid black;"width="15%" >Assegnato</td>
@@ -436,8 +436,8 @@ $txt= <<<EOD
 <h4>
   B2. Modalità di svolgimento dell'operazione, rapporto continuativo o prestazione professionale
 </h4>
-          <table align="left" cellspacing='0' cellpadding="10" >
-              <tr  style="font-size:14px;font-weight:bold;color:white;background-color:#1C224B;" >
+          <table align="left" cellspacing='0' cellpadding="5" >
+              <tr  style="font-size:12px;font-weight:bold;color:white;background-color:#1C224B;" >
                 <td style="border: 1px solid black;" width="65%" >Descrizione Tipologia di Rischio</td>
                 <td style="border: 1px solid black;" width="20%">Punteggio Max</td>
                 <td style="border: 1px solid black;"width="15%" >Assegnato</td>
@@ -533,8 +533,8 @@ $txt= <<<EOD
 <h4>
   B3. Ammontare dell'operazione
 </h4>
-          <table align="left" cellspacing='0' cellpadding="10" >
-              <tr  style="font-size:14px;font-weight:bold;color:white;background-color:#1C224B;" >
+          <table align="left" cellspacing='0' cellpadding="5" >
+              <tr  style="font-size:12px;font-weight:bold;color:white;background-color:#1C224B;" >
                 <td style="border: 1px solid black;" width="65%" >Descrizione Tipologia di Rischio</td>
                 <td style="border: 1px solid black;" width="20%">Punteggio Max</td>
                 <td style="border: 1px solid black;"width="15%" >Assegnato</td>

@@ -386,7 +386,7 @@ $pdf->writeHTMLCell(180, 3, 10, '', html_entity_decode(($txt)), 0, 0, 1, true, '
 $style = array('width' => 0.2, 'color' => array(62,62,62));
 $pdf->SetLineStyle($style);
 $pdf->Ln(25);
-$txt='Data: '. date('d/m/Y');
+$txt='Data: '.date('d/m/Y',strtotime(substr($kyc['kyc_date'],0,10)));
 
 $pdf->writeHTMLCell(180, 3, 10, '', html_entity_decode(($txt)), 0, 0, 1, true, 'J', true);
 $pdf->Ln(10);

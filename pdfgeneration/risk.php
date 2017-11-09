@@ -344,7 +344,7 @@ $pdf->writeHTMLCell(180, '', '', '', html_entity_decode(($txt)), 0, 0, 1, true, 
 
 
 
-$txt='Data: '. date('d/m/Y');
+$txt='Data: '. date('d/m/Y',strtotime(substr($risk['risk_date'],0,10)));
 $pdf->writeHTMLCell(40, 3, 20, 245, html_entity_decode(($txt)), 0, 0, 1, true, 'J', true);
 $pdf->Ln(10);
 

@@ -1089,7 +1089,7 @@ EOD;
 $pdf->writeHTMLCell(180,'',10,'',$txt, 0, 0, 1, true, '', true);
 $pdf->SetFont('helvetica', '', 10);
 
-$txt='Data: '. date('d/m/Y');
+$txt='Data: '.date('d/m/Y',strtotime(substr($kyc['kyc_date'],0,10)));
 $pdf->writeHTMLCell(180, 3, 10, 265, html_entity_decode(($txt)), 0, 0, 1, true, 'J', true);
 $pdf->SetFont('helvetica', '', 10);
 

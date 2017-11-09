@@ -665,7 +665,8 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
 
     case 'CustomerList' :
     {
-      $sql="SELECT concat(us.name,' ',us.surname) as fullname ,us.email,us.mobile,us.image,us.user_id
+
+      $sql="SELECT concat(us.name,' ',us.surname) as fullname ,us.email,us.mobile,us.image,us.user_id,us.fiscal_number
       FROM users us   ";
       $where="";
       if (strlen($request['last'])>0){
@@ -676,23 +677,23 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       {
         if($request['pInfo']['priviledge'] == 2 )
         {
-          $sql.="  WHERE us.agent_id ='".$request['pInfo']['agent_id']."'  AND us.status <> 2 and us.user_type='3' ".$where." ORDER BY us.user_id DESC limit 5 ";
+          $sql.="  WHERE us.agent_id ='".$request['pInfo']['agent_id']."'  AND us.status <> 2 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
 
         }
         else if($request['pInfo']['priviledge'] == 1)
         {
-          $sql.=" WHERE us.agency_id ='".$request['pInfo']['agency_id']."'  AND us.status <> 2 and us.user_type='3' ".$where." ORDER BY us.user_id DESC limit 5 ";
+          $sql.=" WHERE us.agency_id ='".$request['pInfo']['agency_id']."'  AND us.status <> 2 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
 
         }
       }
       else if($request['pInfo']['user_type'] =='1')
       {
 
-        $sql.=" WHERE us.agency_id ='".$request['pInfo']['agency_id']."'  AND us.status <> 2 and us.user_type='3' ".$where." ORDER BY us.user_id DESC limit 5 ";
+        $sql.=" WHERE us.agency_id ='".$request['pInfo']['agency_id']."'  AND us.status <> 2 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
       }
 
       if ($request['pInfo']['user_type'] =='-1') {
-        $sql.="where us.status <> 2 and us.user_type='3' ".$where." ORDER BY us.user_id DESC limit 5 ";
+        $sql.="where us.status <> 2 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
       }
       //////error_log($request['action']."1-".$request['id'] .$sql.  PHP_EOL);
       if($request['pInfo']['user_type'] =='3')
@@ -705,7 +706,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
                       from users as us
 
                       where
-                            us.user_id='".$request['pInfo']['user_id']."' and us.status <> 2 ".$where." ORDER BY user_id DESC
+                            us.user_id='".$request['pInfo']['user_id']."' and us.status <> 2 ".$where.$search." ORDER BY user_id DESC
                                            ";
 
       }
@@ -1027,6 +1028,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
         $where = " and co.company_id <  " .$request['last'];
 
       }
+
       if (strlen($request['name'])>0){
         $sql="SELECT co.company_id  ,co.name, co.fiscal_id from  company as co
         WHERE (co.name  like '%".$request['name']. "%' or co.fiscal_id  like '%".$request['name']."%' ) ".$where."
@@ -1240,8 +1242,8 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       //  $request['dbData']['CPU']=$request['appData']['CPU'];
       $aryData=$request['dbData'];
 
-
-      $aryData['agency_id']=$request['pinfo']['agency_id'];
+      $agency_id=$request['pInfo']['agency_id'];
+      $aryData['agency_id']=$request['pInfo']['agency_id'];
       if (!$aryData['agent_id']>0)
       $aryData['agent_id']=$request['pinfo']['agent_id'];
       //////error_log("EDIT::". $request['edit'] .PHP_EOL);
@@ -1574,7 +1576,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
 
       $sql= "SELECT co.agent_id,co.nometemp, co.agency_id,co.id as contract_id, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
       co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,co.end_det,
-      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,co.procura,
+      co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,co.procura,co.found_source,co.paymentInstrument,
       concat(us.name,' ',us.surname) as fullname,concat(us.name,' ',us.surname) as contractor_name, us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
       cmy.name,concat(op.name,' ',op.surname) as other_name, sh.user_id as shared, k.kyc_status, k.kyc_date,k.kyc_update, r.risk_status, r.risk_date,r.risk_update
 
@@ -1655,40 +1657,51 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
   }
   case 'CompanyList' :
   {
+    $agencyvalue=$request['pInfo']['agency_id'];
     if (strlen($request['last'])>0){
       $where = " and company_id <  " .$request['last'];
 
+    }
+    if (strlen($request['search'])>0){
+      $search=" and (1=0  ";
+      if ($request['searchThings']['fullname']){
+        $search.=" or name like '%".$request['search']  ."%'";
+      }
+      if ($request['searchThings']['fiscal_number']){
+        $search.=" or fiscal_id like '%".$request['search']  ."%'";
+      }
+      $search.=" ) ";
+    }
+    else {
+      $search="";
     }
     $sql="SELECT  * FROM company ";
     if($request['pInfo']['user_type'] =='2')
     {
       if($request['pInfo']['priviledge'] == 2 )
       {
-        $sql.="  WHERE  agent_id ='".$request['id']."' AND status <> 2 ".$where." ORDER BY company_id DESC ";
+        $sql.="  WHERE  agent_id ='".$request['id']."' AND status <> 2 ".$where.$search." ORDER BY company_id DESC ";
 
       }
       else if($request['pInfo']['priviledge'] == 1)
       {
-        $agencyvalue = $db->getVal("SELECT agency_id FROM agent WHERE user_id = '".$request['id']."'  ");
-        $sql.=" WHERE agency_id ='".$agencyvalue."' AND status <> 2 ".$where." ORDER BY company_id DESC";
+        $sql.=" WHERE agency_id ='".$agencyvalue."' AND status <> 2 ".$where.$search." ORDER BY company_id DESC";
 
       }
     }
     else if($request['pInfo']['user_type'] =='1')
     {
-
-      $agencyvalue = $db->getVal("SELECT agency_id FROM agency WHERE user_id = '".$request['id']."'  ");
-      $sql.=" WHERE agency_id ='".$agencyvalue."' AND status <> 2 ".$where." ORDER BY company_id DESC";
+      $sql.=" WHERE agency_id ='".$agencyvalue."' AND status <> 2 ".$where.$search." ORDER BY company_id DESC";
     }
     if($request['pInfo']['user_type'] =='-1')
     {
-      $sql.=" WHERE  status <> 2 ".$where." ORDER BY company_id DESC";
+      $sql.=" WHERE  status <> 2 ".$where.$search." ORDER BY company_id DESC";
     }
 
     if($request['pInfo']['user_type'] =='3')
     {
       $sql="SELECT  * FROM company as co join contract as cn on cn.other_id=co.company_id and cn.act_for_other=1 ";
-      $sql.=" WHERE cn.contractor_id ='".$request['id']."' AND co.status <> 2 ".$where." ORDER BY company_id DESC";
+      $sql.=" WHERE cn.contractor_id ='".$request['id']."' AND co.status <> 2 ".$where.$search." ORDER BY company_id DESC";
     }
     //////error_log($request['action']."1-".$request['id'] .$sql.  PHP_EOL);
 
