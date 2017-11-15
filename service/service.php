@@ -275,157 +275,310 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
         }
 
         $contractor=json_decode($request['dbData']['contractor_data'],true);
-        //aggiornamento word
-        foreach ($contractor as $key => $word){
-          $date = date_parse($word);
-          if (!($date["error_count"] == 0 && checkdate($date["month"], $date["day"], $date["year"]))) {
-              if (! is_numeric($word) && strlen($word)>3 && $key!="sign" ){
-                $sql="select * from word_tag_kyc where agency_id=" .$request['pInfo']['agency_id'] ."
-                and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='" .$key ."'";
-                $w=$db->getRow($sql);
-                if (count($w)>0){
-                  $w['agency_id']=$request['pInfo']['agency_id'] ;
-                  $w['kyc_id']=$request['appData']['contract_id'] ;
-                  $w['id_tag']=$key;
-                  $w['word']=$word;
-                  $db->updateAry('word_tag_kyc',$w," where agency_id=" .$request['pInfo']['agency_id'] ."
-                  and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='" .$key ."'");
-
-                }
-                else{
-                  $w['agency_id']=$request['pInfo']['agency_id'] ;
-                  $w['kyc_id']=$request['appData']['contract_id'] ;
-                  $w['id_tag']=$key;
-                  $w['word']=$word;
-                  $db->insertAry('word_tag_kyc',$w);
-
-                }
-
-              }
-            }
+        //gestione opzioni
+        // verifico se devo sincronizzare utente
+        if ($request['option']['synk_user']){
+          error_log("synck_user");
+          //sincronizzo i dati utente
+          $sql="select user_id from users where fiscal_number='" .$contractor['fiscal_number']. "'";
+          $user_id=$db->getVal($sql);
+          if (!$user_id>0){
+            error_log("synck_user3");
+            $user=$contractor;
+            unset($user['user_id']);
+            $user['password']=rand(1000,1500000);
+            $user['status']=3;
+            $user['user_type']=3;
+            $user['agency_id']=$request['pInfo']['agency_id'];
+            $user['agent_id']=$request['pInfo']['agent_id'];
+            $user_id=$db->insertAry('users',$user);
           }
-          $Docs=json_decode($request['dbData']['Docs'],true);
-          //aggiornamento word per i documenti
-          $i=0;
-          foreach ($Docs as $key => $Doc){
+          $sql="select user_id,status from agency_users where user_id='" .$user_id. "' and agency_id=".$request['pInfo']['agency_id'];
+          $user_id_ag=$db->getRow($sql);
+          error_log("synck_user1".  $user_id);
+          $user=array();
+          $user['user_id']=$user_id;
+          if (!$user_id_ag['user_id']>0){
+            error_log("synck_user1".$user_id);
+            $user['agency_id']=$request['pInfo']['agency_id'];
+            $db->insertAry('agency_users',$user);
 
+          } else if (!$user_id_ag['status']>0){
+            $user['status']=1;
+            $db->updateAry('agency_users',$user,"where user_id='" .$user_id. "' and agency_id=".$request['pInfo']['agency_id'] );
+          }
+
+          $con=array();
+          $con['contractor_id']=$user['user_id'];
+          $con['firmatario']=$contract['name'] ." " .$contract['surname'];
+          $db->updateAry('contract',$con,"where id=".$request['appData']['contract_id']);
+
+          //sincronizzo i dati kyc
+          //aggiornamento word
+            foreach ($contractor as $key => $word){
+              $date = date_parse($word);
+              if (!($date["error_count"] == 0 && checkdate($date["month"], $date["day"], $date["year"]))) {
+                if (! is_numeric($word) && strlen($word)>3 && $key!="sign" ){
                   $sql="select * from word_tag_kyc where agency_id=" .$request['pInfo']['agency_id'] ."
-                  and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='doc_type' and tag_key=".$i;
+                  and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='" .$key ."'";
                   $w=$db->getRow($sql);
                   if (count($w)>0){
                     $w['agency_id']=$request['pInfo']['agency_id'] ;
                     $w['kyc_id']=$request['appData']['contract_id'] ;
-                    $w['tag_key']=$i;
-                    $w['id_tag']='doc_type';
-                    $w['word']=$Doc['doc_type'];
+                    $w['id_tag']=$key;
+                    $w['word']=$word;
                     $db->updateAry('word_tag_kyc',$w," where agency_id=" .$request['pInfo']['agency_id'] ."
-                    and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='doc_type' and tag_key=".$i);
+                    and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='" .$key ."'");
 
                   }
                   else{
                     $w['agency_id']=$request['pInfo']['agency_id'] ;
                     $w['kyc_id']=$request['appData']['contract_id'] ;
-                    $w['tag_key']=$i;
-                    $w['id_tag']='doc_type';
-                    $w['word']=$Doc['doc_type'];
+                    $w['id_tag']=$key;
+                    $w['word']=$word;
                     $db->insertAry('word_tag_kyc',$w);
 
                   }
-                  $i++;
+
                 }
+              }
+            }
+            //aggiornamento dati persone
+            if (strlen($contractor['fiscal_number'])>0){
+              $sqlperson="select * from kyc_person where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$contractor['fiscal_number'] ."'";
+              $person=$db->getRow($sqlperson);
+              if (count($person)>0){
+                error_log("bcontractor_date".print_r($contractor,1).$request['dbData']['contractor_data']);
+                $person['fullname']=$contractor['name'] ." " .$contractor['surname'];
+                $person['fiscal_id']=$contractor['fiscal_number'];
+                $person['kyc_data']=$request['dbData']['contractor_data'];
+                $person['agency_id']=$request['pInfo']['agency_id'] ;
+                $db->updateAry('kyc_person',$person,"where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$contractor['fiscal_number'] ."'");
 
+              }
+              else{
+                error_log("acontractor_date".print_r($contractor,1).$request['dbData']['contractor_data']);
+                $person=array();
+                $person['fullname']=$contractor['name'] ." " .$contractor['surname'];
+                $person['fiscal_id']=$contractor['fiscal_number'];
+                $person['kyc_data']=$request['dbData']['contractor_data'];
+                $person['agency_id']=$request['pInfo']['agency_id'] ;
+                $db->insertAry('kyc_person',$person);
 
-        //aggiornamento dati persone
-        if (strlen($contractor['fiscal_number'])>0){
-          $sqlperson="select * from kyc_person where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$contractor['fiscal_number'] ."'";
-          $person=$db->getRow($sqlperson);
-          if (count($person)>0){
-            error_log("bcontractor_date".print_r($contractor,1).$request['dbData']['contractor_data']);
-            $person['fullname']=$contractor['name'] ." " .$contractor['surname'];
-            $person['fiscal_id']=$contractor['fiscal_number'];
-            $person['kyc_data']=$request['dbData']['contractor_data'];
-            $person['agency_id']=$request['pInfo']['agency_id'] ;
-            $db->updateAry('kyc_person',$person,"where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$contractor['fiscal_number'] ."'");
-
+              }
+            }
           }
-          else{
-            error_log("acontractor_date".print_r($contractor,1).$request['dbData']['contractor_data']);
-            $person=array();
-            $person['fullname']=$contractor['name'] ." " .$contractor['surname'];
-            $person['fiscal_id']=$contractor['fiscal_number'];
-            $person['kyc_data']=$request['dbData']['contractor_data'];
-            $person['agency_id']=$request['pInfo']['agency_id'] ;
-            $db->insertAry('kyc_person',$person);
+          if ($request['option']['synk_docs']){
+            $Docs=json_decode($request['dbData']['Docs'],true);
+            //aggiornamento word per i documenti
+            $i=0;
+            foreach ($Docs as $key => $Doc){
 
+              $sql="select * from word_tag_kyc where agency_id=" .$request['pInfo']['agency_id'] ."
+              and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='doc_type' and tag_key=".$i;
+              $w=$db->getRow($sql);
+              if (count($w)>0){
+                $w['agency_id']=$request['pInfo']['agency_id'] ;
+                $w['kyc_id']=$request['appData']['contract_id'] ;
+                $w['tag_key']=$i;
+                $w['id_tag']='doc_type';
+                $w['word']=$Doc['doc_type'];
+                $db->updateAry('word_tag_kyc',$w," where agency_id=" .$request['pInfo']['agency_id'] ."
+                and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='doc_type' and tag_key=".$i);
+
+              }
+              else{
+                $w['agency_id']=$request['pInfo']['agency_id'] ;
+                $w['kyc_id']=$request['appData']['contract_id'] ;
+                $w['tag_key']=$i;
+                $w['id_tag']='doc_type';
+                $w['word']=$Doc['doc_type'];
+                $db->insertAry('word_tag_kyc',$w);
+
+              }
+              $i++;
+            }
           }
+
+
+          //aggiorno owners
+          if ($request['option']['synk_owners']){
+            $owners=json_decode($request['dbData']['owner_data'],true);
+            error_log("synck_owners");
+            $i=0;
+            if (is_array($owners) && count($owners)>0)
+            foreach ($owners as $contractor) {
+
+              //sincronizzo i dati utente
+              $sql="select user_id from users where fiscal_number='" .$contractor['fiscal_number']. "'";
+              $user_id=$db->getVal($sql);
+              if (!$user_id>0){
+                error_log("synck_user3");
+                $user=$contractor;
+                unset($user['user_id']);
+                $user['password']=rand(1000,1500000);
+                $user['status']=3;
+                $user['user_type']=3;
+                $user['agency_id']=$request['pInfo']['agency_id'];
+                $user['agent_id']=$request['pInfo']['agent_id'];
+                $user_id=$db->insertAry('users',$user);
+              }
+              $sql="select user_id,status from agency_users where user_id='" .$user_id. "' and agency_id=".$request['pInfo']['agency_id'];
+              $user_id_ag=$db->getRow($sql);
+              error_log("synck_user1".  $user_id);
+              $user=array();
+              $user['user_id']=$user_id;
+              if (!$user_id_ag['user_id']>0){
+                error_log("synck_user1".$user_id);
+                $user['agency_id']=$request['pInfo']['agency_id'];
+                $db->insertAry('agency_users',$user);
+
+              } elseif (!$user_id_ag['status']>0){
+                $user['status']=1;
+                $db->updateAry('agency_users',$user,"where user_id='" .$user_id. "' and agency_id=".$request['pInfo']['agency_id'] );
+              }
+
+              if ($contract['act_for_other']==2 && $i==0){
+                error_log("agg_contra_syn".print_r($contractor,1));
+                $con=array();
+                $con['other_id']=$user_id;
+                $con['owner']=$contractor['name'] ." " .$contractor['surname'];
+                $db->updateAry('contract',$con,"where id=".$request['appData']['contract_id']);
+
+              }
+
+              $i++;
+            }
+            if (is_array($owners) && count($owners)>0)
+            foreach ($owners as $contractor) {
+              $sqlperson="select * from kyc_person where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$contractor['fiscal_number'] ."'";
+              $person=$db->getRow($sqlperson);
+              if (count($person)>0){
+                error_log("xbcontractor_date".print_r($contractor,1).$request['dbData']['contractor_data']);
+                $person['fullname']=$contractor['name'] ." " .$contractor['surname'];
+                $person['fiscal_id']=$contractor['fiscal_number'];
+                $person['kyc_data']= json_encode($contractor,JSON_UNESCAPED_SLASHES);
+                $person['agency_id']=$request['pInfo']['agency_id'] ;
+                $db->updateAry('kyc_person',$person,"where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$contractor['fiscal_number'] ."'");
+
+              }
+              else{
+                error_log("xacontractor_date".print_r($contractor,1).$request['dbData']['contractor_data']);
+                $person=array();
+                $person['fullname']=$contractor['name'] ." " .$contractor['surname'];
+                $person['fiscal_id']=$contractor['fiscal_number'];
+                $person['kyc_data']=json_encode($contractor,JSON_UNESCAPED_SLASHES);
+                $person['agency_id']=$request['pInfo']['agency_id'] ;
+                $db->insertAry('kyc_person',$person);
+
+              }
+
+            }
+          }
+          // verifco se devo sincronizzare società
+          if ($request['option']['synk_company']){
+            $company=json_decode($request['dbData']['company_data'],true);
+            error_log("sync_company");
+            $sql="select company_id from company where fiscal_id='" .$company['fiscal_id']. "'";
+            $company_id=$db->getVal($sql);
+            if (!$company_id>0){
+              error_log("synck_user3");
+              $comp=$company;
+              unset($comp['user_id']);
+              $comp['agency_id']=$request['pInfo']['agency_id'];
+              $comp['agent_id']=$request['pInfo']['agent_id'];
+              $company_id=$db->insertAry('company',$company);
+            }
+            $sql="select company_id,status from agency_company where company_id='" .$company_id. "' and agency_id=".$request['pInfo']['agency_id'];
+            $company_id_ag=$db->getRow($sql);
+            error_log("synck_user1".  $user_id);
+            $comp=array();
+            $comp['company_id']=$company_id;
+            if (!$company_id_ag['company_id']>0){
+              error_log("synck_user1".$company_id);
+              $comp['agency_id']=$request['pInfo']['agency_id'];
+              $db->insertAry('agency_company',$comp);
+
+            } elseif (!$company_id_ag['status']>0){
+              $comp['company_id']=$company_id;
+              $comp['status']=1;
+              $db->updateAry('agency_company',$comp,"where company_id='" .$company_id. "' and agency_id=".$request['pInfo']['agency_id'] );
+            }
+            error_log('agg other');
+            $con=array();
+            $con['other_id']=$comp['company_id'];
+            $con['owner']=$company['name'];
+            $db->updateAry('contract',$con,"where id=".$request['appData']['contract_id']);
+            //aggiorno kyc_company
+            if (strlen($company['fiscal_id'])>0){
+              $sqlperson="select * from kyc_company where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$company['fiscal_id'] ."'";
+              $person=$db->getRow($sqlperson);
+              if (count($person)>0){
+                error_log("bcontractor_date".print_r($company,1).$request['dbData']['contractor_data']);
+                $person['fullname']=$company['name'];
+                $person['fiscal_id']=$company['fiscal_id'];
+                $person['kyc_data']=$request['dbData']['company_data'];
+                $person['agency_id']=$request['pInfo']['agency_id'] ;
+                $db->updateAry('kyc_company',$person,"where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$company['fiscal_id'] ."'");
+
+              }
+              else{
+                error_log("acontractor_date".print_r($company,1).$request['dbData']['contractor_data']);
+                $person=array();
+                $person['fullname']=$company['name'];
+                $person['fiscal_id']=$company['fiscal_id'];
+                $person['kyc_data']=$request['dbData']['company_data'];
+                $person['agency_id']=$request['pInfo']['agency_id'] ;
+                $db->insertAry('kyc_company',$person);
+
+              }
+            }
+            //aggiornamento tag
+            foreach ($company as $key => $word){
+              $date = date_parse($word);
+              if (!($date["error_count"] == 0 && checkdate($date["month"], $date["day"], $date["year"]))) {
+                if (! is_numeric($word) && strlen($word)>3 && $key!="sign" ){
+                  $sql="select * from word_tag_kyc where agency_id=" .$request['pInfo']['agency_id'] ."
+                  and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='" .$key ."'";
+                  $w=$db->getRow($sql);
+                  if (count($w)>0){
+                    $w['agency_id']=$request['pInfo']['agency_id'] ;
+                    $w['kyc_id']=$request['appData']['contract_id'] ;
+                    $w['id_tag']=$key;
+                    $w['word']=$word;
+                    $db->updateAry('word_tag_kyc',$w," where agency_id=" .$request['pInfo']['agency_id'] ."
+                    and  kyc_id='" .$request['appData']['contract_id'] . "' and  id_tag='" .$key ."'");
+
+                  }
+                  else{
+                    $w['agency_id']=$request['pInfo']['agency_id'] ;
+                    $w['kyc_id']=$request['appData']['contract_id'] ;
+                    $w['id_tag']=$key;
+                    $w['word']=$word;
+                    $db->insertAry('word_tag_kyc',$w);
+
+                  }
+
+                }
+              }
+            }
+          }
+
+
+          $data = array('RESPONSECODE'=> 1 ,'RESPONSE'=> "Information updated successfully");
+          echo json_encode($data);
+          if ($request['final']){
+            $request['appData']['kyc_status']=1;
+            $flgIn=$db->updateAry("contract", $request['appData'], "where id=". $request['appData']['contract_id']);
+          }
+          break;
         }
-        //aggiorno owners
-        $owners=json_decode($request['dbData']['owner_data'],true);
-        if (is_array($owners) && count($owners)>0)
-        foreach ($owners as $contractor) {
-          $sqlperson="select * from kyc_person where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$contractor['fiscal_number'] ."'";
-          $person=$db->getRow($sqlperson);
-          if (count($person)>0){
-            error_log("bcontractor_date".print_r($contractor,1).$request['dbData']['contractor_data']);
-            $person['fullname']=$contractor['name'] ." " .$contractor['surname'];
-            $person['fiscal_id']=$contractor['fiscal_number'];
-            $person['kyc_data']=$request['dbData']['contractor_data'];
-            $person['agency_id']=$request['pInfo']['agency_id'] ;
-            //$db->updateAry('kyc_person',$person,"where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$contractor['fiscal_number'] ."'");
 
-          }
-          else{
-            error_log("acontractor_date".print_r($contractor,1).$request['dbData']['contractor_data']);
-            $person=array();
-            $person['fullname']=$contractor['name'] ." " .$contractor['surname'];
-            $person['fiscal_id']=$contractor['fiscal_number'];
-            $person['kyc_data']=$request['dbData']['contractor_data'];
-            $person['agency_id']=$request['pInfo']['agency_id'] ;
-            $db->insertAry('kyc_person',$person);
-
-          }
-
-        }
-        //aggiorno owners
-        $company=json_decode($request['dbData']['company_data'],true);
-        if (strlen($company['fiscal_id'])>0){
-          $sqlperson="select * from kyc_company where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$company['fiscal_id'] ."'";
-          $person=$db->getRow($sqlperson);
-          if (count($person)>0){
-            error_log("bcontractor_date".print_r($company,1).$request['dbData']['contractor_data']);
-            $person['fullname']=$company['name'];
-            $person['fiscal_id']=$company['fiscal_id'];
-            $person['kyc_data']=$request['dbData']['company_data'];
-            $person['agency_id']=$request['pInfo']['agency_id'] ;
-            $db->updateAry('kyc_company',$person,"where agency_id=" .$request['pInfo']['agency_id'] ." and  fiscal_id='" .$company['fiscal_id'] ."'");
-
-          }
-          else{
-            error_log("acontractor_date".print_r($company,1).$request['dbData']['contractor_data']);
-            $person=array();
-            $person['fullname']=$company['name'];
-            $person['fiscal_id']=$company['fiscal_id'];
-            $person['kyc_data']=$request['dbData']['company_data'];
-            $person['agency_id']=$request['pInfo']['agency_id'] ;
-            $db->insertAry('kyc_company',$person);
-
-          }
-        }
-
-
-        $data = array('RESPONSECODE'=> 1 ,'RESPONSE'=> "Information updated successfully");
+        $data = array('RESPONSECODE'=> 0 ,'RESPONSE'=> "Error");
         echo json_encode($data);
-        if ($request['final']){
-          $request['appData']['kyc_status']=1;
-          $flgIn=$db->updateAry("contract", $request['appData'], "where id=". $request['appData']['contract_id']);
-        }
         break;
-      }
-      $data = array('RESPONSECODE'=> 0 ,'RESPONSE'=> "Error");
-      echo json_encode($data);
-      break;
 
-    }
+      }
 
     case 'kycAx':{
       if ($request['appData']['contract_id']!='' ){
@@ -456,6 +609,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
           error_log("ciaox1".print_r($owner,1));
 
           foreach ($owner as $key => $value) {
+//            error_log("ownerlist".print_r($value,1)."--".$request['appData']['other_id']);
               if ($value['user_id']==$request['appData']['other_id'])
                 $present=true;
           }
@@ -666,8 +820,9 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
     case 'CustomerList' :
     {
 
-      $sql="SELECT concat(us.name,' ',us.surname) as fullname ,us.email,us.mobile,us.image,us.user_id,us.fiscal_number
+      $sql="SELECT concat(us.name,' ',us.surname) as fullname ,us.email,us.mobile,us.image,us.user_id,us.fiscal_number, au.id as auid
       FROM users us   ";
+      $join=" join agency_users au on us.user_id=au.user_id ";
       $where="";
       if (strlen($request['last'])>0){
         $where = " and us.user_id <  " .$request['last'];
@@ -677,23 +832,23 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       {
         if($request['pInfo']['priviledge'] == 2 )
         {
-          $sql.="  WHERE us.agent_id ='".$request['pInfo']['agent_id']."'  AND us.status <> 2 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
+          $sql.=$join. "  WHERE au.agent_id ='".$request['pInfo']['agent_id']."'  AND au.status = 1 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
 
         }
         else if($request['pInfo']['priviledge'] == 1)
         {
-          $sql.=" WHERE us.agency_id ='".$request['pInfo']['agency_id']."'  AND us.status <> 2 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
+          $sql.=$join ." WHERE au.agency_id ='".$request['pInfo']['agency_id']."'  AND au.status = 1 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
 
         }
       }
       else if($request['pInfo']['user_type'] =='1')
       {
 
-        $sql.=" WHERE us.agency_id ='".$request['pInfo']['agency_id']."'  AND us.status <> 2 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
+        $sql.=$join ." WHERE au.agency_id ='".$request['pInfo']['agency_id']."'  AND au.status = 1 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
       }
 
       if ($request['pInfo']['user_type'] =='-1') {
-        $sql.="where us.status <> 2 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
+        $sql.=$join."where au.agency_id ='".$request['pInfo']['agency_id']."' And au.status = 1 and us.user_type='3' ".$where.$search." ORDER BY us.user_id DESC limit 5 ";
       }
       //////error_log($request['action']."1-".$request['id'] .$sql.  PHP_EOL);
       if($request['pInfo']['user_type'] =='3')
@@ -733,7 +888,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       if (strlen($request['search'])>0){
         $search="and (1=0  ";
         if ($request['searchThings']['fullname']){
-          $search.=" or concat(us.name,' ',us.surname) like '%".$request['search']  ."%' or cmy.name like '%".$request['search']  ."%' or co.nometemp like '%".$request['search']  ."%'";
+          $search.=" or concat(us.name,' ',us.surname) like '%".$request['search']  ."%' or cmy.name like '%".$request['search']  ."%' or co.firmatario like '%".$request['search']  ."%'";
         }
         if ($request['searchThings']['CPU']){
           $search.=" or co.CPU like '%".$request['search']  ."%' ";
@@ -776,7 +931,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       else {
         $search="";
       }
-      $sql= "SELECT co.agent_id,co.agency_id,co.id as contract_id, co.nometemp, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
+      $sql= "SELECT co.agent_id,co.agency_id,co.id as contract_id, co.firmatario,co.owner, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
       co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,
       co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,
       concat(us.name,' ',us.surname) as fullname, concat(us.name,' ',us.surname) as contractor_name,us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
@@ -799,25 +954,25 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
 
         if($request['pInfo']['priviledge'] == 2 )
         {
-          $sql.="  WHERE co.agent_id ='".$request['pInfo']['user_id']."' AND co.status <> 2 ".$where.$search.$last." ORDER BY co.id DESC " . $limit;
+          $sql.="  WHERE co.agent_id ='".$request['pInfo']['user_id']."' AND co.status <> 2 ".$where.$search.$last." ORDER BY cpuanno DESC ,cpuid DESC " . $limit;
 
         }
         else if($request['pInfo']['priviledge'] == 1)
         {
 
-          $sql.=" WHERE co.agency_id ='".$request['pInfo']['agency_id'] ."' AND co.status <> 2 ".$where.$search.$last." ORDER BY co.id DESC   ". $limit;
+          $sql.=" WHERE co.agency_id ='".$request['pInfo']['agency_id'] ."' AND co.status <> 2 ".$where.$search.$last." ORDER BY cpuanno DESC ,cpuid DESC   ". $limit;
 
 
         }
       }
       else if($request['pInfo']['user_type'] =='1')
       {
-        $sql.=" WHERE co.agency_id ='".$request['pInfo']['agency_id'] ."' AND co.status <> 2  ".$where.$search. $last." ORDER BY co.id DESC " . $limit;
+        $sql.=" WHERE co.agency_id ='".$request['pInfo']['agency_id'] ."' AND co.status <> 2  ".$where.$search. $last." ORDER BY cpuanno DESC,cpuid DESC " . $limit;
 
 
       }
       if ($request['pInfo']['user_type'] =='-1'){
-        $sql.=" WHERE  co.status <> 2  ".$where. $last.$search. " ORDER BY co.id DESC " . $limit;
+        $sql.=" WHERE  co.status <> 2  ".$where. $last.$search. " ORDER BY cpuanno DESC,cpuid DESC " . $limit;
       }
 
       if ($request['pInfo']['user_type'] =='3'){
@@ -1001,10 +1156,10 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
         $getcustomerlist = $db->getRows($sql);
 
       } else if (strlen($request['name'])>0){
-        $sql="SELECT us.user_id, concat(us.name,' ',us.surname) fullname, us.email from  users as us  WHERE
+        $sql="SELECT us.user_id, concat(us.name,' ',us.surname) fullname, us.email from  users as us  join agency_users as au on us.user_id=au.user_id  WHERE
          (us.email  like '%".$request['name']. "%' or concat(us.name,' ',us.surname)  like '%".$request['name']."%' )
-         and agency_id='".$request['pInfo']['agency_id']."'
-         and user_type='3'  ORDER BY concat(us.name,us.surname) ASC limit 5 ";
+         and au.agency_id='".$request['pInfo']['agency_id']."'
+         ORDER BY concat(us.name,us.surname) ASC limit 5 ";
         $getcustomerlist = $db->getRows($sql);
 
       }
@@ -1030,9 +1185,9 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       }
 
       if (strlen($request['name'])>0){
-        $sql="SELECT co.company_id  ,co.name, co.fiscal_id from  company as co
+        $sql="SELECT co.company_id  ,co.name, co.fiscal_id from  company as co join agency_company ac on ac.user_id=us.user_id
         WHERE (co.name  like '%".$request['name']. "%' or co.fiscal_id  like '%".$request['name']."%' ) ".$where."
-          and agency_id='".$request['pInfo']['agency_id']."'
+          and ac.agency_id='".$request['pInfo']['agency_id']."'
          ORDER BY co.company_id ASC limit 5 ";
         $getcustomerlist = $db->getRows($sql);
 
@@ -1065,6 +1220,63 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
         $request['order']=$request['settings']['order'];
         $request['ob']=$request['settings']['ob'];
       }
+      $where="and tb.agency_id=".$request['pInfo']['agency_id'];
+      if ($request['table']=='company' ){
+        $join=" join agency_company as ago on ago.company_id=tb.company_id ";
+        $where=" and ago.agency_id= " .$request['pInfo']['agency_id'];
+      }
+      if ($request['table']=='users' ){
+        $join=" join agency_users as ago on ago.user_id=tb.user_id  ";
+        $where=" and ago.agency_id= " .$request['pInfo']['agency_id'];
+      }
+      $first=true;
+      $fields="";
+      error_log("fields:".print_r($request['settings']['fields'],1));
+      foreach($request['settings']['fields'] as $key => $val) {
+        $key=strtolower($key);
+        if ( $first) $fields.= " , ";
+        if (is_array($val) )
+        $fields.=  " " . $val['col'] .  ( isset($val['alias']) ? " As ".$val['alias'] :''  );
+        else
+        $fields.=  " " . (strlen($key)>0 ? $key:'' ) . (strlen($val)>0 ? " as ". $val:'');
+        $first=true;
+      }
+      $whereSQL="";
+      foreach($request['settings']['where'] as $key => $val) {
+        error_log("where");
+        $key=strtolower($key);
+        if (! $first) $whereSQL.= " where  ";
+        if (is_array($val)){
+          error_log(print_r($val,1));
+
+          $key1=strtolower($key1);
+          if ( $first) {
+            error_log("oprel1".$val['oprel']);
+            if (strlen($val['oprel'])>0)
+            $whereSQL.=" " .$val['oprel']. " ";
+            else
+            $whereSQL.=" and ";
+
+          }
+          // gestione cancellato
+          // gestisco struttura where senza array
+          $val['opcond']=htmlspecialchars_decode($val['opcond']);
+          if ($key=='cancellato'|| $key=='contatore')
+          $key=" uno." .$key ." ";
+          $key=(isset($val['col']) ? $val['col'] : $key);
+          $whereSQL.=  " " . $key . " ".(isset($val['opcond']) ? $val['opcond'] : '=')." '".
+          $val['pre'].$val['valore'].$val['post']."'" ;
+          $first=true;
+          break;
+        }
+        else {
+          error_log("where cond key:". $key1 ."-Val:". $val2);
+          if ( $first) $whereSQL.=" And " ;
+          $whereSQL.= " " . $key . "='" . $val ."'";
+        }
+        $first=true;
+      }
+
       if (strlen($request['search'])>0 || $request['word']=="countries" || $request['zero'] || $request['countries']){
         if ($request['word']!="countries" || !  $request['zero'] || ! $request['countries'] ){
           if ( is_array($request['ob'])){
@@ -1072,10 +1284,12 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
           }else
           {
 
-          $sql="SELECT distinct " . $request['word']."  as word from  ". $request['table'] ."
-          WHERE " . $request['word']."   like '%".addslashes($request['search']). "%'  AND agency_id=".$request['pInfo']['agency_id']."
-          AND ".$request['word']."<> ''
-           ORDER BY ". $request['word']. "  ASC limit 5 ";
+          $sql="SELECT distinct " . $request['word']."  as word   ". $fields. " from " .$request['table'] . " as tb " .
+          $join ."
+          WHERE " . $request['word']."   like '%".addslashes($request['search']). "%'"  . $whereSQL .
+          $where ."
+          AND " . $request['word']."<> ''
+          ORDER BY ". $request['word']. "  ASC limit 5 ";
           //error_log("sql1:". $sql.PHP_EOL);
           }
           $getword = $db->getRows($sql);
@@ -1133,6 +1347,8 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
 
         error_log("concat3:". print_r($getword,1).print_r($getword2,1).PHP_EOL);
       }
+      $data = array('RESPONSECODE'=> 1 , 'RESPONSE'=> $getword);
+/*
       if(is_array($getword) && count($getword)>0)
       {
         $data = array('RESPONSECODE'=> 1 , 'RESPONSE'=> $getword);
@@ -1140,8 +1356,8 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       else
       {
         $data = array('RESPONSECODE'=> $sql , 'RESPONSE'=> '');
-
       }
+*/
       echo json_encode($data);
       break;
 
@@ -1182,6 +1398,10 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
         $aryData['password']=$random_passw;
 
         $flgIn=$db->insertAry("users",$aryData);
+        $aryData2=array();
+        $aryData2['user_id']=$lastid;
+        $aryData2['agency_id']=$request['pInfo']['agency_id'];
+        $flgIn=$db->insertAry("agency_user",$aryData2);
         if(!is_null($flgIn))
         {
           $lastid=$db->getVal("SELECT LAST_INSERT_ID()");
@@ -1228,6 +1448,33 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       mail_template($request['email'],$request['template'],$vars, $request['lang']);
       break;
     }
+    case 'add_temp_contract' :
+    {
+      $contract['CPU']="in preparazione";
+      $contract['CPUanno']="999999";
+      $contract['agent_id']=$request['pInfo']['agent_id'];
+      $contract['agency_id']=$request['pInfo']['agency_id'];
+      $contract['firmatario']=$request['contract']['firmatario'];
+      $flgIn=$db->insertAry("contract",$contract);
+      $contract=$flgIn;
+      if (!$flgIn>0){
+        $data = array('RESPONSECODE'=> 0 , 'RESPONSE'=>$error);
+        echo json_encode($data);
+        return;
+      }
+
+      $sql="select id as contract_id, firmatario, agency_id,agent_id,CPU from contract where id=".$flgIn;
+      $contract=$db->getRow($sql);
+      //inserisco anche la riga kyc;
+      $kyc['contract_id']=$flgIn;
+      $kyc['agent_id']=$request['pInfo']['agent_id'];
+      $kyc['agency_id']=$request['pInfo']['agency_id'];
+      $kycId=$db->insertAry("kyc", $kyc);
+      $contract['kycid']=$kycId;
+      $data = array('ID'=>$flgIn,'RESPONSECODE'=>1 ,'RESPONSE'=> $contract);
+      echo json_encode($data);
+      break;
+    }
     case 'addcontract' :
     {
 
@@ -1248,7 +1495,29 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       $aryData['agent_id']=$request['pinfo']['agent_id'];
       //////error_log("EDIT::". $request['edit'] .PHP_EOL);
       //file_put_contents('/var/www/html/tmp/php-error.log',"...". $request['edit'] );
+      error_log("PrimaCPU".$aryData['CPU']);
       if ($request['edit']=="edit"){
+        if ($aryData['CPU']=='in preparazione'||strlen(trim($aryData['CPU']))==0 ){
+          error_log("CPU".$aryData['CPU']);
+          $sql="SELECT  CPU  FROM  `contract`  where  cast(CPU as UNSIGNED) >0 and CPUanno=".date('Y'). " and  not id=".$request['dbData']['contract_id']." and  agency_id = ". $request['pInfo']['agency_id'] ." order by CPUid desc limit 1";
+          $CPU =$db->getVal($sql);
+          $anno_corr=date('Y');
+          if (is_null($CPU)){
+            $CPU="0/".date("Y");
+          };
+          list($num, $anno) = split("/", $CPU,2);
+          if (!strlen($anno)>0){
+            $anno=$anno_corr;
+          }
+          $num=intval($num);
+          $num++;
+          $CPU=$num ."/" .$anno;
+          $aryData['CPU']=$CPU;
+          $aryData['CPU']=$CPU;
+          $aryData['CPUanno']=date('Y');
+          $aryData['CPUid']=$num;
+
+        }
         $flgIn=$db->updateAry("contract",$aryData, "where id='".$request['dbData']['contract_id']."'");
         $ok="Contratto Aggiornato Correttamente";
         if(!is_null($flgIn))  {
@@ -1310,7 +1579,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
             //$flgIn=$db->updateAry("kyc",$kyc, "where contract_id='".$request['dbData']['contract_id']."'");
           }
 
-          $data = array('ID'=>$flgIn,'RESPONSECODE'=>1 ,'RESPONSE'=> $ok);
+          $data = array('ID'=>$flgIn,'RESPONSECODE'=>1 ,'RESPONSE'=> $ok, 'CPU'=>$CPU);
           echo json_encode($data);
           break;
         }
@@ -1319,7 +1588,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       }
       else {
         //GEstione CPU per insert
-        $sql="SELECT  CPU  FROM  `contract`  where  agency_id = ". $agency_id ." order by id desc limit 1";
+        $sql="SELECT  CPU  FROM  `contract`  where  cast(CPU as UNSIGNED) >0 and CPUanno=".date('Y'). "  and  agency_id = ". $request['pInfo']['agency_id'] ." order by CPUid desc limit 1";
         $CPU =$db->getVal($sql);
         $anno_corr=date('Y');
         if (is_null($CPU)){
@@ -1333,6 +1602,8 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
         $num++;
         $CPU=$num ."/" .$anno;
         $aryData['CPU']=$CPU;
+        $aryData['CPUanno']=date('Y');
+        $aryData['CPUid']=$num;
 
         $flgIn=$db->insertAry("contract",$aryData);
         $contract=$flgIn;
@@ -1364,7 +1635,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
             $db->updateAry($ary,"documents","where id=".$docs['id']);
           }
           $db->insertAry("risk", $arydata2);
-          $data = array('ID'=>$flgIn,'RESPONSECODE'=>1 ,'RESPONSE'=> $ok, "lastid"=>$lastid);
+          $data = array('ID'=>$flgIn,'RESPONSECODE'=>1 ,'RESPONSE'=> $ok, "lastid"=>$lastid,"CPU"=>$CPU);
           echo json_encode($data);
           break;
           //mail_template($request['customer_email'],'add_customer',$vars);
@@ -1574,7 +1845,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
         $search="";
       }
 
-      $sql= "SELECT co.agent_id,co.nometemp, co.agency_id,co.id as contract_id, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
+      $sql= "SELECT co.agent_id,co.firmatario, co.owner, co.agency_id,co.id as contract_id, co.nature_contract,co.scope_contract,co.number,co.CPU,co.contract_date,
       co.contract_value,co.contractor_id,co.role_for_other,co.activity_country,co.tipo_contratto,co.end_det,
       co.contract_eov,co.act_for_other,co.Docs,co.other_id,r.riskAssigned,co.status,co.value_det,co.procura,co.found_source,co.paymentInstrument,
       concat(us.name,' ',us.surname) as fullname,concat(us.name,' ',us.surname) as contractor_name, us.surname,us.name as name1, us.email,us.mobile,us.image,cmy.company_id,
@@ -1631,71 +1902,50 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
 
 
 
-  case 'view_Owners_Profile_info' :
-  {
-    if($request['customer_id']!='' )
-    {
-      $userDetails=$db->getRow("SELECT us.*,cy.name,cs.customer_dob  FROM  users us JOIN company_owners co ON co.user_id = us.user_id JOIN company cy ON co.company_id = cy.company_id JOIN customer cs ON cs.user_id = us.user_id  WHERE us.user_id='".trim($request['customer_id'])."' ");
-      //echo $db->getLastQuery(); exit;
-      //  $userDetails=$db->getRow("SELECT us.*,cs.customer_dob FROM  users us JOIN customer cs ON cs.user_id = us.user_id WHERE us.user_id='".trim($request['customer_id'])."' ");
 
-      if($userDetails['user_id']!='')
-      {
-
-        $userInfo= array('name'=> $userDetails['name'],'email'=>$userDetails['email'],'mobile'=>$userDetails['mobile'],'imagename'  =>$userDetails['image'],'company_name' =>  $userDetails['company_name'],'dob' => $userDetails['customer_dob']  );
-        $data = array('RESPONSECODE'=>1 ,'RESPONSE'=> $userInfo);
-      }
-      else{$data = array('RESPONSECODE'=> 0 ,'RESPONSE'=> "Invalid User");}
-    }
-    else
-    {
-      $data = array('RESPONSECODE'=> 0 ,'RESPONSE'=> "Error");
-    }
-    echo json_encode($data);
-    break;
-    break;
-  }
   case 'CompanyList' :
   {
     $agencyvalue=$request['pInfo']['agency_id'];
+
     if (strlen($request['last'])>0){
-      $where = " and company_id <  " .$request['last'];
+      $where = " and co.company_id <  " .$request['last'];
 
     }
+    $join="  join agency_company as ac on ac.company_id=co.company_id";
     if (strlen($request['search'])>0){
       $search=" and (1=0  ";
       if ($request['searchThings']['fullname']){
-        $search.=" or name like '%".$request['search']  ."%'";
+        $search.=" or co.name like '%".$request['search']  ."%'";
       }
       if ($request['searchThings']['fiscal_number']){
-        $search.=" or fiscal_id like '%".$request['search']  ."%'";
+        $search.=" or co.fiscal_id like '%".$request['search']  ."%'";
       }
       $search.=" ) ";
     }
     else {
       $search="";
     }
-    $sql="SELECT  * FROM company ";
+    $sql="SELECT  co.*, ac.id as acid FROM company as co ";
     if($request['pInfo']['user_type'] =='2')
     {
       if($request['pInfo']['priviledge'] == 2 )
       {
-        $sql.="  WHERE  agent_id ='".$request['id']."' AND status <> 2 ".$where.$search." ORDER BY company_id DESC ";
+        $sql.=$join."  WHERE  ac.agency_id ='".$agencyvalue."' and ac.agent_id ='".$request['pInfo']['agent_id']."'  ".$where.$search." ORDER BY company_id DESC ";
 
       }
       else if($request['pInfo']['priviledge'] == 1)
       {
-        $sql.=" WHERE agency_id ='".$agencyvalue."' AND status <> 2 ".$where.$search." ORDER BY company_id DESC";
+        $sql.=$join." WHERE ac.agency_id ='".$agencyvalue."'  ".$where.$search." ORDER BY company_id DESC";
 
       }
     }
     else if($request['pInfo']['user_type'] =='1')
     {
-      $sql.=" WHERE agency_id ='".$agencyvalue."' AND status <> 2 ".$where.$search." ORDER BY company_id DESC";
+      $sql.=$join." WHERE ac.agency_id ='".$agencyvalue."'   ".$where.$search." ORDER BY company_id DESC";
     }
     if($request['pInfo']['user_type'] =='-1')
     {
-      $sql.=" WHERE  status <> 2 ".$where.$search." ORDER BY company_id DESC";
+      $sql.=$join." WHERE  ac.agency_id ='".$agencyvalue."'  ".$where.$search." ORDER BY company_id DESC";
     }
 
     if($request['pInfo']['user_type'] =='3')
@@ -1750,8 +2000,13 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
     $aryData['agent_id']=$request['pInfo'];
 
     $flgIn=$db->insertAry("company",$aryData);
-    if (!is_null($flgIn)){
-      $lastid=$db->getVal("SELECT LAST_INSERT_ID()");
+
+    if ($flgIn>0){
+      $lastid=$flgIn;
+      $aryData2=array();
+      $aryData2['company_id']=$flgIn;
+      $aryData2['agency_id']=$request['pInfo']['agency_id'];
+      $flgIn=$db->insertAry("agency_company",$aryData2);
       $data = array('ID'=>$flgIn,'RESPONSECODE'=>1 ,'RESPONSE'=> "Società inserita correttamente", 'lastid'=> $lastid);
       echo json_encode($data);
       break;
@@ -1862,14 +2117,7 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
   echo json_encode($data);
   break;
   }
-  case 'show_edit_company' :
-  {
-    $userDetails=$db->getRow("SELECT * FROM   company   WHERE company_id='".trim($request['company_id'])."'");
 
-    $data = array('RESPONSECODE'=> 1 ,'RESPONSE'=> $userDetails,  );
-    echo json_encode($data);
-    break;
-  }
   case 'add_owners' :
   {
     //error_log("appdata".print_r($request['appData'],1).PHP_EOL);
@@ -2478,7 +2726,13 @@ function doAction($request,$files,$db,$data=array(),$firsAction){
       $flgIn=$db->delete('agent',"where user_id='".$request['id'] ."' and  agency_id=".$request['pInfo']['agency_id']);
       //////error_log("uploads/document/".$doc['per']."_" .$doc['per_id']."/resize/".$doc['doc_image']);
     }
-    $flgIn=$db->delete($request['table'],$where);
+    if ($request['table']=='agency_users' || $request['table']=='agency_company' ){
+      $statu['status']=0;
+      $flgIn=$db->updateAry($request['table'],$status,$where);
+    }else {
+      $flgIn=$db->delete($request['table'],$where);
+    }
+
     if ($flgIn>0)
     $data=array(  'RESPONSECODE'	=>  1,   'RESPONSE'	=> "cancellato");
     else
