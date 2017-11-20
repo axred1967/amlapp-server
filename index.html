@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+
+  <title>AMLAPP</title>
+  <meta name="description" content="">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <script>
+  var SITE_TITLE = 'Amlapp';
+  var SITE_KEYWORD = 'Amlapp';
+  var SITE_DESCRIPTION = 'Amlapp';
+  document.title = SITE_TITLE;
+  /* Ambiente produzione */
+  var BASEURL = "https://amlapp.euriskoformazione.com/dev/ui-amlapp/";
+  var SERVERURL = "https://amlapp.euriskoformazione.com/dev/amlapp-server/";
+  var SERVICEURL = "https://amlapp.euriskoformazione.com/dev/amlapp-server/service/service.php";
+  var SERVICEURL2 = "https://amlapp.euriskoformazione.com/dev/amlapp-server/service/service.php";
+  var SERVICEDIRURL = "https://amlapp.euriskoformazione.com/dev/amlapp-server/service/";
+  var UPLOADSURL = "https://amlapp.euriskoformazione.com/dev/amlapp-server/uploads/";
+  var PDFURL = "https://amlapp.euriskoformazione.com/dev/amlapp-server/pdfgeneration/";
+  var LOG = "https://amlapp.euriskoformazione.com/dev/amlapp-server/service/log.php";
+  var TIPO_CONF='dev'
+  </script>
+  <link rel="icon" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/img/favicon.ico" type="image/x-icon"/>
+  <!-- Stylesheets -->
+  <!--
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500" type="text/css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+-->
+<link rel="stylesheet" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/css/roboto.css?ver=1.1.0" type="text/css">
+<link rel="stylesheet" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/css/dialog-polyfill.css?ver=1.1.0" type="text/css">
+<link rel="stylesheet" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/css/materialIcon.css?ver=1.1.0" type="text/css">
+<link rel="stylesheet" type="text/css" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/font-awesome-4.6.2/css/font-awesome.min.css?ver=1.1.0">
+<link rel="stylesheet" type="text/css" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/css/animsition.min.css?ver=1.1.0">
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/3.5.2/css/animsition.css?ver=1.1.0"> -->
+
+<link rel="stylesheet" type="text/css" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/css/sweetalert.css?ver=1.1.0">
+<link rel="stylesheet" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/css/material.min.css?ver=1.1.0">
+<link rel="stylesheet" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/css/swipebox.min.css?ver=1.1.0">
+<link rel="stylesheet" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/css/stylesheet.css?ver=1.1.0">
+<link rel="stylesheet" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/css/media_query.css?ver=1.1.0">
+<link rel="stylesheet" href="https://amlapp.euriskoformazione.com/dev/ui-amlapp/css/jquery.fancybox.css?ver=1.1.0">
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/dialog-polyfill.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/jquery-2.1.4.min.js?ver=1.1.0"></script>
+<script type="text/javascript" src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/custom.js?ver=1.1.0"></script>
+<script>
+var isapp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+if ( isapp ) {
+  document.write('<script src="cordova.js"></' + 'script>');
+  $(document).ready(function(){app.initialize();});
+}
+</script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/animsition.min.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/sweetalert.min.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/material.min.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/jquery.swipebox.min.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/jquery.fancybox.pack.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/function.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/angular.min.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/angular-ui-router.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/angular-route.min.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/angular-sanitize.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/angular-translate.min.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/angular-translate-loader-static-files.min.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/tmhDynamicLocale.min.js?ver=1.1.0"></script>
+
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/ng-infinite-scroll.min.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/ng-currency.js?ver=1.1.0"></script></head>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/js/signature_pad.js?ver=1.1.0"></script></head>
+
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/amlapp.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/language.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/login.js?ver=1.1.0"></script>
+
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/my_contract.js?ver=1.1.2"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/view_contract.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/my_company.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/my_customer.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/my_agent.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/owners_list.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/role_list.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/my_document.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/add_contract.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/add_customer.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/add_company.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/add_document.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/add_owners.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/kyc_contractor.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/kyc_company.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/kyc_owners.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/kyc_role.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/kyc_document.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/kyc_signature.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_profile01.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_profile02.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_profile03.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_profile04.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_profile05.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_final.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/my_profile.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_profile01_sm.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_profile02_sm.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_final_sm.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_profile01_4d.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_profile02_4d.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_profile03_4d.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_profile04_4d.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/risk_final_4d.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/agg_kyc.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/agg_risk.js?ver=1.1.0"></script>
+
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/share.js?ver=1.1.0"></script>
+
+<!-- Amministrazione  -->
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/email_templates.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/add_email_template.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/my_agencies.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/app/add_agency.js?ver=1.1.0"></script>
+<!--
+Text angular
+-->
+<link rel='stylesheet' href='https://amlapp.euriskoformazione.com/dev/ui-amlapp/textAngular/dist/textAngular.css'>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/textAngular/dist/textAngular-rangy.min.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/textAngular/dist/textAngular-sanitize.min.js?ver=1.1.0"></script>
+<script src="https://amlapp.euriskoformazione.com/dev/ui-amlapp/textAngular/dist/textAngular.min.js?ver=1.1.0"></script>
+<!-- -->
+
+<body>
+  <div ng-app="myApp" ng-controller="personCtrl"  class="animsition">
+        <div ng-if="main.login==true">
+          <!-- Page Content -->
+          <main class="mdl-layout__content">
+              <div id="ui-loader" class="center2" ng-show="main.loader==true" id="loader_img" >&nbsp;
+                <img   style="height:50px;width:50px;margin-top:20px" src="img/loader2.gif"  />
+              </div>
+              <div  id="ui-content"  ui-view ng-hide="main.loader==true" class="  account-data add-customer-data " ng-cloak> <!-- text fields -->
+              </div>
+          </main>
+        </div>
+        <div ng-if="main.login!=true" >
+          <!-- Sidebar -->
+          <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header dark-blue-bg" >
+              <div ng-if="main.Back" class="back-button" ng-click="back()"><i class="material-icons">arrow_back</i></div>
+              <div class="mdl-layout__header-row" ng-click="checkDirty()">
+                <div  class="center-container-header">
+                  <div style="margin-left:-10px" id="center" ng-hide="main[main.state].hideName" class="main-heading">{{main.viewName | translate}}</div>
+
+                </div>
+                <div ng-show="main[main.state].hideName" >{{ main[main.state].subHeader | translate}}</div>
+                  <!-- Title -->
+
+                    <div class="mdl-layout-spacer"></div>
+
+
+
+                    <div ng-if="main.Search"  id="searchExCont" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right right">
+                      <label class="mdl-button mdl-js-button mdl-button--icon" ng-focus="checkDirty()"
+                      for="searchBar" tabindex="30">
+                      <i class="material-icons">search</i>
+                    </label>
+                    <div class="mdl-textfield__expandable-holder">
+                      <input ng-model="main.searchText" excludeDirty class="mdl-textfield__input" type="text" name="searchBar" ng-keyup="search()"
+                      id="searchBar" />
+                    </div>
+
+
+                </div>
+
+                <button id="down_button" ng-if="main[main.state].down" ng-click="downClick()" class="mdl-button mdl-js-button mdl-button--icon right"
+                style="border:2px solid #FFF">                  <!--<img src="ui-amlapp/img/add-search.png">-->
+                  <i class="material-icons ">{{main[main.state].arrow}}</i>
+                </button>
+                <span ng-if="main.Add" style="" class="mdl-tooltip mdl-tooltip--validation toright" for="down_button" >
+                  <div >{{main[main.state].downLabel|translate}}</div>
+                </span>
+                <button id="add_button" ng-if="main.Add" ng-click="add()" class="mdl-button mdl-js-button mdl-button--icon right" style="border:2px solid #FFF">
+                  <!--<img src="ui-amlapp/img/add-search.png">-->
+                  <i class="material-icons ">add</i>
+                </button>
+                <span ng-if="main.Add" style="" class="mdl-tooltip mdl-tooltip--validation toright" for="add_button" >
+                  <div >{{main.AddLabel|translate}}</div>
+                </span>
+
+              </div>
+                  <div ng-if="main[main.state].showSubHeader"  class="slide-animate-container subHeader" >
+                    <div class="slide-animate" style="width:100%" ng-include="'templates/subHeader_' + main.state+'.html'"></div>
+                  </div>
+
+              </header>
+
+            <div id="sidebar_agency" class="mdl-layout__drawer" >
+            <div class="mdl-card mdl-shadow--2dp mdl-color--primary mdl-color-text--blue-grey-50 drawer-profile">
+              <div class="mdl-card__title user dark-blue-bg">
+                <center>AMLAPP Service <br/></center>
+                <center><img ng-show="agent.imageurl.length>0" id="Profileimageagencyuser" ng-src="{{agent.imageurl}}" alt="" />
+                  <span  id="Profileimageagencyusername" class="user-name">{{agent.name}}</span>
+                  <span  id="Profileimageagencyuseremail" class="user-mail">{{agent.email}}</span>
+                </center>
+              </div>
+              <!-- Top-right User -->
+              <nav class="mdl-navigation" style="background-color:white">
+                <a class="mdl-navigation__link " ui-sref="home"><i style="color:#757575" class="material-icons">reorder</i><span>{{'Contratti'|translate}}</span></a>
+                <a  class="mdl-navigation__link " ui-sref="my_customer" ><i style="color:#757575" class="material-icons">accessibility</i><span>{{main.Cm||translate}}</span></a>
+                <a class="mdl-navigation__link " ui-sref="my_company" ><i style="color:#757575" class="material-icons">business</i><span>{{'Società'|translate}}</span></a>
+                <a ng-show= "agent.user_type==1 " class="mdl-navigation__link " ui-sref="my_agent"> <i style="color:#757575" class="material-icons">group</i><span>{{'Agenti'|translate}}</span></a>
+                <a ng-hide= "agent.user_type!=-1 " class="mdl-navigation__link " ui-sref="my_agencies"> <i style="color:#757575" class="material-icons">local_library</i><span>{{'Agenzie'|translate}}</span></a>
+                <a ng-hide= "agent.user_type!=-1 " class="mdl-navigation__link " ui-sref="email_templates"> <i style="color:#757575" class="material-icons">email</i><span>{{'Mail '|translate}}</span></a>
+                <a ng-hide= "agent.user_type!=-1 " class="mdl-navigation__link " ui-sref="my_plan"> <i style="color:#757575" class="material-icons">cloud</i><span>{{'Piani '|translate}}</span></a>
+                <a class="mdl-navigation__link " ui-sref="my_profile" ><i style="color:#757575" class="material-icons tiny" >contacts</i><span>{{'Profilo'|translate}}</span></a>
+                <!--
+                <a class="mdl-navigation__link " ui-sref="my_document" ><i style=";color:#757575" class="material-icons">paper</i><span>{{'Documenti' |translate}} </span></a>
+              -->
+              <a class="mdl-navigation__link " ui-sref="logout()" ><i style=";color:#757575" class="material-icons">input</i><span>Logout </span></a>
+
+            </nav>
+          </div>          <!-- Top -->
+        </div>
+
+        <!-- Page Content -->
+
+        <main class="mdl-layout__content">
+<div class="page-content"><!-- Your content goes here -->
+
+
+
+
+
+
+          &nbsp;
+          <div id="ui-loader" class="center2" ng-show="main.loader==true" id="loader_img" >&nbsp;
+            <img   style="height:50px;width:50px;margin-top:20px" src="img/loader2.gif"  />
+          </div>
+          <div  id="ui-content"  ui-view ng-hide="main.loader==true" class="  account-data add-customer-data content-data-ax" ng-cloak> <!-- text fields -->
+          </div>
+</div>
+      </main>
+    </div>
+
+  </div>
+</div>
+<dialog class="mdl-dialog docCanvasDialog">
+  <div id="docCanvasContainer" class= "docCanvasContainer">
+    <div style="margin:10px">
+      <img class="loadImg loader"  src ="img/loading_image.gif" ></img>
+      <div id="containerCanvasDoc"  style="display:none">
+
+        <canvas style="margin-left:-25px" id="DocCanvas">
+        </canvas>
+        <div style="display:none;margin-left:-25px" class="cropCanvas" id="cropCanvas">
+          <div  class="resizerCanvas" style="width: 10px; height: 10px; background: blue; position: absolute; cursor: nw-resize; top: 0px; left: 0px;"></div>
+          <div class="resizerCanvas" style="width: 10px; height: 10px; background: blue; position: absolute; right: 0px; bottom: 0px; cursor: se-resize;"></div>
+          <div class="resizerCanvas" style="width: 10px; height: 10px; background: blue; position: absolute; cursor: ne-resize; top: 0px; right: 0px;"></div>
+          <div class="resizerCanvas" style="width: 10px; height: 10px; background: blue; position: absolute; cursor: sw-resize; bottom: 0px; left: 0px;"></div>
+        </div>
+      </div>
+      <div class=" mdl-dialog__actions" style="margin-left:-25px">
+        <button type="button" class="mdl-button closx mdl-button--colored closex" id="closeDocCanvas" onclick="">
+          <i class="material-icons">close</i>
+        </button>
+        <span class="mdl-tooltip mdl-tooltip--validation"  for="closeDocCanvas" >
+          <span >{{'Esci'|translate}}</span>
+        </span>
+        <button type="button" class="mdl-button mdl-button--colored " id="saveDocCanvas" onclick="cropCanvas();angular.element(this).scope().updateImageDialog(degrees,docPassed);dialog.close()" >
+          <i class="material-icons">save</i>
+        </button>
+        <span class="mdl-tooltip mdl-tooltip--validation" for="saveDocCanvas" >
+          <span >{{'Salva'|translate}}</span>
+        </span>
+
+        <div class="mdl-layout-spacer"></div>
+        <button  id="rotate90" onclick="drawRotated(-90)" class="mdl-button mdl-button--icon mdl-button--colored"><i class="material-icons">rotate_left</i></button>
+        <span class="mdl-tooltip mdl-tooltip--validation" for="rotate90" >
+          <span >90° orario.</span>
+        </span>
+
+
+        <button  id="rotate_90"class="mdl-button mdl-button--icon mdl-button--colored" onclick="drawRotated(90)" ><i class="material-icons">rotate_right</i></button>
+        <span class="mdl-tooltip mdl-tooltip--validation" for="rotate_90" >
+          <span >90° antiorario'.</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</dialog>
+<script>
+var dialog = document.querySelector('dialog');
+dialogPolyfill.registerDialog(dialog);
+dialog.querySelector('.closx').addEventListener('click', function() {
+  dialog.close();
+});
+</script>
+</div>
+<script>
+$( document ).ready(function() {
+  $('.tooltip').on('mouseenter',function(){
+    // on mouseenter
+    $('[for=”' +$this.attr('id')+'"]').addClass('is-active');
+    $('[for=”' +$this.attr('id')+'"]').show();
+  })
+  $('.tooltip').on('mouseleave',function(){
+    $('span[for=”' +$this.attr('id')+'"]').removeClass('is-active');
+    $('span[for=”' +$this.attr('id')+'"]').hide();
+  });
+  $('.mdl-navigation__link').click(function(){
+    $('.mdl-layout__drawer').toggleClass('is-visible');
+    $('.mdl-layout__obfuscator').toggleClass('is-visible');
+  });
+});
+$(document).keyup(function (e) {
+  if (e.keyCode == 27) {
+    removeListerenCanvasDoc();
+  }
+});
+</script>
+<!-- Getione Dialog per immagini
+-->
+
+</body>
+</html>
